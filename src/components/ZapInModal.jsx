@@ -35,22 +35,23 @@ const customStyles = {
     border: "none",
   },
 };
+
 const tokensList = [
   {
     pid: 0,
     lpSymbol: "ETH",
     isTokenOnly: true,
     lpAddresses: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-    decimals: 18,
-    logoA: "/assets/tokens/eth.jpg",
+    decimals: tokens.eth.decimals,
+    logoA: "/assets/tokens/eth.svg",
     logoB: "",
   },
   {
     pid: 1,
     lpSymbol: "WETH",
     isTokenOnly: true,
-    lpAddresses: "0xA1077a294dDE1B09bB078844df40758a5D0f9a27",
-    decimals: 18,
+    lpAddresses: tokens.weth.address,
+    decimals: tokens.weth.decimals,
     logoA: "/assets/tokens/weth.png",
     logoB: "",
   },
@@ -59,7 +60,7 @@ const tokensList = [
     lpSymbol: "USDC",
     isTokenOnly: true,
     lpAddresses: tokens.usdc.address,
-    decimals: 6,
+    decimals: tokens.usdc.decimals,
     logoA: "/assets/tokens/usdc.svg",
     logoB: "",
   },
@@ -68,7 +69,7 @@ const tokensList = [
     lpSymbol: "MIM",
     isTokenOnly: true,
     lpAddresses: tokens.mim.address,
-    decimals: 6,
+    decimals: tokens.mim.decimals,
     logoA: "/assets/tokens/mim.svg",
     logoB: "",
   },
@@ -77,7 +78,7 @@ const tokensList = [
     lpSymbol: "DAI",
     isTokenOnly: true,
     lpAddresses: tokens.dai.address,
-    decimals: 18,
+    decimals: tokens.dai.decimals,
     logoA: "/assets/tokens/dai.svg",
     logoB: "",
   },
@@ -179,6 +180,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
   const handleChangeToken = (e) => {
     setInputToken(tokensList[Number(e)]);
     getBalance(tokensList[Number(e)]);
+    getAllowance();
   };
 
   const getBalance = async (token) => {
@@ -205,8 +207,10 @@ export default function ZapInModal({ open, closeModal, pid }) {
   }, [pid, signer]);
 
   useEffect(() => {
-    getAllowance();
-  }, []);
+    if (signer) {
+      getAllowance();
+    }
+  }, [signer]);
 
   const onChange = (e) => {
     if (Number(e.target.value) > Number(balance)) {
@@ -214,9 +218,11 @@ export default function ZapInModal({ open, closeModal, pid }) {
     }
     setAmount(e.target.value);
   };
+
   const setMaxAmount = () => {
     setAmount(Number(balance) - Number(0.00001));
   };
+
   return (
     <><Modal
       isOpen={open}

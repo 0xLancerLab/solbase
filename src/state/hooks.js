@@ -266,26 +266,20 @@ export const usePriceXXWiLDUsdc = () => {
             `https://api.dexscreener.com/latest/dex/search?q=${mainTokenSymbol}`
           )
         ).json();
-        // console.log(returned, '-----price----')
 
         if (returned && returned.pairs) {
           let data = returned.pairs[0];
-          // if (returned.pairs.length === 1) {
+          if (returned.pairs.length === 1) {
 
-          //   data = returned.pairs[0].chainId === "pulsechain" &&
-          //     returned.pairs[0].pairAddress === addresses.wildWethlp? returned.pairs[0]: undefined;
-          // } else {
-          //   console.log('------dd')
-          //   data = returned.pairs.filter(
-          //     (pair) =>
-          //       pair.chainId == "pulsechain" &&
-          //       pair.pairAddress == addresses.wildWethlp
-          //   )[0];
-          //   console.log(data)
-          // }
-
-          // console.log(data, '-----price----')
-
+            data = returned.pairs[0].chainId === "pulsechain" &&
+              returned.pairs[0].pairAddress === addresses.wildWethlp ? returned.pairs[0] : undefined;
+          } else {
+            data = returned.pairs.filter(
+              (pair) =>
+                pair.chainId == "base" &&
+                pair.pairAddress == addresses.wildWethlp
+            )[0];
+          }
           setPriceUsd(data?.priceUsd);
           setLiquidity(data?.liquidity?.usd);
           setMarketCap(data?.fdv);

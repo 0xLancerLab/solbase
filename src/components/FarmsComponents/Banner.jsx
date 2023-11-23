@@ -62,7 +62,7 @@ export default function FarmBanner() {
       <div className="p-3 md:p-12 md:w-1/2 w-full text-center md:text-left">
         <h1 className="text-7xl">
           Earn XXWiLD <br />
-          <span className="text-symbol font-semibold"> on Pulse</span>
+          <span className="text-symbol font-semibold"> on Base</span>
         </h1>
       </div>
       <div className="flex justify-end p-3 md:p-6 w-fill md:w-1/2">

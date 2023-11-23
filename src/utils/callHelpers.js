@@ -138,6 +138,7 @@ export const zapForFarm = async (
       await tx.wait();
       notify("success", "Transaction successful!");
     } else {
+      console.log(tokenA, tokenB, amount, pid, masterchefAddress, address);
       const tx = await zapContract.zapIntoFarmWithToken(
         tokenA,
         amount,
@@ -161,13 +162,14 @@ export const zapForFarm = async (
 };
 
 export const harvest = async (masterChefContract, pid, address) => {
-  const res = await limitedFunction(false, address);
-  if (!res?.success) {
-    notify("error", "You can not harvest or compound three times a day.");
-    return false;
-  }
+  // const res = await limitedFunction(false, address);
+  // if (!res?.success) {
+  //   notify("error", "You can not harvest or compound three times a day.");
+  //   return false;
+  // }
 
   try {
+    console.log(pid)
     const tx = await masterChefContract.deposit(pid, "0", false);
     await tx.wait();
     limitedFunction(true, address);

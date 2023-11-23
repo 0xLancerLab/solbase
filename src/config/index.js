@@ -16,7 +16,7 @@ export const wethUsdcFarmPid = 1;
 export const YEAR = 60 * 60 * 24 * 365;
 export const YEAR_BN = new BigNumber(YEAR);
 
-export const mainTokenSymbol = "XXWiLD";
+export const mainTokenSymbol = "pWiLD";
 
 export const BASE_EXCHANGE_URL_BY_CHAIN = {
   8453: "https://baseswap.fi",

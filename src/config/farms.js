@@ -173,17 +173,17 @@ const farmsConfig = [
     logoA: tokens.mim.logo,
     logoB: tokens.mim.logo,
   },
-  {
-    pid: 6,
-    lpSymbol: "XXWiLDNFT",
-    lpAddresses: addresses.nft,
-    isTokenOnly: true,
-    isNFTPool: true,
-    token: tokens.nft,
-    quoteToken: tokens.wild,
-    logoA: "/assets/tokens/nft.png",
-    logoB: "",
-  },
+  // {
+  //   pid: 6,
+  //   lpSymbol: "XXWiLDNFT",
+  //   lpAddresses: addresses.nft,
+  //   isTokenOnly: true,
+  //   isNFTPool: true,
+  //   token: tokens.nft,
+  //   quoteToken: tokens.wild,
+  //   logoA: "/assets/tokens/nft.png",
+  //   logoB: "",
+  // },
 ];
 
 export default farmsConfig;

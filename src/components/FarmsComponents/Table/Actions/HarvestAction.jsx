@@ -130,7 +130,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
         <div className="flex flex-col lg:flex-row gap-1 w-full">
           {!isNFTPool && (
             <>
-              <button
+              {/* <button
                 className="rounded-md w-full lg:w-1/2 px-2 py-1  text-center text-white font-medium duration-300 hover:text-white transition ease-in-out hover:scale-105  base_bg hover:bg-symbolHover"
                 data-tooltip-id="compound-tooltip"
                 data-tooltip-content={
@@ -144,9 +144,9 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
 
                 {t(`Compound`)
                 }
-              </button>
+              </button> */}
               <button
-                className="rounded-md w-full lg:w-1/2 px-2 py-1 text-white text-center font-medium duration-300 hover:text-white transition ease-in-out hover:scale-105  base_bg hover:bg-symbolHover"
+                className="rounded-md w-full px-2 py-1 text-white text-center font-medium duration-300 hover:text-white transition ease-in-out hover:scale-105  base_bg hover:bg-symbolHover"
                 data-tooltip-id="zap-tooltip"
                 data-tooltip-content="Stake to this pool from your wallet"
                 disabled={!userDataReady}

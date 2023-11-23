@@ -128,8 +128,10 @@ export default function CompoundModal({
 
   async function handleDeposit() {
     setZapPendingTx(true);
+    const earned = earnings;
     try {
       if (isAll) {
+        console.log('asdfasdf')
         const res = await harvestMany(masterChefContract, pid, false, address);
         // const res = await onReward(false);
         if (res === false) {
@@ -143,17 +145,16 @@ export default function CompoundModal({
           return;
         }
       }
-      await sleep(2000);
-
+      
       const allowanceAfterHarvest = await getAllowance();
-      if (allowanceAfterHarvest < Number(earnings)) {
+      if (allowanceAfterHarvest < Number(earned)) {
         await handleApprove();
       }
 
       await onZapForFarm(
         tokens.wild.address,
         false,
-        fromReadableAmount(earnings),
+        fromReadableAmount(earned.toString(), tokens.wild.decimals),
         targetToken.lpAddresses,
         targetToken.pid
       );
@@ -257,9 +258,9 @@ export default function CompoundModal({
             <button
               onClick={handleDeposit}
               className="border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700"
-              disabled={
-                Number(earnings) === 0 || pendingZapTx || currentCounts === 0
-              }
+              // disabled={
+              //   Number(earnings) === 0 || pendingZapTx || currentCounts === 0
+              // }
             >
               {t("Compound")}
             </button>

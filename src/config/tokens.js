@@ -35,7 +35,7 @@ const tokens = {
   mim: {
     symbol: "MIM",
     address: addresses.mim,
-    decimals: 6,
+    decimals: 18,
     logo: "/assets/tokens/mim.svg",
   },
   nft: {
