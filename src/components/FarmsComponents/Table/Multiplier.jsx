@@ -20,7 +20,7 @@ const Multiplier = ({ multiplier }) => {
       <HelpIcon
         data-tooltip-id="liquidity-tooltip"
         data-tooltip-content="The Multiplier represents the 
-        proportion of XXWiLD rewards each farm receives"
+        proportion of BWiLD rewards each farm receives"
       />
       <Tooltip id="liquidity-tooltip" />
     </Container>

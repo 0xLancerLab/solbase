@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CardValue from './CardValue'
 import { getOracleContract } from 'utils/contractHelpers'
 import { useEthersProvider } from 'hooks/useEthers'
-import { getXXWiLDAddress } from 'utils/addressHelpers'
+import { getBWiLDAddress } from 'utils/addressHelpers'
 import { fromReadableAmount } from 'utils/customHelpers'
 import { usePriceEthUsdc } from 'state/hooks'
 export default function CurrentTwap() {
@@ -11,7 +11,7 @@ export default function CurrentTwap() {
     const ethPrice = usePriceEthUsdc();
     const getCurrentTwap = async () => {
         const oracleContract = getOracleContract(provider)
-        const currentRate = await oracleContract.twap(getXXWiLDAddress(), fromReadableAmount(1, 18));
+        const currentRate = await oracleContract.twap(getBWiLDAddress(), fromReadableAmount(1, 18));
         setTwap(Number(currentRate) * Number(ethPrice) / Math.pow(10, 18))
     }
     useEffect(() => {

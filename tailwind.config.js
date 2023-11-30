@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         primary: 'black',
-        secondary: '#0b1939',
+        secondary: '#0b1939f5',
         symbol: '#0052ff',
         symbolHover: '#073ba9',
         symbolBorder: '#07338f9e'

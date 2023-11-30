@@ -126,14 +126,17 @@ const Farm = ({
       <div>
         {handleRenderFarming()}
         <Text color="secondary">{label}</Text>
-        <p className="text-[12px] w-[99px]">
-          Deposit fee:{" "}
-          <DepositFee
-            depositFee={depositFee}
-            isTokenOnly={isTokenOnly}
-            hasDiscount={hasDiscount}
-          />
-        </p>
+        {depositFee !== '0' && (
+          <p className="text-[12px] w-[99px]">
+            Deposit fee:{" "}
+            <DepositFee
+              depositFee={depositFee}
+              isTokenOnly={isTokenOnly}
+              hasDiscount={hasDiscount}
+            />
+            🔥
+          </p>
+        )}
       </div>
     </Container>
   );

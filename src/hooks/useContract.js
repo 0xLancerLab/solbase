@@ -3,12 +3,13 @@ import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import {
   getErc20Contract,
   getErc721Contract,
-  getXXWiLDContract,
+  getBWiLDContract,
   getMasterchefContract,
   getZapContract,
   getRouterContract,
   getFactoryContract,
   getNFTContract,
+  getPresaleContract
 } from "utils/contractHelpers";
 import { useNetwork } from "wagmi";
 import { CHAIN_ID } from "config";
@@ -25,12 +26,12 @@ export const useERC721 = (address) => {
   return useMemo(() => getErc721Contract(address, signer), [address, signer]);
 };
 
-export const usePWiLD = () => {
+export const useBWiLD = () => {
   const provider = useEthersProvider();
   const { chain } = useNetwork();
   return useMemo(
     () =>
-      chain && chain.id === CHAIN_ID && getXXWiLDContract(provider, chain?.id),
+      chain && chain.id === CHAIN_ID && getBWiLDContract(provider, chain?.id),
     [provider, chain]
   );
 };
@@ -81,6 +82,15 @@ export const useNFTContract = () => {
   const { chain } = useNetwork();
   return useMemo(
     () => chain && chain.id === CHAIN_ID && getNFTContract(signer),
+    [signer, chain]
+  );
+};
+
+export const usePresaleContract = () => {
+  const signer = useEthersSigner();
+  const { chain } = useNetwork();
+  return useMemo(
+    () => chain && chain.id === CHAIN_ID && getPresaleContract(signer),
     [signer, chain]
   );
 };

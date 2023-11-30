@@ -75,7 +75,7 @@ const DepositModal = ({
             onClick={onDismiss}
             width="100%"
             disabled={pendingTx}
-            className="main_btn w-full bg-[transparent!important] text-[white!important]"
+            className="main_btn w-full bg-[transparent!important] text-[white!important] border border-symbol"
           >
             {t("Cancel")}
           </button>

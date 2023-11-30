@@ -63,7 +63,7 @@ const WithdrawModal = ({
         />
         <ModalActions>
           <button
-            className="main_btn bg-[transparent!important] text-[white!important] w-full"
+            className="main_btn bg-[transparent!important] text-[white!important] w-full border-symbol"
             variant="secondary"
             onClick={onDismiss}
             width="100%"

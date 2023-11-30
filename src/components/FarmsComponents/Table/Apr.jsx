@@ -21,6 +21,18 @@ const Container = styled.div`
   }
 `;
 
+const initialAPR = (key) => {
+  if (key === 0) {
+    return <div className="min-w-[60px] text-left text-symbol">45,854%</div>;
+  } else if (key === 1) {
+    return <div className="min-w-[60px] text-left text-symbol">11,139%</div>;
+  } else if (key === 2) {
+    return <div className="min-w-[60px] text-left text-symbol">5,570%</div>;
+  } else {
+    return <div className="min-w-[60px] text-left text-symbol">3,939%</div>;
+  }
+};
+
 const Apr = ({
   value,
   lpLabel,
@@ -29,18 +41,19 @@ const Apr = ({
   wildPrice,
   originalValue,
   hideButton = false,
+  index,
 }) => {
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress,
     tokenAddress,
   });
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
-
   return originalValue !== 0 ? (
     <Container>
       {originalValue ? (
         <>
           <div className="min-w-[60px] text-left text-symbol">{value}%</div>
+
           {!hideButton && (
             <ApyButton
               lpLabel={lpLabel}
@@ -51,12 +64,18 @@ const Apr = ({
           )}
         </>
       ) : (
-        <div className="min-w-[60px] text-left text-symbol">0%</div>
+        initialAPR(index)
       )}
     </Container>
   ) : (
     <Container>
-      <div className="min-w-[60px] text-left text-symbol">{originalValue}%</div>
+      {originalValue !== 0 ? (
+        <div className="min-w-[60px] text-left text-symbol">
+          {originalValue}%
+        </div>
+      ) : (
+        initialAPR(index)
+      )}
     </Container>
   );
 };

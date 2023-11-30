@@ -1,6 +1,12 @@
 [
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_routerAddress",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
@@ -761,6 +767,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_newMaxRate",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMaxTaxRate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_pair",
         "type": "address"
@@ -780,6 +799,19 @@
       }
     ],
     "name": "setProxy",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_newStaticRate",
+        "type": "uint256"
+      }
+    ],
+    "name": "setStaticTaxRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

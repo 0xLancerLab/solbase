@@ -18,12 +18,13 @@ export default function FarmTables(props) {
     >
       <table className="border-collapse rounded-sm mx-auto w-full main_bg">
         <tbody>
-          {rows.map((row) => {
+          {rows.map((row, key) => {
             return (
               <Row
                 {...row.original}
                 userDataReady={userDataReady}
                 key={`table-row-${row.id}`}
+                index={key}
               />
             );
           })}

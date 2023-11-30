@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaExternalLinkAlt, FaRegCopy } from "react-icons/fa";
-import { getXXWiLDAddress, getWethAddress } from "utils/addressHelpers";
+import { getBWiLDAddress, getWethAddress } from "utils/addressHelpers";
 import { CHAIN_ID, TESTNET_CHAIN_ID, BASE_SWAP_URL, BASE_URL } from "config";
 import { useNetwork } from "wagmi";
 import { formatAddress } from "utils/customHelpers";
@@ -12,13 +12,12 @@ export default function FarmBanner() {
   const [isCopied, setIsCopied] = useState(false);
   const [wildAddress, setWildAddress] = useState("Connect correct wallet");
   const { chain } = useNetwork();
-  const token = getXXWiLDAddress();
+  const token = getBWiLDAddress();
   // const provider = useEthersProvider()
 
-  const addWatchXXWiLDToken = useCallback(async () => {
+  const addWatchBWiLDToken = useCallback(async () => {
     const provider = window.ethereum;
     if (provider) {
-      console.log("asdfasdf", provider);
       try {
         // wasAdded is a boolean. Like any RPC method, an error may be thrown.
         await provider.request({
@@ -27,7 +26,7 @@ export default function FarmBanner() {
             type: "ERC20",
             options: {
               address: token,
-              symbol: "XXWiLD",
+              symbol: "BWiLD",
               decimals: "18",
               image: `${BASE_URL}/assets/tokens/wildx.png`,
             },
@@ -53,7 +52,7 @@ export default function FarmBanner() {
 
   useEffect(() => {
     if (chain && (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)) {
-      const addr = getXXWiLDAddress();
+      const addr = getBWiLDAddress();
       setWildAddress(addr);
     }
   }, [chain]);
@@ -61,27 +60,27 @@ export default function FarmBanner() {
     <div className="flex justify-center flex-col md:flex-row bg-secondary rounded-md">
       <div className="p-3 md:p-12 md:w-1/2 w-full text-center md:text-left">
         <h1 className="text-7xl">
-          Earn XXWiLD <br />
+          Earn BWiLD <br />
           <span className="text-symbol font-semibold"> on Base</span>
         </h1>
       </div>
       <div className="flex justify-end p-3 md:p-6 w-fill md:w-1/2">
         <div className="buy_card">
-          <img src="/assets/stickers/sticker4.webp" className="w-[180px] h-[180px] min-w-[180px] col-span-12 lg:col-span-4 mx-auto my-1" alt="sticker" />
-          <div className="w-full col-span-12 lg:col-span-8">
-            <div className="flex items-center justify-center gap-3">
+          <img src="/assets/stickers/sticker4.webp" className="w-[150px] h-[150px] min-w-[150px] col-span-12 lg:col-span-5 mx-auto my-1" alt="sticker" />
+          <div className="w-full col-span-12 lg:col-span-7">
+            <div className="flex items-center justify-center gap-2">
               <a
                 className="main_btn w-full"
-                href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getXXWiLDAddress()}`}
+                href={`${BASE_SWAP_URL}?inputCurrency=${getWethAddress()}&outputCurrency=${getBWiLDAddress()}`}
                 target="_blank"
               >
-                Buy XXWiLD
+                Buy BWiLD
               </a>
               <button
-                onClick={addWatchXXWiLDToken}
+                onClick={addWatchBWiLDToken}
                 className="main_btn flex items-center justify-center w-full"
               >
-                Add XXWiLD &nbsp;
+                Add BWiLD &nbsp;
                 <svg
                   viewBox="0 0 35 33"
                   color="text"

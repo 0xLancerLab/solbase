@@ -91,17 +91,17 @@ export default function FarmStaking() {
 
   return (
     <div className="flex-1 bg-secondary p-8 rounded-md ">
-      <div className="text-3xl text-end font-semibold text-symbol mb-5">
-        Farms & Staking
+      <div className="text-3xl text-end font-semibold text-symbol mb-5 h-3.5">
+        {/* Farms & Staking */}
       </div>
       <div className="flex justify-between flex-col md:flex-row">
         <div>
-          <div className="text-base pb-2 font-semibold">XXWiLD to Harvest:</div>
+          <div className="text-base pb-2 font-semibold">BWiLD to Harvest:</div>
           <div className="text-sm text-gray-300">
             <WiLDHarvestBalance farmsWithBalance={balancesWithValue} />
           </div>
           <div className="text-base pb-2 font-semibold mt-5">
-            XXWiLD in Wallet:
+            BWiLD in Wallet:
           </div>
           <div className="text-sm text-gray-300">
             <WiLDWalletBalance />
@@ -109,7 +109,8 @@ export default function FarmStaking() {
         </div>
         <div>
           {" "}
-          <div className="text-base font-semibold text-right">
+          <img src="/assets/stickers/sticker3.png" alt="sticker" className="w-full lg:max-w-[200px] md:max-w-[180px] sm:max-w-[160px]  mx-auto" />
+          {/* <div className="text-base font-semibold text-right">
             Current Sales Tax:
           </div>
           <div className="mb-1">
@@ -118,10 +119,10 @@ export default function FarmStaking() {
             </div>
 
             <span className="text-[11px] text-right">
-              ( Sales tax burns all of the XXWiLD automatically. <br /> The sales
+              ( Sales tax burns all of the BWiLD automatically. <br /> The sales
               tax will drop over the next week to 8% )
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
 

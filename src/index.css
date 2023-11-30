@@ -42,11 +42,11 @@ body {
 }
 
 .buy_card {
-  @apply p-6 bg-primary/40 rounded-lg w-full grid grid-cols-12;
+  @apply lg:p-6 p-2 bg-primary/40 rounded-lg w-full grid grid-cols-12;
 }
 
 .main_btn {
-  @apply py-2 font-semibold  rounded-full text-center relative hover:text-white transition ease-in-out duration-500 hover:scale-105 hover:bg-symbolHover bg-white border-[5px] border-[#0052ff] text-black;
+  @apply py-2 font-semibold  rounded-full text-center relative hover:text-white transition ease-in-out duration-500 hover:scale-105 hover:bg-symbolHover bg-white shadow-black shadow-2xl  text-black;
 }
 
 /* .main_btn::before {
@@ -78,7 +78,7 @@ body {
 }
 
 .tab_panel .tab_button.active {
-  @apply text-symbol  bg-primary border border-symbol;
+  @apply text-symbol  bg-primary/60 border border-symbol;
 }
 
 .nav_action {
@@ -106,7 +106,7 @@ body {
 }
 
 .base_bg  {
-  @apply bg-white text-black border-[4px] border-blue-700 rounded-full;
+  @apply bg-white text-black rounded-full;
 }
 
 .IKcpG {
@@ -126,7 +126,10 @@ body {
 
 .circle_animation {
   animation: spin 5s linear infinite;
+}
 
+.bg-secondary {
+  @apply bg-secondary/90 backdrop-blur-sm;
 }
 
 @keyframes spin {

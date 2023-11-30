@@ -7,7 +7,7 @@ export default function index({ children }) {
   return (
     <div>
       <Header />
-      <div className="flex w-full justify-center items-center min-h-[calc(100vh-70px)] pb-[100px] relative px-1">
+      <div className="flex w-full justify-center items-center  min-h-[calc(100vh-90px)] pb-[100px] relative px-1">
         {children}
         <Footer />
       </div>

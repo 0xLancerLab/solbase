@@ -98,9 +98,9 @@ export default function Zap() {
             ) : (
               <div className="w-full max-w-[250px] max-h-[300px] p-4 rounded-lg bg-secondary mx-auto">
                 <img
-                  src={"/logo.png"}
+                  src={"/assets/stickers/NFT.webp"}
                   alt="token"
-                  className="w-full rounded-full border-opacity-30"
+                  className="w-full py-2 border-opacity-30"
                 />
               </div>
             )}

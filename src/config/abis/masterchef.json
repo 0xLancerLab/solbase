@@ -3,7 +3,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_pWild",
+        "name": "_bWild",
         "type": "address"
       },
       {
@@ -14,6 +14,11 @@
       {
         "internalType": "address",
         "name": "_feeAddress1",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_zapAddr",
         "type": "address"
       },
       {
@@ -176,6 +181,58 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bWild",
+    "outputs": [
+      {
+        "internalType": "contract BWildToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bWildAddr",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bWildPerSecond",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
+      }
+    ],
+    "name": "compound",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -405,32 +462,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "pWild",
-    "outputs": [
-      {
-        "internalType": "contract PWildToken",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "pWildPerSecond",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -443,7 +474,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingPWild",
+    "name": "pendingBWild",
     "outputs": [
       {
         "internalType": "uint256",
@@ -481,7 +512,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "accPWildPerShare",
+        "name": "accBWildPerShare",
         "type": "uint256"
       },
       {
@@ -581,7 +612,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_pWild",
+        "name": "_bWild",
         "type": "address"
       }
     ],
@@ -646,7 +677,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_pWildPerSecond",
+        "name": "_bWildPerSecond",
         "type": "uint256"
       }
     ],
@@ -733,6 +764,19 @@
     "name": "withdraw",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "zapAddr",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

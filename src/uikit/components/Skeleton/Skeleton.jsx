@@ -32,7 +32,7 @@ const Root = styled.div`
   ${space}
 `
 
-const Pulse = styled(Root)`
+const Base = styled(Root)`
   animation: ${pulse} 2s infinite ease-out;
   transform: translate3d(0, 0, 0);
 `
@@ -67,7 +67,7 @@ const Skeleton = ({
     return <Waves variant={variant} {...props} />
   }
 
-  return <Pulse variant={variant} {...props} />
+  return <Base variant={variant} {...props} />
 }
 
 export default Skeleton

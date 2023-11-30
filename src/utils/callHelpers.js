@@ -17,13 +17,13 @@ export const approve = async (
 ) => {
   return (await isNFTPool)
     ? lpContract.setApprovalForAll(masterChefContract.address, true, {
-      from: address,
-    })
+        from: address,
+      })
     : lpContract.approve(
-      masterChefContract.address,
-      ethers.constants.MaxUint256,
-      { from: address }
-    );
+        masterChefContract.address,
+        ethers.constants.MaxUint256,
+        { from: address }
+      );
 };
 
 export const stake = async (
@@ -34,14 +34,14 @@ export const stake = async (
   isNFTPool,
   isNFTALL
 ) => {
-  console.log(amount, isNFTALL, pid, isNFTPool,'---stake---')
+  console.log(amount, isNFTALL, pid, isNFTPool, "---stake---");
   try {
     const tx = await masterChefContract.deposit(
       pid,
       isNFTPool ? Number(amount) : fromReadableAmount(amount, decimals),
       isNFTALL
     );
-    await tx.wait()
+    await tx.wait();
     notify("success", "Transaction successful!");
   } catch (e) {
     if (didUserReject(e)) {
@@ -63,10 +63,12 @@ export const unstake = async (
   isNFTALL
 ) => {
   try {
-    console.log(isNFTALL, "isNFT ALL")
+    console.log(isNFTALL, "isNFT ALL");
     const tx = await masterChefContract.withdraw(
       pid,
-      isNFTPool ? Number(amount).toString() : fromReadableAmount(amount, decimals),
+      isNFTPool
+        ? Number(amount).toString()
+        : fromReadableAmount(amount, decimals),
       isNFTALL,
       { from: address }
     );
@@ -162,14 +164,14 @@ export const zapForFarm = async (
 };
 
 export const harvest = async (masterChefContract, pid, address) => {
-  // const res = await limitedFunction(false, address);
-  // if (!res?.success) {
-  //   notify("error", "You can not harvest or compound three times a day.");
-  //   return false;
-  // }
+  const res = await limitedFunction(false, address);
+  if (!res?.success) {
+    notify("error", "You can not harvest or compound three times a day.");
+    return false;
+  }
 
   try {
-    console.log(pid)
+    console.log(pid);
     const tx = await masterChefContract.deposit(pid, "0", false);
     await tx.wait();
     limitedFunction(true, address);
@@ -179,7 +181,7 @@ export const harvest = async (masterChefContract, pid, address) => {
       notify("error", "User rejected transaction");
     } else {
       notify("error", e.reason);
-      console.log(e)
+      console.log(e);
     }
     return null;
   }
@@ -204,6 +206,29 @@ export const harvestMany = async (masterChefContract, pids, address) => {
       notify("error", "User rejected transaction");
     } else {
       notify("error", e.reason);
+    }
+    return null;
+  }
+};
+
+export const compound = async (masterChefContract, pid, address) => {
+  const res = await limitedFunction(false, address);
+  if (!res?.success) {
+    notify("error", "You can not harvest or compound three times a day.");
+    return false;
+  }
+
+  try {
+    const tx = await masterChefContract.compound(pid);
+    await tx.wait();
+    limitedFunction(true, address);
+    notify("success", "Harvest successful!");
+  } catch (e) {
+    if (didUserReject(e)) {
+      notify("error", "User rejected transaction");
+    } else {
+      notify("error", e.reason);
+      console.log(e);
     }
     return null;
   }

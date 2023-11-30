@@ -11,7 +11,7 @@ export default function FarmControls({
   return (
     <div className="flex flex-col md:flex-row items-center gap-2 justify-between p-4 main_bg mt-5 rounded-md bg-secondary ">
       <div className="flex justify-between items-center gap-5 w-full md:w-fit">
-        <div>
+        {/* <div>
           <select
             id="countries"
             className="button_bg border text-black border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -23,7 +23,7 @@ export default function FarmControls({
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
         <div>
           <label className="relative inline-flex items-center cursor-pointer ">
             <input
@@ -38,12 +38,12 @@ export default function FarmControls({
         </div>
       </div>
       <div className="flex w-full md:w-fit">
-        <input
+        {/* <input
           value={query}
           className="button_bg p-2 rounded-md w-full md:w-fit"
           placeholder="Search Farms"
           onChange={(e) => onSearchChange(e)}
-        />
+        /> */}
       </div>
     </div>
   );

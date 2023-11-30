@@ -55,33 +55,6 @@ const tokensList = [
     logoA: "/assets/tokens/weth.png",
     logoB: "",
   },
-  {
-    pid: 2,
-    lpSymbol: "USDC",
-    isTokenOnly: true,
-    lpAddresses: tokens.usdc.address,
-    decimals: tokens.usdc.decimals,
-    logoA: "/assets/tokens/usdc.svg",
-    logoB: "",
-  },
-  {
-    pid: 2,
-    lpSymbol: "MIM",
-    isTokenOnly: true,
-    lpAddresses: tokens.mim.address,
-    decimals: tokens.mim.decimals,
-    logoA: "/assets/tokens/mim.svg",
-    logoB: "",
-  },
-  {
-    pid: 2,
-    lpSymbol: "DAI",
-    isTokenOnly: true,
-    lpAddresses: tokens.dai.address,
-    decimals: tokens.dai.decimals,
-    logoA: "/assets/tokens/dai.svg",
-    logoB: "",
-  },
 ];
 
 export default function ZapInModal({ open, closeModal, pid }) {
@@ -210,7 +183,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
     if (signer) {
       getAllowance();
     }
-  }, [signer]);
+  }, [signer, inputToken]);
 
   const onChange = (e) => {
     if (Number(e.target.value) > Number(balance)) {

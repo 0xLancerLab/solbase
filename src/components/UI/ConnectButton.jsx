@@ -1,8 +1,8 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { FaAngleDown } from "react-icons/fa";
-import { usePriceXXWiLDUsdc } from "state/hooks";
+import { usePriceBWiLDUsdc } from "state/hooks";
 export const WalletConnect = () => {
-  const priceData = usePriceXXWiLDUsdc();
+  const priceData = usePriceBWiLDUsdc();
   return (
     <ConnectButton.Custom>
       {({
@@ -62,7 +62,7 @@ export const WalletConnect = () => {
                   <img
                     src="/logo.png"
                     alt="logo"
-                    className="w-[25.3px] h-[25px] mx-1"
+                    className="w-[29px] h-[25px] mx-1"
                   />
                   <p className="hidden sm:flex items-center text-symbol">
                     {Number(priceData[0]) ? `~ ${priceData[0].toString()}` : ""}

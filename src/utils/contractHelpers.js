@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 // Addresses
 import {
-  getXXWiLDAddress,
+  getBWiLDAddress,
   getMasterChefAddress,
   getMulticallAddress,
   getZapAddress,
@@ -9,6 +9,7 @@ import {
   getFactoryAddress,
   getRouterAddress,
   getNFTAddress,
+  getPresaleAddress,
 } from "utils/addressHelpers";
 
 // ABI
@@ -22,6 +23,7 @@ import oracleABI from "config/abis/oracle.json";
 import routerABI from "config/abis/router.json";
 import factoryABI from "config/abis/factory.json";
 import nftABI from "config/abis/nft.json";
+import PresaleABI from "config/abis/presale.json";
 
 import { DEFAULT_GAS_PRICE } from "config";
 // import { getSettings, getGasPriceInWei } from './settings'
@@ -44,8 +46,8 @@ export const getErc721Contract = (address, provider) => {
 export const getLpContract = (address, provider) => {
   return getContract(lpTokenAbi, address, provider);
 };
-export const getXXWiLDContract = (provider, chainId) => {
-  return getContract(wildAbi, getXXWiLDAddress(), provider);
+export const getBWiLDContract = (provider, chainId) => {
+  return getContract(wildAbi, getBWiLDAddress(), provider);
 };
 export const getMasterchefContract = (provider, chainId) => {
   return getContract(masterChef, getMasterChefAddress(), provider);
@@ -65,7 +67,9 @@ export const getFactoryContract = (provider, chainId) => {
 export const getRouterContract = (provider, chainId) => {
   return getContract(routerABI, getRouterAddress(), provider);
 };
-
 export const getNFTContract = (provider) => {
   return getContract(nftABI, getNFTAddress(), provider);
+};
+export const getPresaleContract = (provider) => {
+  return getContract(PresaleABI, getPresaleAddress(), provider);
 };
