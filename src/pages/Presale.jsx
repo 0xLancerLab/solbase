@@ -17,7 +17,7 @@ export default function Presale() {
   const preslaeContractForkAddress = getPresaleForkAddress();
   const { address } = useAccount();
   const { fastRefresh } = useRefresh();
-  const signer = useEthersSigner()
+  const signer = useEthersSigner();
 
   const [active, setActive] = useState(1);
   const [presaleData, setPresaleData] = useState({});
@@ -53,8 +53,11 @@ export default function Presale() {
         const rawResults = await multicall(PresaleForkABI, calls);
         rawResults.map((data, index) => {
           const newData =
-            index < 2
-              ? { [calls[index]["name"]]: data[0] }
+            index <= 2
+              ? {
+                  [calls[index]["name"]]:
+                    index === 2 ? Number(data[0]) : data[0],
+                }
               : {
                   [calls[index]["name"]]: toReadableAmount(
                     rawResults[index].toString(),
@@ -93,21 +96,19 @@ export default function Presale() {
         },
         {
           address: preslaeContractAddress,
-          name: "getAmountToWithdraw",
+          name: "user_withdraw_timestamp",
           params: [address],
         },
         {
           address: preslaeContractAddress,
-          name: "user_withdraw_timestamp",
+          name: "getAmountToWithdraw",
           params: [address],
-        }
+        },
       ];
-
 
       try {
         const rawResults = await multicall(PresaleForkABI, calls);
         rawResults.map((data, index) => {
-          console.log(Number(rawResults[index]));
           const newData = {
             [calls[index]["name"]]:
               index === 3
@@ -116,7 +117,6 @@ export default function Presale() {
           };
           setPresaleData((value) => ({ ...value, ...newData }));
         });
-
       } catch (e) {
         console.log("Fetch Farms With Balance Error:", e);
       }
@@ -127,36 +127,8 @@ export default function Presale() {
     }
   }, [address]);
 
-  // useEffect(() => {
 
-  //   if (presaleData && presaleData?.user_synced === 0 && signer && !synced) {
-  //     setSynced(true)
-  //     async function sync() {
-  //       const calls = [
-  //         {
-  //           address: preslaeContractAddress,
-  //           name: "user_deposits",
-  //           params: [address],
-  //         },
-  //         {
-  //           address: preslaeContractAddress,
-  //           name: "user_withdraw_amount",
-  //           params: [address],
-  //         },
-  //         {
-  //           address: preslaeContractAddress,
-  //           name: "WILDOwned",
-  //           params: [address],
-  //         },
-  //       ];
-
-  //       const rawResults = await multicall(PresaleForkABI, calls);
-  //       const oPresaleContract = getPresaleForkContract(signer);
-  //       await oPresaleContract.syncData(rawResults[0].toString(), rawResults[1].toString(), rawResults[2].toString())
-  //     }
-  //     sync();
-  //   }
-  // }, [presaleData, signer]);
+  console.log(presaleData);
 
   return (
     <div className="w-full container max-w-[500px] mx-3">
