@@ -108,7 +108,7 @@ const ActionPanel = ({
         <div>
           {isActive && (
             <StakeContainer>
-              <StyledLinkExternal href={link}>
+              <StyledLinkExternal href={BASE_ADD_LIQUIDITY_URL}>
                 {t("Get %symbol%", { symbol: lpLabel })}
               </StyledLinkExternal>
             </StakeContainer>

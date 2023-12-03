@@ -32,3 +32,6 @@ export const getZapAddress = () => {
 export const getOracleAddress = () => {
   return contractAddresses.oracle;
 };
+export const getPresaleForkAddress = () => {
+  return contractAddresses.presaleFork;
+};

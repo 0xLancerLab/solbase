@@ -125,9 +125,9 @@ const Farm = ({
       </TokensWrapper>
       <div>
         {handleRenderFarming()}
-        <Text color="secondary">{label}</Text>
+        <p className="font-semibold text-sm lg:text-lg">{label}</p>
         {depositFee !== '0' && (
-          <p className="text-[12px] w-[99px]">
+          <p className="lg:text-[12px] lg:w-[99px] text-[10px]">
             Deposit fee:{" "}
             <DepositFee
               depositFee={depositFee}

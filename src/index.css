@@ -149,6 +149,10 @@ td {
   animation: bounce 2.6s infinite;
 }
 
+.animate-pulse {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 @keyframes bounce {
   0%, 100% {
     transform: translateY(-25%);

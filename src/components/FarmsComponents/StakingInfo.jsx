@@ -109,7 +109,7 @@ export default function FarmStaking() {
         </div>
         <div>
           {" "}
-          <img src="/assets/stickers/sticker3.png" alt="sticker" className="w-full lg:max-w-[200px] md:max-w-[180px] sm:max-w-[160px]  mx-auto" />
+          <img src="/zapIn.png" alt="sticker" className="w-full lg:max-w-[230px] md:max-w-[180px] sm:max-w-[160px]  mx-auto" />
           {/* <div className="text-base font-semibold text-right">
             Current Sales Tax:
           </div>

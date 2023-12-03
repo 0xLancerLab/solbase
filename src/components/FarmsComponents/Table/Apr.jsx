@@ -23,13 +23,29 @@ const Container = styled.div`
 
 const initialAPR = (key) => {
   if (key === 0) {
-    return <div className="min-w-[60px] text-left text-symbol">45,854%</div>;
+    return (
+      <div className="min-w-[60px] text-left text-symbol text-[11px] md:text-sm font-semibold">
+        {(45854 / 365).toFixed(2)}%
+      </div>
+    );
   } else if (key === 1) {
-    return <div className="min-w-[60px] text-left text-symbol">11,139%</div>;
+    return (
+      <div className="min-w-[60px] text-left text-symbol text-[11px] md:text-sm font-semibold">
+        {(11139 / 365).toFixed(2)}%
+      </div>
+    );
   } else if (key === 2) {
-    return <div className="min-w-[60px] text-left text-symbol">5,570%</div>;
+    return (
+      <div className="min-w-[60px] text-left text-symbol text-[11px] md:text-sm font-semibold">
+        {(5570 / 365).toFixed(2)}%
+      </div>
+    );
   } else {
-    return <div className="min-w-[60px] text-left text-symbol">3,939%</div>;
+    return (
+      <div className="min-w-[60px] text-left text-symbol text-[11px] md:text-sm font-semibold">
+        {(3939 / 365).toFixed(2)}%
+      </div>
+    );
   }
 };
 
@@ -47,35 +63,30 @@ const Apr = ({
     quoteTokenAddress,
     tokenAddress,
   });
-  const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
+  // const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`;
+  const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}`;
+
   return originalValue !== 0 ? (
     <Container>
-      {originalValue ? (
-        <>
-          <div className="min-w-[60px] text-left text-symbol">{value}%</div>
-
-          {!hideButton && (
-            <ApyButton
-              lpLabel={lpLabel}
-              wildPrice={wildPrice}
-              apr={originalValue}
-              addLiquidityUrl={addLiquidityUrl}
-            />
-          )}
-        </>
-      ) : (
-        initialAPR(index)
-      )}
+      <>
+        <div className="min-w-[60px] text-left text-symbol text-[11px] md:text-sm font-semibold">
+          {value}%
+        </div>
+        {!hideButton && (
+          <ApyButton
+            lpLabel={lpLabel}
+            wildPrice={wildPrice}
+            apr={originalValue}
+            addLiquidityUrl={addLiquidityUrl}
+          />
+        )}
+      </>
     </Container>
   ) : (
     <Container>
-      {originalValue !== 0 ? (
-        <div className="min-w-[60px] text-left text-symbol">
-          {originalValue}%
-        </div>
-      ) : (
-        initialAPR(index)
-      )}
+      <div className="min-w-[60px] text-left text-symbol text-[11px] md:text-sm font-semibold">
+        {originalValue}%
+      </div>
     </Container>
   );
 };

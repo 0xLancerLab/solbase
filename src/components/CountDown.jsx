@@ -1,11 +1,12 @@
 import React from "react";
 import Countdown from "react-countdown";
 
-export function CountDownComponent() {
+export function CountDownComponent({ setEnded }) {
   const renderer = ({ completed, formatted }) => {
     const { days, hours, minutes, seconds } = formatted;
 
     if (completed) {
+      setEnded(true);
       return <></>;
     } else {
       return (
@@ -40,7 +41,7 @@ export function CountDownComponent() {
 
   return (
     <div className="flex justify-center">
-      <Countdown date={1701442800000} renderer={renderer} autoStart />
+      <Countdown date={1701547400000} renderer={renderer} autoStart />
     </div>
   );
 }

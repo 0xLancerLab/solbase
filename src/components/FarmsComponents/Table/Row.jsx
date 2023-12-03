@@ -99,7 +99,11 @@ const Row = (props) => {
                   <td key={key}>
                     <CellInner>
                       <CellLayout label={t("APR")}>
-                        <Apr {...props.apr} hideButton={isMobile} index={props.index}/>
+                        <Apr
+                          {...props.apr}
+                          hideButton={isMobile}
+                          index={props.index}
+                        />
                       </CellLayout>
                     </CellInner>
                   </td>
@@ -126,23 +130,29 @@ const Row = (props) => {
       <tr className="tr" onClick={toggleActionPanel}>
         <td>
           <div>
-            <AprMobileCell>
-              <CellLayout label={t("APR")}>
-                <Apr {...props.apr} hideButton index={props.index}/>
-              </CellLayout>
-            </AprMobileCell>
-            <EarnedMobileCell>
-              <CellLayout label={t("Earned")}>
-                <Earned {...props.earned} userDataReady={userDataReady} />
-              </CellLayout>
-            </EarnedMobileCell>
-          </div>
-          <div>
             <FarmMobileCell>
               <CellLayout>
                 <Farm {...props.farm} />
               </CellLayout>
             </FarmMobileCell>
+          </div>
+        </td>
+        <td>
+          <div>
+            <AprMobileCell>
+              <CellLayout label={t("APR (daily)")}>
+                <Apr {...props.apr} hideButton index={props.index} />
+              </CellLayout>
+            </AprMobileCell>
+          </div>
+        </td>
+        <td>
+          <div>
+            <EarnedMobileCell>
+              <CellLayout label={t("Earned")}>
+                <Earned {...props.earned} userDataReady={userDataReady} />
+              </CellLayout>
+            </EarnedMobileCell>
           </div>
         </td>
         <td>

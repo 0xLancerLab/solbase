@@ -7,7 +7,7 @@ export default function LogoLoading({ title = "Loading..." }) {
         <img
           src="/assets/baseLoading.png"
           alt="Loading..."
-          className="w-[150px] h-[150px] bounce_animation relative z-[9999] mx-auto"
+          className="w-[200px] h-[200px] bounce_animation relative z-[9999] mx-auto"
         />
         <p className="text-center">{title}</p>
       </div>

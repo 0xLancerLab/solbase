@@ -1,7 +1,7 @@
 import React from "react";
 
 const RecentBuys = (last) => {
-    return <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-6 p-4 place-items-center max-w-[900px] mx-auto">
+    return <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-6 p-4 place-items-center max-w-[900px] mx-auto">
         <div className="w-full max-w-[300px] max-h-[400px] p-4 rounded-lg bg-[#0d223de8]">
             <img
                 src='/134.png'

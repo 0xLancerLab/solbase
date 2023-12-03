@@ -24,7 +24,7 @@ export default function NFTCard({ tokenId }) {
         onError={handleImageError}
         alt="NFT"
         srcSet=""
-        className="w-full rounded-full border-opacity-30"
+        className="w-full border-opacity-30"
       />
     </div>
   );

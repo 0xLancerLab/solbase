@@ -70,20 +70,22 @@ export default function SaleComponent({ saleData }) {
     }
   };
 
+  console.log(saleData)
+
   return (
     <div>
       <div className="balance_form">
-        <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p>
+        {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
         <div className="my-8">
           {/* <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Total Raised:</div>
             <div>{saleData?.total_deposited || "0"} ETH</div>
           </div> */}
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Your Commited:</div>
+            <div> Your Committed:</div>
             <div>{saleData?.user_deposits || "0"} ETH</div>
           </div>
-          <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
+          {/* <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Token Sale Contract:</div>
             <div>
               <a
@@ -95,14 +97,23 @@ export default function SaleComponent({ saleData }) {
                 {formatAddress(getPresaleAddress(), 4)}
               </a>
             </div>
-          </div>
+          </div> */}
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Price Per WILD:</div>
+            <div> Presale Price:</div>
             <div>
-              {" "}
               <p className="flex gap-1">
                 <span className={"font-semibold text-green-500"}>
                   ${privateWILDPrice}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
+            <div> Launch Price:</div>
+            <div>
+              <p className="flex gap-1">
+                <span className={"font-semibold text-green-500"}>
+                  $14
                 </span>
               </p>
             </div>

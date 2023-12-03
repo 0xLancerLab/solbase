@@ -22,6 +22,7 @@ import { useBWiLDPerSecond } from "hooks/useTokenBalance";
 import { NUMBER_OF_FARMS_VISIBLE } from "config";
 import { useFarms, usePollFarmsData, usePriceBWiLDUsdc } from "state/hooks";
 import { useAccount } from "wagmi";
+import LogoLoading from "components/LogoLoading";
 
 export default function Farms() {
   const { pathname } = useLocation();

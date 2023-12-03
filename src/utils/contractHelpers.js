@@ -10,6 +10,7 @@ import {
   getRouterAddress,
   getNFTAddress,
   getPresaleAddress,
+  getPresaleForkAddress,
 } from "utils/addressHelpers";
 
 // ABI
@@ -24,6 +25,7 @@ import routerABI from "config/abis/router.json";
 import factoryABI from "config/abis/factory.json";
 import nftABI from "config/abis/nft.json";
 import PresaleABI from "config/abis/presale.json";
+import PresaleForkABI from "config/abis/presaleFork.json";
 
 import { DEFAULT_GAS_PRICE } from "config";
 // import { getSettings, getGasPriceInWei } from './settings'
@@ -72,4 +74,7 @@ export const getNFTContract = (provider) => {
 };
 export const getPresaleContract = (provider) => {
   return getContract(PresaleABI, getPresaleAddress(), provider);
+};
+export const getPresaleForkContract = (provider) => {
+  return getContract(PresaleForkABI, getPresaleForkAddress(), provider);
 };
