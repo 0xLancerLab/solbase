@@ -1,9 +1,7 @@
 import React from "react";
 import { notify } from "utils/toastHelper";
 import { didUserReject } from "utils/customHelpers";
-import {
-  getPresaleContract,
-} from "utils/contractHelpers";
+import { getPresaleContract } from "utils/contractHelpers";
 import { useAccount } from "wagmi";
 import { useEthersSigner } from "hooks/useEthers";
 import { CountDownComponentClaim } from "./CountDownClaim";
@@ -52,9 +50,9 @@ export default function ClaimComponent({ saleData }) {
           </div>
         </div>
         <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-          <div> Next Claimable BWiLD:</div>
+          <div> Remains BWiLD:</div>
           <div>
-            {saleData?.getAmountToWithdraw || "0.00"}{" "}
+            {(saleData?.WILDOwned - saleData?.user_withdraw_amount) || "0.00"}{" "}
             &nbsp; <span className="text-[10.5px] text-sm">BWiLD</span>
           </div>
         </div>
