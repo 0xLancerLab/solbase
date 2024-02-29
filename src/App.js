@@ -5,9 +5,9 @@ import { RouterProvider } from "react-router-dom";
 import PageRouter from "router";
 import Layouts from "layouts";
 
-import "@rainbow-me/rainbowkit/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-tooltip/dist/react-tooltip.css";
+require("@solana/wallet-adapter-react-ui/styles.css");
 
 function App() {
   return (

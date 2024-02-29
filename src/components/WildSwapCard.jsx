@@ -12,16 +12,12 @@ import {
   getValidPair,
 } from "utils";
 import { getRouterAddress } from "utils/addressHelper";
-import { useAccount, useNetwork } from "wagmi";
-import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import toast from "react-hot-toast";
 import { SubmitButton } from "./UI/SubmitButton";
 
 export default function WildSwapCard() {
-  const signer = useEthersSigner();
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-  const provider = useEthersProvider();
+  const signer = null;
+  const provider = null;
   const contracts = useContext(ContractContext);
   const [status, setStatus] = useState({
     insufficientA: false,
@@ -128,12 +124,7 @@ export default function WildSwapCard() {
   };
 
   const checkAllowance = async (token, type) => {
-    const res = await getAllowance(
-      address,
-      token,
-      getRouterAddress(),
-      provider
-    );
+    const res = await getAllowance(null, token, getRouterAddress(), provider);
     if (type === "A") {
       setTokenAAllowance(res);
     } else {
@@ -231,7 +222,7 @@ export default function WildSwapCard() {
         amount_in,
         [tokenA.address, tokenB.address],
         {
-          from: address,
+          from: null,
         }
       );
       amount_out = amount_out[1]?.toString();
@@ -243,7 +234,7 @@ export default function WildSwapCard() {
         await contracts.routerSigner.swapExactETHForTokens(
           amount_out,
           [tokenA.address, tokenB.address],
-          address,
+          null,
           Date.now() + 10 * 60,
           {
             value: Web3.utils.toWei(tokenAAmount, "ether"),
@@ -254,7 +245,7 @@ export default function WildSwapCard() {
           amount_in,
           amount_out,
           [tokenA.address, tokenB.address],
-          address,
+          null,
           Date.now() + 10 * 60
         );
       } else {
@@ -262,7 +253,7 @@ export default function WildSwapCard() {
           amount_in,
           amount_out,
           [tokenA.address, tokenB.address],
-          address,
+          null,
           Date.now() + 10 * 60
         );
         setStatus({ ...status, swap: false });
@@ -279,7 +270,7 @@ export default function WildSwapCard() {
     if (tokenA && tokenB && contracts?.factoryProvider) {
       checkValidPair(tokenA, tokenB);
     }
-  }, [tokenA, tokenB, chain, contracts]);
+  }, [tokenA, tokenB, contracts]);
 
   return (
     <div className="card">

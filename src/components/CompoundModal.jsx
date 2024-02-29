@@ -4,7 +4,6 @@ import farms from "config/farms";
 import Modal from "react-modal";
 import { ArrowForwardIcon } from "uikit";
 import { useTranslation } from "context/Localization";
-import { useAccount } from "wagmi";
 import { notify } from "utils/toastHelper";
 import { useCompound } from "hooks/useCompound";
 import { useAppDispatch } from "state";
@@ -42,7 +41,6 @@ export default function CompoundModal({
   );
   const [pendingZapTx, setZapPendingTx] = useState(false);
   const [currentCounts, setCurrentCounts] = useState(3);
-  const { address } = useAccount();
   const { onCompound } = useCompound(pid[0]);
 
   const getCurrentCounts = async (address) => {
@@ -55,19 +53,13 @@ export default function CompoundModal({
     }
   };
 
-  useEffect(() => {
-    if (address) {
-      getCurrentCounts(address);
-    }
-  }, [address]);
-
   const dispatch = useAppDispatch();
 
   async function handleDeposit() {
     setZapPendingTx(true);
     try {
       await onCompound(pid);
-      dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }));
+      dispatch(fetchFarmUserDataAsync({ account: null, pids: pid }));
       closeModal();
       setZapPendingTx(false);
     } catch (e) {
@@ -154,15 +146,15 @@ export default function CompoundModal({
               Cancel
             </button>
 
-              <button
-                onClick={handleDeposit}
-                className="border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700"
-                disabled={
-                  Number(earnings) === 0 || pendingZapTx || currentCounts === 0
-                }
-              >
-                {t("Compound")}
-              </button>
+            <button
+              onClick={handleDeposit}
+              className="border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] bg-secondary-700"
+              disabled={
+                Number(earnings) === 0 || pendingZapTx || currentCounts === 0
+              }
+            >
+              {t("Compound")}
+            </button>
           </div>
 
           {currentCounts === 0 ? (

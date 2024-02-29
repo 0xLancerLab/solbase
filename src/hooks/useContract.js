@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import {
   getErc20Contract,
   getErc721Contract,
@@ -9,88 +8,53 @@ import {
   getRouterContract,
   getFactoryContract,
   getNFTContract,
-  getPresaleContract
+  getPresaleContract,
 } from "utils/contractHelpers";
-import { useNetwork } from "wagmi";
 import { CHAIN_ID } from "config";
 /**
  * Helper hooks to get specific contracts (by ABI)
  */
 
 export const useERC20 = (address) => {
-  const signer = useEthersSigner();
+  const signer = null;
   return useMemo(() => getErc20Contract(address, signer), [address, signer]);
 };
 export const useERC721 = (address) => {
-  const signer = useEthersSigner();
+  const signer = null;
   return useMemo(() => getErc721Contract(address, signer), [address, signer]);
 };
 
 export const useBWiLD = () => {
-  const provider = useEthersProvider();
-  const { chain } = useNetwork();
-  return useMemo(
-    () =>
-      chain && chain.id === CHAIN_ID && getBWiLDContract(provider, chain?.id),
-    [provider, chain]
-  );
+  const provider = null;
+  return useMemo(() => getBWiLDContract(provider, null), [provider]);
 };
 
 export const useMasterchef = () => {
-  const signer = useEthersSigner();
-  const { chain } = useNetwork();
-  return useMemo(
-    () =>
-      chain &&
-      chain.id === CHAIN_ID &&
-      getMasterchefContract(signer, chain?.id),
-    [signer, chain]
-  );
+  const signer = null;
+  return useMemo(() => getMasterchefContract(signer, null), [signer]);
 };
 
 export const useZapContract = () => {
-  const signer = useEthersSigner();
-  const { chain } = useNetwork();
-  return useMemo(
-    () => chain && chain.id === CHAIN_ID && getZapContract(signer, chain?.id),
-    [signer, chain]
-  );
+  const signer = null;
+  return useMemo(() => getZapContract(signer, null), [signer]);
 };
 
 export const useFactoryContract = () => {
-  const provider = useEthersProvider();
-  const { chain } = useNetwork();
-  return useMemo(
-    () =>
-      chain && chain.id === CHAIN_ID && getFactoryContract(provider, chain?.id),
-    [provider, chain]
-  );
+  const provider = null;
+  return useMemo(() => getFactoryContract(provider, null), [provider]);
 };
 
 export const useRouterContract = () => {
-  const signer = useEthersSigner();
-  const { chain } = useNetwork();
-  return useMemo(
-    () =>
-      chain && chain.id === CHAIN_ID && getRouterContract(signer, chain?.id),
-    [signer, chain]
-  );
+  const signer = null;
+  return useMemo(() => getRouterContract(signer, null), [signer]);
 };
 
 export const useNFTContract = () => {
-  const signer = useEthersSigner();
-  const { chain } = useNetwork();
-  return useMemo(
-    () => chain && chain.id === CHAIN_ID && getNFTContract(signer),
-    [signer, chain]
-  );
+  const signer = null;
+  return useMemo(() => getNFTContract(signer), [signer]);
 };
 
 export const usePresaleContract = () => {
-  const signer = useEthersSigner();
-  const { chain } = useNetwork();
-  return useMemo(
-    () => chain && chain.id === CHAIN_ID && getPresaleContract(signer),
-    [signer, chain]
-  );
+  const signer = null;
+  return useMemo(() => getPresaleContract(signer), [signer]);
 };

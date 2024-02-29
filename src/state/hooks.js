@@ -4,11 +4,9 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "state";
 import { orderBy } from "lodash";
 import farmsConfig from "config/farms";
-import { getBalanceAmount } from "utils/formatBalance";
 import { BIG_ZERO } from "utils/bigNumber";
 import useRefresh from "hooks/useRefresh";
 import { filterFarmsByQuoteToken } from "utils/farmsPriceHelpers";
-import { useEthersProvider } from "hooks/useEthers";
 import {
   fetchFarmsPublicDataAsync,
   // fetchBWiLDVaultPublicData,
@@ -16,25 +14,19 @@ import {
   // fetchBWiLDVaultFees,
   setBlock,
 } from "./actions";
-import { fetchFarmUserDataAsync, nonArchivedFarms } from "./farms";
-import { useAccount } from "wagmi";
-import { wildWethFarmPid, mainTokenSymbol, wethUsdcFarmPid } from "config";
+import { nonArchivedFarms } from "./farms";
+import { mainTokenSymbol, wethUsdcFarmPid } from "config";
 import addresses from "constants/addresses";
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch();
   const { fastRefresh } = useRefresh();
-  const { address } = useAccount();
 
   useEffect(() => {
     const farmsToFetch = includeArchive ? farmsConfig : nonArchivedFarms;
     const pids = farmsToFetch.map((farmToFetch) => farmToFetch.pid);
 
     dispatch(fetchFarmsPublicDataAsync(pids));
-
-    if (address) {
-      dispatch(fetchFarmUserDataAsync({ account: address, pids }));
-    }
-  }, [includeArchive, dispatch, fastRefresh, address]);
+  }, [includeArchive, dispatch, fastRefresh]);
 };
 
 /**
@@ -53,7 +45,7 @@ export const usePollCoreFarmData = () => {
 
 export const usePollBlockNumber = () => {
   const dispatch = useAppDispatch();
-  const provider = useEthersProvider();
+  const provider = null;
   useEffect(() => {
     const interval = setInterval(async () => {
       const blockNumber = await provider.eth.getBlockNumber();
@@ -146,7 +138,7 @@ export const useLpTokenPrice = (symbol) => {
       // Divide total value of all tokens, by the number of LP tokens
       lpTokenPrice = overallValueOfAllTokensInFarm.div(farm.lpTotalSupply);
     }
-  } catch { }
+  } catch {}
   return lpTokenPrice;
 };
 
@@ -270,8 +262,11 @@ export const usePriceBWiLDUsdc = () => {
         if (returned && returned.pairs) {
           let data = returned.pairs[0];
           if (returned.pairs.length === 1) {
-            data = returned.pairs[0].chainId === "base" &&
-              returned.pairs[0].pairAddress === addresses.wildWethlp ? returned.pairs[0] : undefined;
+            data =
+              returned.pairs[0].chainId === "base" &&
+              returned.pairs[0].pairAddress === addresses.wildWethlp
+                ? returned.pairs[0]
+                : undefined;
           } else {
             data = returned.pairs.filter(
               (pair) =>
@@ -283,10 +278,10 @@ export const usePriceBWiLDUsdc = () => {
           setLiquidity(data?.liquidity?.usd);
           setMarketCap(data?.fdv);
         }
-      } catch { }
+      } catch {}
     }
     fetchData();
-  }, [fastRefresh]);
+  }, []);
   if (priceUsd) return [new BigNumber(priceUsd), liquidity, marketCap];
   else return [new BigNumber(0), 0, 0];
 };

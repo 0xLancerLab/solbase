@@ -2,14 +2,10 @@ import React from "react";
 import { notify } from "utils/toastHelper";
 import { didUserReject } from "utils/customHelpers";
 import { getPresaleContract } from "utils/contractHelpers";
-import { useAccount } from "wagmi";
-import { useEthersSigner } from "hooks/useEthers";
 import { CountDownComponentClaim } from "./CountDownClaim";
 
 export default function ClaimComponent({ saleData }) {
-  const { address } = useAccount();
-  const signer = useEthersSigner();
-  const presaleContract = getPresaleContract(signer);
+  const presaleContract = getPresaleContract(null);
 
   const handleClaim = async () => {
     if (!Boolean(saleData.sale_finalized)) {
@@ -22,7 +18,7 @@ export default function ClaimComponent({ saleData }) {
     }
     try {
       const tx = await presaleContract.withdrawWILD({
-        from: address,
+        from: null,
       });
       await tx.wait();
       notify("success", "You claimed tokens successfully");
@@ -52,7 +48,7 @@ export default function ClaimComponent({ saleData }) {
         <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
           <div> Remains BWiLD:</div>
           <div>
-            {(saleData?.WILDOwned - saleData?.user_withdraw_amount) || "0.00"}{" "}
+            {saleData?.WILDOwned - saleData?.user_withdraw_amount || "0.00"}{" "}
             &nbsp; <span className="text-[10.5px] text-sm">BWiLD</span>
           </div>
         </div>

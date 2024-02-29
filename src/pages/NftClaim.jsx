@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
 import { useNFTContract } from "hooks/useContract";
 import NFTCard from "components/NFTCard";
 import { notify } from "utils/toastHelper";
 import useRefresh from "hooks/useRefresh";
 import { didUserReject } from "utils/customHelpers";
-import { useEthersSigner } from "hooks/useEthers";
 import RecentBuys from "components/RecentBuys";
 import LogoLoading from "components/LogoLoading";
 
 export default function Zap() {
-  const { address } = useAccount();
   const [nfts, setNfts] = useState(0);
   const [myTokenIds, setMyTokenIds] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [stats, setStats] = useState(true);
   const nftContract = useNFTContract();
   const { fastRefresh } = useRefresh();
-  const signer = useEthersSigner();
+  const signer = null;
 
   const getAvailableNFTs = async () => {
-    const availableNFTs = await nftContract.getMaximumAmountCanMint(address);
-    const myNFTs = await nftContract.balanceOf(address);
+    const availableNFTs = await nftContract.getMaximumAmountCanMint(null);
+    const myNFTs = await nftContract.balanceOf(null);
     if (Number(myNFTs) > 0) {
-      const tokenIds = await nftContract.walletOfOwner(address);
+      const tokenIds = await nftContract.walletOfOwner(null);
       setMyTokenIds(tokenIds);
     }
 
@@ -51,29 +48,26 @@ export default function Zap() {
   };
 
   useEffect(() => {
-    if (signer && address) getAvailableNFTs();
-  }, [fastRefresh, signer, address]);
-
+    if (signer) getAvailableNFTs();
+  }, [signer]);
 
   const NFTClaim = () => {
-    if (!address) {
-      return <p className="text-center text-blacks">
-        Please connect wallet.
-      </p>
-    }
-
     if (nfts === 0) {
-      return <p className="text-center text-blacks">
-        You don't have any NFT(s) to claim.
-      </p>
+      return (
+        <p className="text-center text-blacks">
+          You don't have any NFT(s) to claim.
+        </p>
+      );
     }
 
     if (nfts) {
-      return <p className="text-center text-blacks">
-        You have {nfts} NFT(s) to claim.
-      </p>
+      return (
+        <p className="text-center text-blacks">
+          You have {nfts} NFT(s) to claim.
+        </p>
+      );
     }
-  }
+  };
 
   return (
     <div className="container">
@@ -90,7 +84,15 @@ export default function Zap() {
         <RecentBuys last={12} />
       ) : (
         <>
-          <div className={`grid ${myTokenIds.length >= 3 ? 'md:grid-cols-3' : myTokenIds.length == 0 ? 'md:grid-cols-1' : 'md:grid-cols-' + myTokenIds.length} grid-cols-1 gap-4 mt-16 max-w-[800px] mx-auto`}>
+          <div
+            className={`grid ${
+              myTokenIds.length >= 3
+                ? "md:grid-cols-3"
+                : myTokenIds.length == 0
+                ? "md:grid-cols-1"
+                : "md:grid-cols-" + myTokenIds.length
+            } grid-cols-1 gap-4 mt-16 max-w-[800px] mx-auto`}
+          >
             {myTokenIds && myTokenIds.length > 0 ? (
               myTokenIds.map((tokenId, index) => (
                 <NFTCard key={index} tokenId={tokenId} />
@@ -109,7 +111,7 @@ export default function Zap() {
           <div className="flex justify-center items-center pb-16 m-2 mt-12">
             <button
               className="main_btn rounded-xl w-full max-w-sm flex justify-center px-6 py-3 hover:scale-105 transition ease-in-out mt-9"
-              disabled={!address && !nfts}
+              disabled={!nfts}
               onClick={() => claimNFT()}
             >
               {NFTClaim()}
@@ -117,8 +119,7 @@ export default function Zap() {
           </div>
         </>
       )}
-      {isProcessing &&
-        <LogoLoading title="Claiming NFT..." />}
+      {isProcessing && <LogoLoading title="Claiming NFT..." />}
     </div>
   );
 }

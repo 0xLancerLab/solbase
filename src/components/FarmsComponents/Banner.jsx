@@ -1,47 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaExternalLinkAlt, FaRegCopy } from "react-icons/fa";
-import { getBWiLDAddress, getWethAddress } from "utils/addressHelpers";
-import { CHAIN_ID, TESTNET_CHAIN_ID, BASE_SWAP_URL, BASE_URL } from "config";
-import { useNetwork } from "wagmi";
 import { formatAddress } from "utils/customHelpers";
-import { getScanTokenUrl } from "utils/getExplorerURL";
-// import { useEthersProvider } from 'hooks/useEthers'
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function FarmBanner() {
   const [isCopied, setIsCopied] = useState(false);
-  const [wildAddress, setWildAddress] = useState("Connect correct wallet");
-  const { chain } = useNetwork();
-  const token = getBWiLDAddress();
-  // const provider = useEthersProvider()
+  const wallet = useWallet();
+  const [wildAddress, setWildAddress] = useState(
+    wallet?.publicKey?.toString() || "Connect correct wallet"
+  );
 
-  const addWatchBWiLDToken = useCallback(async () => {
-    const provider = window.ethereum;
-    if (provider) {
-      try {
-        // wasAdded is a boolean. Like any RPC method, an error may be thrown.
-        await provider.request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: {
-              address: token,
-              symbol: "BWiLD",
-              decimals: "18",
-              image: `${BASE_URL}/assets/tokens/wildx.png`,
-            },
-          },
-        });
-
-        // if (wasAdded) {
-        //   console.log('Token was added')
-        // }
-      } catch (error) {
-        console.log("error", error);
-        // TODO: find a way to handle when the user rejects transaction or it fails
-      }
-    }
-  }, []);
+  useEffect(() => {
+    setWildAddress(wallet?.publicKey?.toString());
+  }, [wallet?.publicKey]);
 
   const handleCopy = () => {
     setIsCopied(true);
@@ -50,12 +22,6 @@ export default function FarmBanner() {
     }, 1000);
   };
 
-  useEffect(() => {
-    if (chain && (chain.id === CHAIN_ID || chain.id === TESTNET_CHAIN_ID)) {
-      const addr = getBWiLDAddress();
-      setWildAddress(addr);
-    }
-  }, [chain]);
   return (
     <div className="flex justify-center flex-col md:flex-row bg-secondary rounded-md">
       <div className="p-3 md:p-12 md:w-1/2 w-full text-center md:text-left">
@@ -80,11 +46,7 @@ export default function FarmBanner() {
             <div className="flex items-center justify-center">
               <a
                 className="w-100  flex items-center justify-center py-10 text-base hover:underline text-symbol"
-                href={`${
-                  chain && chain.id === CHAIN_ID
-                    ? getScanTokenUrl(wildAddress)
-                    : ""
-                }`}
+                href={`https://solscan.io/account/${wildAddress}`}
                 target="_blank"
                 rel="noreferrer"
               >

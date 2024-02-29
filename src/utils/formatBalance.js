@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 import { BIG_TEN } from "./bigNumber";
-import { ethers } from "ethers";
 /**
  * Take a formatted amount, e.g. 15 Weth and convert it to full decimal value, e.g. 15000000000000000
  */

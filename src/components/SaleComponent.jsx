@@ -1,50 +1,65 @@
-import React, { useState, useEffect } from "react";
-import {
-  didUserReject,
-  formatAddress,
-  fromReadableAmount,
-} from "utils/customHelpers";
-import { getPresaleAddress } from "utils/addressHelpers";
-import { useBalance, useAccount } from "wagmi";
-import { privateWILDPrice, BASE_EXPLORER } from "config";
+import React, { useEffect, useState } from "react";
+import { didUserReject } from "utils/customHelpers";
 import { notify } from "utils/toastHelper";
-import { usePresaleContract } from "hooks/useContract";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import * as web3 from "@solana/web3.js";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+const presalePrice = 0.33;
+const recipientKey = "CbyYnVQ9ofDPzQEYudqp1f6iZVXzvRNYuVkcQA31apc6";
 
 export default function SaleComponent({ saleData }) {
-  const presaleContract = usePresaleContract();
   const [amount, setAmount] = useState("");
-  const { address } = useAccount();
-  const { data } = useBalance({
-    address: address,
-  });
+  const [balance, setBalance] = useState("0");
+  const [txSig, setTxSig] = useState("");
 
+  const { connection } = useConnection();
+  const { publicKey, sendTransaction } = useWallet();
+  const link = () => {
+    return txSig
+      ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
+      : "";
+  };
   const handleChange = (value) => {
     setAmount(value);
   };
 
-  const handleBuyWild = async () => {
-    if (!saleData?.enabled) {
-      notify("error", "Presale is not started yet");
-      return;
+  useEffect(() => {
+    async function getBalance() {
+      const balance = await connection.getBalance(publicKey);
+      //So we convert it to SOL
+      const solBalance = balance / LAMPORTS_PER_SOL;
+      setBalance(solBalance);
     }
-    if (saleData?.sale_finalized) {
-      notify("error", "Presale is ended");
-      return;
-    }
-    let ethPrice;
+    if (publicKey) getBalance();
+  }, [publicKey, connection]);
 
+  const handleBuyWild = async (event) => {
     try {
-      const ethAmountToSend = (amount * 12) / Number(ethPrice);
-      if (Number(data?.formatted) <= Number(ethAmountToSend)) {
-        notify("warning", "Insufficient Balance");
+      if (Number(amount) <= 0) {
+        notify("warning", "Input $BILL amount to buy!");
         return;
       }
+      if (Number(balance) < Number(amount) * Number(presalePrice)) {
+        notify("warning", "Insufficient SOL Balance");
+        return;
+      }
+      event.preventDefault();
+      if (!connection || !publicKey) {
+        return;
+      }
+      const transaction = new web3.Transaction();
+      const recipientPubKey = new web3.PublicKey(recipientKey);
 
-      const tx = await presaleContract.buyWILD({
-        from: address,
-        value: fromReadableAmount(Number(ethAmountToSend).toFixed(5)),
+      const sendSolInstruction = web3.SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: recipientPubKey,
+        lamports: LAMPORTS_PER_SOL * Number(amount) * Number(presalePrice),
       });
-      await tx.wait();
+
+      transaction.add(sendSolInstruction);
+      sendTransaction(transaction, connection).then((sig) => {
+        setTxSig(sig);
+      });
       notify("success", `You bought ${amount} $BILL successfully`);
     } catch (error) {
       if (didUserReject(error)) {
@@ -68,7 +83,9 @@ export default function SaleComponent({ saleData }) {
             <div> Presale Price:</div>
             <div>
               <p className="flex gap-1">
-                <span className={"font-semibold text-green-500"}>0.33 SOL</span>
+                <span className={"font-semibold text-green-500"}>
+                  {presalePrice} SOL
+                </span>
               </p>
             </div>
           </div>
@@ -82,12 +99,7 @@ export default function SaleComponent({ saleData }) {
           </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Your SOL Balance:</div>
-            <div>
-              {Number(data?.formatted).toFixed(5) === "NaN"
-                ? "0.000"
-                : Number(data?.formatted).toFixed(5)}{" "}
-              SOL
-            </div>
+            <div className={"font-semibold text-green-500"}>{balance} SOL</div>
           </div>
         </div>
         <div>
@@ -103,20 +115,9 @@ export default function SaleComponent({ saleData }) {
       </div>
       <button
         className="main_btn w-full my-2"
-        onClick={() => handleBuyWild()}
-        disabled={
-          !saleData?.enabled ||
-          saleData?.sale_finalized ||
-          250 <= Number(saleData?.WILDOwned) + Number(amount)
-        }
+        onClick={(e) => handleBuyWild(e)}
       >
-        {!saleData?.enabled
-          ? "Presale is not started yet"
-          : saleData?.sale_finalized
-          ? "Preslae is ended"
-          : 250 <= Number(saleData?.WILDOwned) + Number(amount)
-          ? "Exceed Maximum Amount"
-          : "BUY BWILD"}
+        BUY $BILL
       </button>
     </div>
   );

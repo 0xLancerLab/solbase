@@ -27,14 +27,12 @@ import useUnstake from "hooks/useUnstake";
 import DepositModal from "../../DepositModal";
 import WithdrawModal from "../../WithdrawModal";
 import { ActionContainer, ActionTitles, ActionContent, Earned } from "./styles";
-import { useAccount } from "wagmi";
 import { Tooltip } from "react-tooltip";
 import {
   getErc20Contract,
   getErc721Contract,
   getMasterchefContract,
 } from "utils/contractHelpers";
-import { useEthersSigner } from "hooks/useEthers";
 import { usePriceBWiLDUsdc } from "state/hooks";
 import { toReadableAmount } from "utils/customHelpers";
 
@@ -54,8 +52,7 @@ const StakedAction = ({
   const [amountPerNFT, setAmountPerNFT] = useState();
   const [isNFTALL, setIsNFTALL] = useState(false);
   const { t } = useTranslation();
-  const { address } = useAccount();
-  const signer = useEthersSigner();
+  const signer = null;
   const [requestedApproval, setRequestedApproval] = useState(false);
   const {
     allowance,
@@ -79,8 +76,8 @@ const StakedAction = ({
   const lpPrice = useLpTokenPrice(lpSymbol);
 
   const isApproved = isNFTPool
-    ? address && allowance[0]
-    : address && allowance && allowance.isGreaterThan(0);
+    ? null && allowance[0]
+    : null && allowance && allowance.isGreaterThan(0);
 
   const lpAddress = isTokenOnly ? token.address : lpAddresses;
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
@@ -94,7 +91,7 @@ const StakedAction = ({
       if (!isApproved) await handleApprove();
       console.log("amount...", amount);
       await onStake(amount, isNFTALL);
-      dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }));
+      dispatch(fetchFarmUserDataAsync({ account: null, pids: [pid] }));
     } catch (e) {
       console.log(e);
     }
@@ -104,7 +101,7 @@ const StakedAction = ({
     try {
       console.log("is unstaking...");
       await onUnstake(amount, isNFTALL);
-      dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }));
+      dispatch(fetchFarmUserDataAsync({ account: null, pids: [pid] }));
     } catch (e) {
       console.log(e);
     }
@@ -130,7 +127,7 @@ const StakedAction = ({
       isNFTPool={isNFTPool}
       isNFTALL={isNFTALL}
       setIsNFTALL={setIsNFTALL}
-      account={address}
+      account={null}
       max={tokenBalance}
       onConfirm={handleStake}
       tokenName={lpSymbol}
@@ -160,13 +157,13 @@ const StakedAction = ({
     try {
       setRequestedApproval(true);
       await onApprove();
-      dispatch(fetchFarmUserDataAsync({ account: address, pids: [pid] }));
+      dispatch(fetchFarmUserDataAsync({ account: null, pids: [pid] }));
 
       setRequestedApproval(false);
     } catch (e) {
       console.log(e);
     }
-  }, [onApprove, dispatch, address, pid]);
+  }, [onApprove, dispatch, pid]);
 
   const getAmountPerNFT = async () => {
     const _amountPerNFT = await masterChefContract.getAmountPerNFT();
@@ -178,7 +175,7 @@ const StakedAction = ({
     }
   }, [signer]);
 
-  if (!address) {
+  if (!null) {
     return (
       <ActionContainer>
         <ActionTitles>

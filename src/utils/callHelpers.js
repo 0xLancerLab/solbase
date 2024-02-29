@@ -1,11 +1,6 @@
-import { ethers } from "ethers";
 import { getMasterChefAddress } from "utils/addressHelpers";
 
-import {
-  didUserReject,
-  fromReadableAmount,
-  toReadableAmount,
-} from "./customHelpers";
+import { didUserReject, fromReadableAmount } from "./customHelpers";
 import { limitedFunction } from "./limitHelper";
 import { notify } from "./toastHelper";
 
@@ -15,15 +10,7 @@ export const approve = async (
   address,
   isNFTPool
 ) => {
-  return (await isNFTPool)
-    ? lpContract.setApprovalForAll(masterChefContract.address, true, {
-        from: address,
-      })
-    : lpContract.approve(
-        masterChefContract.address,
-        ethers.constants.MaxUint256,
-        { from: address }
-      );
+  return null;
 };
 
 export const stake = async (

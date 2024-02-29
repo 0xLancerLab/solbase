@@ -1,10 +1,8 @@
 import { useCallback } from "react";
 import { zap, zapForFarm } from "utils/callHelpers";
 import { useZapContract } from "./useContract";
-import { useAccount } from "wagmi";
 
 const useZap = () => {
-  const { address } = useAccount();
   const zapContract = useZapContract();
 
   const handleZap = useCallback(
@@ -16,17 +14,16 @@ const useZap = () => {
         amount,
         tokenB,
         isNativeOut,
-        address
+        null
       );
     },
-    [address, zapContract]
+    [zapContract]
   );
 
   return { onZap: handleZap };
 };
 
 export const useZapForFarm = () => {
-  const { address } = useAccount();
   const zapContract = useZapContract();
 
   const handleZap = useCallback(
@@ -38,10 +35,10 @@ export const useZapForFarm = () => {
         amount,
         tokenB,
         pid,
-        address
+        null
       );
     },
-    [address, zapContract]
+    [zapContract]
   );
 
   return { onZapForFarm: handleZap };

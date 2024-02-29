@@ -1,7 +1,6 @@
 import { useEffect, useReducer, useRef } from "react";
 import { noop } from "lodash";
 import { useTranslation } from "context/Localization";
-import { useAccount } from "wagmi";
 import { notify } from "utils/toastHelper";
 
 const reducer = (state, actions) => {
@@ -58,21 +57,19 @@ const useApproveConfirmTransaction = ({
   onApproveSuccess = noop,
 }) => {
   const { t } = useTranslation();
-  const { address } = useAccount();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer);
   const handlePreApprove = useRef(onRequiresApproval);
-  const { toastError } = useToast();
 
   // Check if approval is necessary, re-check if account changes
   useEffect(() => {
-    if (address && handlePreApprove.current) {
+    if (handlePreApprove.current) {
       handlePreApprove.current().then((result) => {
         if (result) {
           dispatch({ type: "requires_approval" });
         }
       });
     }
-  }, [address, handlePreApprove, dispatch]);
+  }, [handlePreApprove, dispatch]);
 
   return {
     isApproving: state.approvalState === "loading",

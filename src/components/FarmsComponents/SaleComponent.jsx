@@ -1,6 +1,5 @@
-import React, { useState, useEffeect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Line } from "rc-progress";
-import { useBalance, useAccount } from "wagmi";
 import {
   minPrivatePurchase,
   minPublicPurchase,
@@ -25,10 +24,6 @@ export default function SaleComponent({
   const [maximum, setMaximum] = useState(
     isPrivateParticipant ? maxPrivatePurchase : maxPublicPurchase
   );
-  const { address } = useAccount();
-  const { data } = useBalance({
-    address: address,
-  });
 
   const handleChange = (value) => {
     setAmount(value);
@@ -59,7 +54,7 @@ export default function SaleComponent({
       );
       return;
     }
-    if (Number(data?.formatted) < Number(amount)) {
+    if (Number("0") < Number(amount)) {
       notify("warning", "Insufficient Balance");
       return;
     }
@@ -69,7 +64,7 @@ export default function SaleComponent({
   return (
     <div>
       <div className="sale_percent_bar">
-        <div className="text">{totalRaised} / 100 ETH</div>
+        <div className="text">{totalRaised} / 100 SOL</div>
         <div className="text">{Number(Number(totalRaised)).toFixed(2)}%</div>
       </div>
       <Line
@@ -83,15 +78,13 @@ export default function SaleComponent({
       <div className="balance_form">
         <div className="flex justify-between p-1">
           <div>Minimum Purchase:</div>
-          <div>{minimum} ETH</div>
+          <div>{minimum} SOL</div>
         </div>
         <div className="flex justify-between p-1 mb-2">
           <div>Maximum Purchase: </div>
-          <div>{maximum} ETH</div>
+          <div>{maximum} SOL</div>
         </div>
-        <div className="form_text">
-          Balance: {Number(data?.formatted).toFixed(5)} ETH
-        </div>
+        <div className="form_text">Balance: 0 SOL</div>
         <div className="form_input">
           <input
             type="number"

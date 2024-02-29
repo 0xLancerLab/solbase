@@ -3,12 +3,9 @@ import TokenDisplay from "components/TokenDisplay";
 import { getZapAddress } from "utils/addressHelpers";
 import { useZapForFarm } from "hooks/useZap";
 import Modal from "react-modal";
-import { ethers } from "ethers";
 import { ArrowForwardIcon } from "uikit";
 import Loading from "components/Loading";
 import { useTranslation } from "context/Localization";
-import { useEthersSigner } from "hooks/useEthers";
-import { useAccount } from "wagmi";
 import { getErc20Contract } from "utils/contractHelpers";
 import { notify } from "utils/toastHelper";
 import { useAppDispatch } from "state";
@@ -71,9 +68,8 @@ export default function ZapInModal({ open, closeModal, pid }) {
 
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
-  const { address } = useAccount();
   const zapAddress = getZapAddress();
-  const signer = useEthersSigner();
+  const signer = null;
   const { onZapForFarm } = useZapForFarm();
   const dispatch = useAppDispatch();
 
@@ -82,8 +78,8 @@ export default function ZapInModal({ open, closeModal, pid }) {
 
     try {
       const tokenContract = getErc20Contract(inputToken.lpAddresses, signer);
-      const allowance = await tokenContract.allowance(address, zapAddress, {
-        from: address,
+      const allowance = await tokenContract.allowance(null, zapAddress, {
+        from: null,
       });
       setAllowance(allowance.toString());
     } catch (error) {
@@ -95,25 +91,6 @@ export default function ZapInModal({ open, closeModal, pid }) {
 
   async function handleApprove() {
     try {
-      setIsApproving(true);
-      const tokenContract = getErc20Contract(inputToken.lpAddresses, signer);
-      if (
-        Number(ethers.utils.formatUnits(allowance, inputToken.decimals)) <
-        Number(amount.toString())
-      ) {
-        await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, {
-          from: address,
-        });
-        if (
-          Number(ethers.utils.formatUnits(allowance, inputToken.decimals)) <
-          Number(amount.toString())
-        ) {
-          await tokenContract.approve(zapAddress, ethers.constants.MaxUint256, {
-            from: address,
-          });
-        }
-      }
-      setIsApproving(false);
       getAllowance();
     } catch (e) {
       console.log(e);
@@ -137,7 +114,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
         targetToken.lpAddresses,
         targetToken.pid
       );
-      dispatch(fetchFarmUserDataAsync({ account: address, pids: pid }));
+      dispatch(fetchFarmUserDataAsync({ account: null, pids: pid }));
       closeModal();
       setZapPendingTx(false);
     } catch (e) {
@@ -164,7 +141,7 @@ export default function ZapInModal({ open, closeModal, pid }) {
         setBalance(toReadableAmount(balance, token.decimals));
       } else {
         const tokenContract = getErc20Contract(token.lpAddresses, signer);
-        const balance1 = await tokenContract.balanceOf(address);
+        const balance1 = await tokenContract.balanceOf(null);
         setBalance(toReadableAmount(balance1, token.decimals));
       }
       setLoadingBalance(false);
@@ -279,28 +256,13 @@ export default function ZapInModal({ open, closeModal, pid }) {
             >
               Cancel
             </button>
-            {isCheckingAllowance ? (
-              <button className="border flex justify-center disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] ">
-                <Loading /> Loading...
-              </button>
-            ) : inputToken.lpSymbol !== "ETH" &&
-              Number(ethers.utils.formatUnits(allowance, "ether")) === 0 ? (
-              <button
-                onClick={handleApprove}
-                disabled={isApproving}
-                className="border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] "
-              >
-                Approve
-              </button>
-            ) : (
-              <button
-                onClick={handleDeposit}
-                className="border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] "
-                disabled={Number(amount) === 0 || pendingZapTx}
-              >
-                {t("Zap in")}
-              </button>
-            )}
+            <button
+              onClick={handleApprove}
+              disabled={isApproving}
+              className="border disabled:opacity-50 disabled:hover:scale-100 border-secondary-700 w-full rounded-lg hover:scale-105 transition ease-in-out p-[8px] "
+            >
+              Approve
+            </button>
           </div>
         </div>
       </Modal>

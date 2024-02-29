@@ -5,15 +5,11 @@ import { getMasterChefAddress } from "utils/addressHelpers";
 import masterChefABI from "config/abis/masterchef.json";
 import farmsConfig from "config/farms";
 import useRefresh from "./useRefresh";
-import { useAccount, useNetwork } from "wagmi";
-import { useEthersSigner } from "./useEthers";
 
 export const useFarmsWithBalance = () => {
   const [farmsWithBalances, setFarmsWithBalances] = useState([]);
-  const { address } = useAccount();
-  const { chain } = useNetwork();
   const { fastRefresh } = useRefresh();
-  const signer = useEthersSigner();
+  const signer = null;
 
   useEffect(() => {
     const fetchBalances = async () => {
@@ -22,7 +18,7 @@ export const useFarmsWithBalance = () => {
         .map((farm) => ({
           address: getMasterChefAddress(),
           name: "pendingBWild",
-          params: [farm.pid, address],
+          params: [farm.pid],
         }));
       try {
         const rawResults = await multicall(masterChefABI, calls);
@@ -36,10 +32,10 @@ export const useFarmsWithBalance = () => {
       }
     };
 
-    if (signer && chain) {
+    if (signer) {
       fetchBalances();
     }
-  }, [signer, chain, fastRefresh]);
+  }, [signer]);
 
   return farmsWithBalances;
 };

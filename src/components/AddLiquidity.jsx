@@ -4,7 +4,6 @@ import TokenSelect from "./TokenSelect";
 import TokenSelectModal from "./TokenSelectModal";
 import { ContractContext } from "context/contracts";
 import { createPair, getValidPair } from "utils";
-import { useAccount } from "wagmi";
 import { SubmitButton } from "./UI/SubmitButton";
 import { toast } from "react-hot-toast";
 
@@ -137,9 +136,7 @@ export default function AddLiquidity(props) {
             newPair={newPair}
           />
 
-          <p className="text-xl text-symbol text-center">
-            LP reward APR 2.39%
-          </p>
+          <p className="text-xl text-symbol text-center">LP reward APR 2.39%</p>
         </div>
       </div>
       {/* TokenA modal */}

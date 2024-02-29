@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
-import { useEthersSigner } from "hooks/useEthers";
 import { toReadableAmount } from "utils/customHelpers";
 import SaleComponent from "components/SaleComponent";
 import useRefresh from "hooks/useRefresh";
 import PresaleForkABI from "config/abis/presaleFork.json";
-import { getPresaleAddress, getPresaleForkAddress } from "utils/addressHelpers";
+import { getPresaleAddress } from "utils/addressHelpers";
 import multicall from "utils/multicall";
 import { CountDownComponent } from "../components/CountDown";
 
 export default function Presale() {
   const preslaeContractAddress = getPresaleAddress();
-  const preslaeContractForkAddress = getPresaleForkAddress();
-  const { address } = useAccount();
   const { fastRefresh } = useRefresh();
-  const signer = useEthersSigner();
 
   const [active, setActive] = useState(1);
   const [presaleData, setPresaleData] = useState({});
   const [ended, setEnded] = useState(false);
-  const [synced, setSynced] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,7 +65,7 @@ export default function Presale() {
     };
 
     fetchData();
-  }, [fastRefresh]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,27 +73,27 @@ export default function Presale() {
         {
           address: preslaeContractAddress,
           name: "user_deposits",
-          params: [address],
+          params: [null],
         },
         {
           address: preslaeContractAddress,
           name: "WILDOwned",
-          params: [address],
+          params: [null],
         },
         {
           address: preslaeContractAddress,
           name: "user_withdraw_amount",
-          params: [address],
+          params: [null],
         },
         {
           address: preslaeContractAddress,
           name: "user_withdraw_timestamp",
-          params: [address],
+          params: [null],
         },
         {
           address: preslaeContractAddress,
           name: "getAmountToWithdraw",
-          params: [address],
+          params: [null],
         },
       ];
 
@@ -118,13 +112,7 @@ export default function Presale() {
         console.log("Fetch Farms With Balance Error:", e);
       }
     };
-
-    if (address) {
-      fetchData();
-    }
-  }, [address]);
-
-  console.log(presaleData);
+  }, []);
 
   return (
     <div className="w-full container max-w-[500px] mx-3">

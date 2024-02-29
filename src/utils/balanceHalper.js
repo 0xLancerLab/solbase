@@ -1,5 +1,3 @@
-import { BigNumber, ethers } from "ethers";
-import { erc20ABI } from "wagmi";
 import lpTokenAbi from "config/abis/lpToken.json";
 import { toReadableAmount } from "./customHelpers";
 
@@ -10,25 +8,7 @@ export async function getBalance(address, token, provider) {
       const balance = await provider?.getBalance(address);
       return toReadableAmount(balance, 18);
     } else {
-      if (token.isTokenOnly) {
-        const contract = new ethers.Contract(
-          token.lpAddresses,
-          erc20ABI,
-          provider
-        );
-        const balance = await contract.balanceOf(address);
-        const decimals = await contract.decimals();
-        return toReadableAmount(balance, token.decimals);
-      } else {
-        const contract = new ethers.Contract(
-          token.lpAddresses,
-          lpTokenAbi,
-          provider
-        );
-        const balance = await contract.balanceOf(address);
-        const decimals = await contract.decimals();
-        return toReadableAmount(balance, Number(decimals.toString()));
-      }
+      return 0;
     }
   } catch (e) {
     console.log(e);

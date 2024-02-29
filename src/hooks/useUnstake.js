@@ -2,9 +2,7 @@ import { useCallback } from "react";
 import { unstake } from "utils/callHelpers";
 import { useFarmFromPid } from "state/hooks";
 import { useMasterchef } from "./useContract";
-import { useAccount } from "wagmi";
 const useUnstake = (pid, isNFTPool) => {
-  const { address } = useAccount();
   const masterChefContract = useMasterchef();
   const farm = useFarmFromPid(pid);
 
@@ -16,13 +14,13 @@ const useUnstake = (pid, isNFTPool) => {
         masterChefContract,
         pid,
         amount,
-        address,
+        null,
         tokenDecimals,
         isNFTPool,
         isNFTALL
       );
     },
-    [address, masterChefContract, pid, tokenDecimals, isNFTPool]
+    [masterChefContract, pid, tokenDecimals, isNFTPool]
   );
 
   return { onUnstake: handleUnstake };

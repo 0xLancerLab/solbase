@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import TokenSelect from "components/TokenSelect";
 import TokenSelectModal from "components/TokenSelectModal";
 import { getErc20Contract, getLpContract } from "utils/contractHelpers";
-import { useEthersSigner } from "hooks/useEthers";
 import { liquidityList } from "config/farms";
 import { useRouterContract } from "hooks/useContract";
 import { didUserReject } from "utils/customHelpers";
 import { notify } from "utils/toastHelper";
-import { useAccount } from "wagmi";
 import { fromReadableAmount, toReadableAmount } from "utils/customHelpers";
-import { ethers } from "ethers";
 import { getRouterAddress } from "utils/addressHelpers";
 import Loading from "components/Loading";
 
@@ -36,8 +33,7 @@ export default function Liquidity() {
   const [allowanceRemove, setAllowanceRemove] = useState(0);
   const [direction, setDirection] = useState("sell");
 
-  const { address } = useAccount();
-  const signer = useEthersSigner();
+  const signer = null;
   const routerContract = useRouterContract();
   const routerAddress = getRouterAddress();
 
@@ -62,20 +58,20 @@ export default function Liquidity() {
     if (type === "remove") {
       tokenContract = getLpContract(token.lpAddresses, signer);
       const tokenAllowance = await tokenContract.allowance(
-        address,
+        null,
         routerAddress,
         {
-          from: address,
+          from: null,
         }
       );
       setAllowanceRemove(tokenAllowance.toString());
     } else {
       tokenContract = getErc20Contract(token.lpAddresses, signer);
       const tokenAllowance = await tokenContract.allowance(
-        address,
+        null,
         routerAddress,
         {
-          from: address,
+          from: null,
         }
       );
       if (type === "from") setAllowanceFrom(tokenAllowance.toString());
@@ -85,24 +81,6 @@ export default function Liquidity() {
 
   const handleApproveFromToken = async () => {
     try {
-      if (
-        Number(ethers.utils.formatUnits(allowanceFrom, "ether")) <
-        Number(tokenAAmount)
-      ) {
-        console.log("approving...");
-        setPendingFromApproveTx(true);
-        let tokenContract;
-        tokenContract = getErc20Contract(tokenA.lpAddresses, signer);
-        await tokenContract.approve(
-          routerAddress,
-          ethers.constants.MaxUint256,
-          {
-            from: address,
-          }
-        );
-        setPendingFromApproveTx(false);
-        getAllowance(tokenA, "from");
-      }
     } catch (e) {
       console.log(e);
       if (didUserReject(e)) {
@@ -114,24 +92,6 @@ export default function Liquidity() {
 
   const handleApproveToToken = async () => {
     try {
-      if (
-        Number(ethers.utils.formatUnits(allowanceTo, "ether")) <
-        Number(tokenBAmount)
-      ) {
-        console.log("approving...");
-        setPendingToApproveTx(true);
-        let tokenContract;
-        tokenContract = getErc20Contract(tokenB.lpAddresses, signer);
-        await tokenContract.approve(
-          routerAddress,
-          ethers.constants.MaxUint256,
-          {
-            from: address,
-          }
-        );
-        setPendingToApproveTx(false);
-        getAllowance(tokenB, "to");
-      }
     } catch (e) {
       console.log(e);
       if (didUserReject(e)) {
@@ -143,24 +103,6 @@ export default function Liquidity() {
 
   const handleApproveRemoveToken = async () => {
     try {
-      if (
-        Number(ethers.utils.formatUnits(allowanceRemove, "ether")) <
-        Number(removeTokenAmount)
-      ) {
-        console.log("approving...");
-        setPendingRemoveApproveTx(true);
-        let tokenContract;
-        tokenContract = getLpContract(removeToken.lpAddresses, signer);
-        await tokenContract.approve(
-          routerAddress,
-          ethers.constants.MaxUint256,
-          {
-            from: address,
-          }
-        );
-        setPendingRemoveApproveTx(false);
-        getAllowance(removeToken, "remove");
-      }
     } catch (e) {
       console.log(e);
       if (didUserReject(e)) {
@@ -204,10 +146,10 @@ export default function Liquidity() {
         fromReadableAmount(tokenBAmount, 18),
         "0",
         "0",
-        address,
+        null,
         Date.now() + 400,
         {
-          from: address,
+          from: null,
         }
       );
       await tx.wait();
@@ -231,10 +173,10 @@ export default function Liquidity() {
         fromReadableAmount(removeTokenAmount, 18),
         "0",
         "0",
-        address,
+        null,
         Date.now() + 400,
         {
-          from: address,
+          from: null,
         }
       );
       await tx.wait();
@@ -292,12 +234,12 @@ export default function Liquidity() {
   }, [tokenBAmount, direction]);
 
   useEffect(() => {
-    if (address && signer) {
+    if (signer) {
       getAllowance(tokenA, "from");
       getAllowance(tokenB, "to");
       getAllowance(tokenB, "remove");
     }
-  }, [address, signer]);
+  }, [signer]);
 
   return (
     <div className="flex justify-center items-center flex-col  min-h-[calc(100vh-200px)] w-full px-5">

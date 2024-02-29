@@ -3,12 +3,7 @@ import styled from "styled-components";
 import { Text, Button, Input, Link } from "uikit";
 import { useTranslation } from "context/Localization";
 import { BigNumber } from "bignumber.js";
-import { useEthersSigner } from "hooks/useEthers";
-import { useAccount } from "wagmi";
 import { getMasterchefContract, getNFTContract } from "utils/contractHelpers";
-const getBoxShadow = ({ theme }) => {
-  return theme.shadows.inset;
-};
 
 const StyledInput = styled(Input)`
   box-shadow: none;
@@ -45,18 +40,9 @@ const ModalInput = ({
   decimals = 18,
 }) => {
   const [userBalance, setUserBalance] = useState("");
-  const { address } = useAccount();
-  const signer = useEthersSigner();
+  const signer = null;
   const { t } = useTranslation();
   const isBalanceZero = max === "0" || !max;
-
-  function removeLeadingZeros(arr) {
-    let i = 0;
-    while (Number(arr[i]) === 0) {
-      i++;
-    }
-    return arr.slice(i);
-  }
 
   const displayBalance = async (balance) => {
     const nftContract = getNFTContract(signer);
@@ -68,13 +54,11 @@ const ModalInput = ({
     if (isNFTPool) {
       let tokenIds;
       if (inputTitle === "Stake") {
-        tokenIds = await nftContract.walletOfOwner(address);
+        tokenIds = await nftContract.walletOfOwner(null);
       } else {
-        tokenIds = await masterChefContract.getUserStakedNFTs(6, address);
+        tokenIds = await masterChefContract.getUserStakedNFTs(6, null);
       }
-      setUserBalance(
-        balance
-      );
+      setUserBalance(balance);
       // setUserBalance(
       //   balance + " : [ " + removeLeadingZeros(tokenIds).toString() + " ]"
       // );
@@ -88,8 +72,8 @@ const ModalInput = ({
   };
 
   useEffect(() => {
-    if (address && signer) displayBalance(max);
-  }, [address, signer, max]);
+    if (null && signer) displayBalance(max);
+  }, [signer, max]);
 
   return (
     <div className="relative">
@@ -116,9 +100,14 @@ const ModalInput = ({
             placeholder={isNFTPool ? "amount of NFT(s)" : "0"}
             value={value}
           />
-            <button scale="sm" onClick={onSelectMax} mr="8px" className="main_btn w-24">
-              {t("Max")}
-            </button>
+          <button
+            scale="sm"
+            onClick={onSelectMax}
+            mr="8px"
+            className="main_btn w-24"
+          >
+            {t("Max")}
+          </button>
 
           <Text fontSize="16px" color="textWhite">
             {symbol}

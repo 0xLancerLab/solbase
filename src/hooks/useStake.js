@@ -2,10 +2,8 @@ import { useCallback } from "react";
 import { useFarmFromPid } from "state/hooks";
 import { stake } from "utils/callHelpers";
 import { useMasterchef } from "./useContract";
-import { useAccount } from "wagmi";
 
 const useStake = (pid, isNFTPool) => {
-  const { address } = useAccount();
   const masterChefContract = useMasterchef();
   const farm = useFarmFromPid(pid);
 
@@ -22,9 +20,16 @@ const useStake = (pid, isNFTPool) => {
       // } catch (e) {
       //  console.log('Whitelist check error', e)
       // }
-      await stake(masterChefContract, pid, amount, tokenDecimals, isNFTPool, isNFTALL);
+      await stake(
+        masterChefContract,
+        pid,
+        amount,
+        tokenDecimals,
+        isNFTPool,
+        isNFTALL
+      );
     },
-    [address, masterChefContract, pid, tokenDecimals, isNFTPool]
+    [masterChefContract, pid, tokenDecimals, isNFTPool]
   );
 
   return { onStake: handleStake };

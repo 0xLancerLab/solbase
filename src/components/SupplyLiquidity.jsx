@@ -12,16 +12,11 @@ import {
 import { ContractContext } from "context/contracts";
 import { getAllowance } from "utils";
 import { getRouterAddress } from "utils/addressHelpers";
-import { useAccount } from "wagmi";
-import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import toast from "react-hot-toast";
 import { SubmitButton } from "./UI/SubmitButton";
 
 export default function SupplyLiquidity(props) {
   const contracts = useContext(ContractContext);
-  const { address } = useAccount();
-  const provider = useEthersProvider();
-  const signer = useEthersSigner();
   const [status, setStatus] = useState({
     tokenA: true,
     tokenB: true,
@@ -86,12 +81,7 @@ export default function SupplyLiquidity(props) {
   };
 
   const checkAllowance = async (token, type) => {
-    const res = await getAllowance(
-      address,
-      token,
-      getRouterAddress(),
-      provider
-    );
+    const res = await getAllowance(null, token, getRouterAddress(), null);
     if (type === "A") {
       setTokenAAllowance(Number(res));
     } else {
@@ -144,11 +134,7 @@ export default function SupplyLiquidity(props) {
 
     if (type === "A") {
       try {
-        const res = await approveHandler(
-          tokenA,
-          Math.ceil(tokenAAmount),
-          signer
-        );
+        const res = await approveHandler(tokenA, Math.ceil(tokenAAmount), null);
         if (res) {
           toast.success(tokenA.symbol + " has been approved successfuly");
           setTokenAAllowance(Math.ceil(tokenAAmount));
@@ -162,11 +148,7 @@ export default function SupplyLiquidity(props) {
       }
     } else {
       try {
-        const res = await approveHandler(
-          tokenB,
-          Math.ceil(tokenBAmount),
-          signer
-        );
+        const res = await approveHandler(tokenB, Math.ceil(tokenBAmount), null);
         if (res) {
           toast.success(tokenB.symbol + " has been approved successfuly");
           setTokenBAllowance(Math.ceil(tokenBAmount));
@@ -193,7 +175,7 @@ export default function SupplyLiquidity(props) {
           amount_out,
           0,
           0,
-          address,
+          null,
           Date.now() + 10 * 60,
           {
             value: amount_in,
@@ -205,7 +187,7 @@ export default function SupplyLiquidity(props) {
           amount_in,
           0,
           0,
-          address,
+          null,
           Date.now() + 10 * 60,
           {
             value: amount_out,
@@ -219,7 +201,7 @@ export default function SupplyLiquidity(props) {
           amount_out,
           0,
           0,
-          address,
+          null,
           Date.now() + 10 * 60
         );
       }
@@ -378,9 +360,7 @@ export default function SupplyLiquidity(props) {
               </p>
             </div>
             <div className="flex-1">
-              <h1 className="text-base text-symbol text-end">
-                Share of Pool
-              </h1>
+              <h1 className="text-base text-symbol text-end">Share of Pool</h1>
               <p className="text-gray-400 text-sm text-end">0%</p>
             </div>
           </div>

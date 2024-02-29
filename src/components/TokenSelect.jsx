@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useEthersProvider } from "hooks/useEthers";
-import { useAccount } from "wagmi";
 import { getBalance } from "utils/balanceHalper";
 import { toFixed } from "utils/customHelpers";
 import { useDebounce } from "use-debounce";
 
-export default function  TokenSelect({
+export default function TokenSelect({
   setOpen,
   token,
   setAmount,
@@ -18,8 +16,6 @@ export default function  TokenSelect({
   setDirection,
   tokenType,
 }) {
-  const provider = useEthersProvider();
-  const { address } = useAccount();
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
   const [localAmount, setLocalAmount] = useState("");
@@ -45,7 +41,7 @@ export default function  TokenSelect({
   };
 
   const fetchBalance = async (token) => {
-    const balance = await getBalance(address, token, provider);
+    const balance = await getBalance(null, token, null);
     setBalance(balance);
     setStates(Number(balance) > 0);
     setLoading(false);

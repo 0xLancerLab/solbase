@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 // Addresses
 import {
   getBWiLDAddress,
@@ -35,7 +34,7 @@ export const getDefaultGasPrice = () => {
 };
 
 const getContract = (abi, address, provider) => {
-  return new ethers.Contract(address, abi, provider);
+  return null;
 };
 
 export const getErc20Contract = (address, provider) => {

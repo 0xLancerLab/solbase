@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { fromReadableAmount, getAllowance } from "utils";
-import { useAccount, useNetwork } from "wagmi";
-import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import { zapList } from "config/farms";
 import { getZapAddress } from "utils/addressHelpers";
 import { getErc20Contract, getLpContract } from "utils/contractHelpers";
 import { didUserReject } from "utils/customHelpers";
-import { ethers } from "ethers";
 import { notify } from "utils/toastHelper";
 import { RiExchangeDollarLine } from "react-icons/ri";
 import TokenSelectModal from "components/TokenSelectModal";
@@ -16,10 +13,8 @@ import LogoLoading from "components/LogoLoading";
 import useZap from "hooks/useZap";
 
 export default function Swap() {
-  const signer = useEthersSigner();
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-  const provider = useEthersProvider();
+  const signer = null;
+  const provider = null;
   const [status, setStatus] = useState({
     insufficientA: false,
     insufficientB: false,
@@ -89,7 +84,7 @@ export default function Swap() {
   const checkAllowance = async (token, type) => {
     if (token.lpSymbol !== "ETH") {
       setIsCheckingAllowance(true);
-      const res = await getAllowance(address, token, zapAddress, provider);
+      const res = await getAllowance(null, token, zapAddress, provider);
       if (type === "A") {
         setTokenAAllowance(res);
       }
@@ -106,24 +101,6 @@ export default function Swap() {
     }
 
     try {
-      if (Number(tokenAAllowance) < Number(tokenAAmount)) {
-        console.log("approving...");
-        setIsApproving(true);
-        let tokenContract;
-        if (tokenA.isTokenOnly) {
-          tokenContract = getErc20Contract(tokenA.lpAddresses, signer);
-        } else {
-          tokenContract = getLpContract(tokenA.lpAddresses, signer);
-        }
-        const tx = await tokenContract.approve(
-          zapAddress,
-          ethers.constants.MaxUint256,
-          { from: address }
-        );
-        await tx.wait();
-        setIsApproving(false);
-        checkAllowance(tokenA, "A");
-      }
     } catch (e) {
       if (didUserReject(e)) {
         notify("error", "User rejected transaction");
@@ -199,7 +176,7 @@ export default function Swap() {
             setStates={handleSetTokenAAvailable}
             setInsufficient={handleSetInsufficientA}
             updateBalance={updateBalance}
-            setDirection={() => { }}
+            setDirection={() => {}}
             tokenType=""
           />
 
@@ -223,7 +200,7 @@ export default function Swap() {
             setStates={handleSetTokenBAvailable}
             setInsufficient={handleSetInsufficientB}
             updateBalance={updateBalance}
-            setDirection={() => { }}
+            setDirection={() => {}}
             tokenType=""
           />
 
@@ -274,10 +251,8 @@ export default function Swap() {
           tokens={zapList}
         />
       </div>
-      {pendingTx &&
-        <LogoLoading title="Zapping..." />}
-      {isApproving &&
-        <LogoLoading title="Approving..." />}
+      {pendingTx && <LogoLoading title="Zapping..." />}
+      {isApproving && <LogoLoading title="Approving..." />}
     </div>
   );
 }

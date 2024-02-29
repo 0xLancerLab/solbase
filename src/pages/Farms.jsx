@@ -18,15 +18,11 @@ import { latinise } from "utils/latinise";
 import { getFarmApr } from "utils/getApr";
 import { getBalanceNumber } from "utils/formatBalance";
 import isArchivedPid from "utils/farmHelpers";
-import { useBWiLDPerSecond } from "hooks/useTokenBalance";
 import { NUMBER_OF_FARMS_VISIBLE } from "config";
 import { useFarms, usePollFarmsData, usePriceBWiLDUsdc } from "state/hooks";
-import { useAccount } from "wagmi";
-import LogoLoading from "components/LogoLoading";
 
 export default function Farms() {
   const { pathname } = useLocation();
-  const { address } = useAccount();
   const isArchived = pathname.includes("archived");
   const isInactive = pathname.includes("history");
   const isActive = !isInactive && !isArchived;
@@ -43,13 +39,9 @@ export default function Farms() {
     NUMBER_OF_FARMS_VISIBLE
   );
   const [observerIsSet, setObserverIsSet] = useState(false);
-  const bWildPerSecond = useBWiLDPerSecond();
+  const bWildPerSecond = "0.01";
 
   const { data: farmsData, userDataLoaded } = useFarms();
-
-  useEffect(() => {
-    setUserDataReady(address || (address && userDataLoaded));
-  }, [address, userDataLoaded]);
 
   const farmsLP = farmsData.filter((farm) => farm.pid !== 1);
 
@@ -293,7 +285,7 @@ export default function Farms() {
           data={rowData}
           columns={columns}
           userDataReady={userDataReady}
-          account={address}
+          account={null}
         />
       );
     }

@@ -1,13 +1,6 @@
 import React from "react";
 
-export default function FarmControls({
-  options,
-  onChange,
-  checked,
-  onToggleChange,
-  query,
-  onSearchChange,
-}) {
+export default function FarmControls({ checked, onToggleChange }) {
   return (
     <div className="flex flex-col md:flex-row items-center gap-2 justify-between p-4 main_bg mt-5 rounded-md bg-secondary ">
       <div className="flex justify-between items-center gap-5 w-full md:w-fit">

@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getBalance } from "utils/balanceHalper";
 import { ImSpinner9 } from "react-icons/im";
-import { useEthersProvider } from "hooks/useEthers";
-import { useAccount } from "wagmi";
 import { toFixed } from "utils/customHelpers";
 export default function TokenItem({ token, disabledToken, handleToken }) {
-  const provider = useEthersProvider();
-  const { address } = useAccount();
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
-
-  useEffect(() => {
-    async function fetch() {
-      setLoading(true);
-
-      const balance = await getBalance(address, token, provider);
-      setBalance(balance);
-      setLoading(false);
-    }
-    if (address) fetch();
-  }, [address]);
-
 
   return (
     <>

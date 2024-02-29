@@ -1,16 +1,9 @@
-import { BigNumber, ethers } from "ethers";
-
 export function fromReadableAmount(amount, decimals) {
   if (!amount) return 0;
-  return ethers.utils.parseUnits(amount.toString(), decimals).toString();
 }
 
 export function toReadableAmount(rawAmount, decimals, fixed = decimals) {
   if (!rawAmount) return 0;
-  return toFixed(
-    Number(ethers.utils.formatUnits(rawAmount, decimals)?.toString()),
-    fixed
-  );
 }
 export const formatAddress = (address, segment) => {
   if (!address) return;

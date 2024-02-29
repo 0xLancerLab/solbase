@@ -13,11 +13,9 @@ import { Earned } from "./styles";
 import { Tooltip } from "react-tooltip";
 import Loading from "components/Loading";
 import { notify } from "utils/toastHelper";
-import { useAccount } from "wagmi";
 import ZapInModal from "components/ZapInModal";
 import CompoundModal from "components/CompoundModal";
 import { didUserReject } from "utils/customHelpers";
-import { useMasterchef } from "hooks/useContract";
 import LogoLoading from "components/LogoLoading";
 
 const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
@@ -33,9 +31,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
   const { onReward } = useHarvest(pid);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { address } = useAccount();
   const wildPrice = usePriceBWiLDUsdc()[0];
-  const masterChefContract = useMasterchef();
 
   useEffect(() => {
     const earningsBigNumber = new BigNumber(userData.earnings);
@@ -56,7 +52,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
         setPendingTx(false);
         return;
       }
-      dispatch(fetchFarmUserDataAsync({ address, pids: [pid] }));
+      dispatch(fetchFarmUserDataAsync({ account: null, pids: [pid] }));
       setPendingTx(false);
     } catch (e) {
       if (didUserReject(e)) {

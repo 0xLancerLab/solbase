@@ -8,8 +8,6 @@ import {
 import { BIG_ZERO } from "utils/bigNumber";
 import useRefresh from "./useRefresh";
 import useLastUpdated from "./useLastUpdated";
-import { useEthersProvider } from "./useEthers";
-import { useAccount, useNetwork } from "wagmi";
 import { CHAIN_ID } from "config";
 import { toReadableAmount } from "utils/customHelpers";
 const FetchStatus = {
@@ -24,14 +22,13 @@ const useTokenBalance = (tokenAddress) => {
     balance: BIG_ZERO,
     fetchStatus: NOT_FETCHED,
   });
-  const { address } = useAccount();
   const { fastRefresh } = useRefresh();
-  const provider = useEthersProvider();
+  const provider = null;
   useEffect(() => {
     const fetchBalance = async () => {
       try {
         const contract = getErc20Contract(tokenAddress, provider);
-        const res = await contract.balanceOf(address);
+        const res = await contract.balanceOf(null);
         setBalanceState({ balance: res, fetchStatus: SUCCESS });
       } catch (e) {
         console.log(e);
@@ -42,10 +39,10 @@ const useTokenBalance = (tokenAddress) => {
       }
     };
 
-    if (address && provider) {
+    if (provider) {
       fetchBalance();
     }
-  }, [address, tokenAddress, fastRefresh, SUCCESS, FAILED, provider]);
+  }, [tokenAddress, fastRefresh, SUCCESS, FAILED, provider]);
 
   return balanceState;
 };
@@ -53,19 +50,10 @@ const useTokenBalance = (tokenAddress) => {
 export const useTotalSupply = () => {
   const { fastRefresh } = useRefresh();
   const [totalSupply, setTotalSupply] = useState(0);
-  const { chain } = useNetwork();
-  const provider = useEthersProvider();
+  const provider = null;
   useEffect(() => {
-    async function fetchTotalSupply() {
-      const wildContract = getBWiLDContract(
-        provider,
-        chain ? chain.id : CHAIN_ID
-      );
-      const supply = await wildContract.totalSupply();
-      setTotalSupply(toReadableAmount(supply));
-    }
-    fetchTotalSupply();
-  }, [fastRefresh]);
+    setTotalSupply(9999);
+  }, []);
 
   return totalSupply;
 };
@@ -73,8 +61,7 @@ export const useTotalSupply = () => {
 export const useBWiLDPerSecond = () => {
   const { fastRefresh } = useRefresh();
   const [bWildPerSecond, setWildPerSecond] = useState(BIG_ZERO);
-  const { chain } = useNetwork();
-  const provider = useEthersProvider();
+  const provider = null;
 
   useEffect(() => {
     async function fetchWildPerSecond() {
@@ -87,7 +74,7 @@ export const useBWiLDPerSecond = () => {
       }
     }
     if (provider) fetchWildPerSecond();
-  }, [fastRefresh, provider]);
+  }, [provider]);
 
   return bWildPerSecond;
 };
@@ -95,7 +82,7 @@ export const useBWiLDPerSecond = () => {
 export const useBurnedBalance = (tokenAddress) => {
   const [balance, setBalance] = useState(BIG_ZERO);
   const { fastRefresh } = useRefresh();
-  const provider = useEthersProvider();
+  const provider = null;
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -115,40 +102,31 @@ export const useBurnedBalance = (tokenAddress) => {
 export const useBWiLDBurnedBalance = () => {
   const [balance, setBalance] = useState(BIG_ZERO);
   const { fastRefresh } = useRefresh();
-  const { chain } = useNetwork();
-  const provider = useEthersProvider();
+  const provider = null;
   useEffect(() => {
     const fetchBalance = async () => {
-      const wildContract = getBWiLDContract(
-        provider,
-        chain ? chain.id : CHAIN_ID
-      );
+      const wildContract = getBWiLDContract(provider, CHAIN_ID);
       const res = await wildContract.totalFees();
       setBalance(new BigNumber(res).div(new BigNumber(3))); // 1/3 of total fees are burning
     };
 
     fetchBalance();
-  }, [fastRefresh]);
+  }, []);
 
   return balance;
 };
 
 export const useGetBnbBalance = () => {
   const [balance, setBalance] = useState(BIG_ZERO);
-  const { address } = useAccount();
   const { lastUpdated, setLastUpdated } = useLastUpdated();
-  const provider = useEthersProvider();
+  const provider = null;
 
   useEffect(() => {
     const fetchBalance = async () => {
-      const walletBalance = await provider.getBalance(address);
+      const walletBalance = await provider.getBalance(null);
       setBalance(new BigNumber(walletBalance));
     };
-
-    if (address) {
-      fetchBalance();
-    }
-  }, [address, provider, lastUpdated, setBalance]);
+  }, [provider, lastUpdated, setBalance]);
 
   return { balance, refresh: setLastUpdated };
 };

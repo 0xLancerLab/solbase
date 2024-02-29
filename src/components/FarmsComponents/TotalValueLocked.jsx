@@ -2,10 +2,7 @@ import React from "react";
 import { useTotalSupply } from "hooks/useTokenBalance";
 import { usePriceBWiLDUsdc, useTotalValue } from "state/hooks";
 import CardValue from "./Staking/CardValue";
-import { convertCurrency, toReadableAmount } from "utils/customHelpers";
-import { useContractRead, erc20ABI } from "wagmi";
-import { getBWiLDAddress, getWethAddress } from "utils/addressHelpers";
-import wildABI from "config/abis/wild.json";
+import { convertCurrency } from "utils/customHelpers";
 
 export default function TotalValueLocked() {
   const tvlData = useTotalValue();
@@ -17,30 +14,8 @@ export default function TotalValueLocked() {
 
   const totalSupply = useTotalSupply();
   // 0xeAA13b4f85A98E6CcaF65606361BD590e98DE2Cb
-  const tokenABalanceRead = useContractRead({
-    address: getBWiLDAddress(),
-    abi: wildABI,
-    functionName: "balanceOf",
-    args: ["0x000000000000000000000000000000000000dead"],
-    chainId: 359,
-  });
-  const bWildBalanceRead = useContractRead({
-    address: getBWiLDAddress(),
-    abi: wildABI,
-    functionName: "balanceOf",
-    args: ["0xeAA13b4f85A98E6CcaF65606361BD590e98DE2Cb"],
-    chainId: 359,
-  });
-  const wethBalanceRead = useContractRead({
-    address: getWethAddress(),
-    abi: erc20ABI,
-    functionName: "balanceOf",
-    args: ["0xeAA13b4f85A98E6CcaF65606361BD590e98DE2Cb"],
-    chainId: 359,
-  });
 
-  const totalMinted =
-    totalSupply - toReadableAmount(tokenABalanceRead?.data, 18);
+  const totalMinted = totalSupply;
   return (
     <div className="flex-1 bg-secondary p-8 rounded-md ">
       <div className="text-3xl text-right  font-semibold text-symbol">
@@ -83,16 +58,7 @@ export default function TotalValueLocked() {
         </div>
         <div className="flex items-center justify-between">
           <p className="font-semibold">Total Burned</p>
-          <div>
-            {toReadableAmount(tokenABalanceRead?.data, 18) && (
-              <CardValue
-                fontSize="20px"
-                decimals={1}
-                value={Number(toReadableAmount(tokenABalanceRead?.data, 18))}
-                color="#fffff"
-              />
-            )}
-          </div>
+          <div>0</div>
         </div>
         <div className="flex items-center justify-between">
           <p className="font-semibold">Circulating Supply</p>

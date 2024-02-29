@@ -12,16 +12,10 @@ import {
   getValidPair,
 } from "utils";
 import { getRouterAddress } from "utils/addressHelper";
-import { useAccount, useNetwork } from "wagmi";
-import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import toast from "react-hot-toast";
 import { SubmitButton } from "./UI/SubmitButton";
 
 export default function WildSwapCard() {
-  const signer = useEthersSigner();
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-  const provider = useEthersProvider();
   const contracts = useContext(ContractContext);
   const [status, setStatus] = useState({
     insufficientA: false,
@@ -128,12 +122,7 @@ export default function WildSwapCard() {
   };
 
   const checkAllowance = async (token, type) => {
-    const res = await getAllowance(
-      address,
-      token,
-      getRouterAddress(),
-      provider
-    );
+    const res = await getAllowance(null, token, getRouterAddress(), null);
     if (type === "A") {
       setTokenAAllowance(res);
     } else {
@@ -146,11 +135,7 @@ export default function WildSwapCard() {
 
     if (type === "A") {
       try {
-        const res = await approveHandler(
-          tokenA,
-          Math.ceil(tokenAAmount),
-          signer
-        );
+        const res = await approveHandler(tokenA, Math.ceil(tokenAAmount), null);
         if (res) {
           toast.success(tokenA.symbol + " has been approved successfuly");
           setTokenAAllowance(Math.ceil(tokenAAmount));
@@ -164,11 +149,7 @@ export default function WildSwapCard() {
       }
     } else {
       try {
-        const res = await approveHandler(
-          tokenB,
-          Math.ceil(tokenBAmount),
-          signer
-        );
+        const res = await approveHandler(tokenB, Math.ceil(tokenBAmount), null);
         if (res) {
           toast.success(tokenB.symbol + " has been approved successfuly");
           setTokenBAllowance(Math.ceil(tokenBAmount));
@@ -209,7 +190,7 @@ export default function WildSwapCard() {
       const res = await approveHandler(
         tokenA,
         tokenAAmount - tokenAAllowance,
-        signer
+        null
       );
       toast.success(tokenA.symbol + " has been approved successfuly");
       setTokenAAllowance(res);
@@ -219,7 +200,7 @@ export default function WildSwapCard() {
       const res = await approveHandler(
         tokenB,
         tokenBAmount - tokenBAllowance,
-        signer
+        null
       );
       toast.success(tokenB.symbol + " has been approved successfuly");
       setTokenBAllowance(res);
@@ -231,7 +212,7 @@ export default function WildSwapCard() {
         amount_in,
         [tokenA.address, tokenB.address],
         {
-          from: address,
+          from: null,
         }
       );
       amount_out = amount_out[1]?.toString();
@@ -243,7 +224,7 @@ export default function WildSwapCard() {
         await contracts.routerSigner.swapExactETHForTokens(
           amount_out,
           [tokenA.address, tokenB.address],
-          address,
+          null,
           Date.now() + 10 * 60,
           {
             value: Web3.utils.toWei(tokenAAmount, "ether"),
@@ -254,7 +235,7 @@ export default function WildSwapCard() {
           amount_in,
           amount_out,
           [tokenA.address, tokenB.address],
-          address,
+          null,
           Date.now() + 10 * 60
         );
       } else {
@@ -262,7 +243,7 @@ export default function WildSwapCard() {
           amount_in,
           amount_out,
           [tokenA.address, tokenB.address],
-          address,
+          null,
           Date.now() + 10 * 60
         );
         setStatus({ ...status, swap: false });
@@ -279,7 +260,7 @@ export default function WildSwapCard() {
     if (tokenA && tokenB && contracts?.factoryProvider) {
       checkValidPair(tokenA, tokenB);
     }
-  }, [tokenA, tokenB, chain, contracts]);
+  }, [tokenA, tokenB, contracts]);
 
   return (
     <div className="card">

@@ -1,61 +1,59 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ToastContainer } from "react-toastify";
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-  darkTheme,
-} from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { base } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
 import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 import { RefreshContextProvider } from "context/RefreshContext";
-import ContractContextProvideer from "context/contracts";
 import { ThemeContextProvider } from "context/ThemeContext";
 import { LanguageProvider } from "context/Localization";
 import { ModalProvider } from "uikit";
 
-import { ALCHEMY_ID } from "config";
 import store from "state";
 
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
+
 const Providers = ({ children }) => {
-  const { chains, publicClient } = configureChains(
-    [base],
-    [alchemyProvider({ apiKey: ALCHEMY_ID }), publicProvider()]
+  let network = WalletAdapterNetwork.Devnet;
+  if (
+    process.env.REACT_PUBLIC_ENVIRONMENT === "mainnet-beta" ||
+    process.env.REACT_PUBLIC_ENVIRONMENT === "mainnet"
+  ) {
+    network = WalletAdapterNetwork.Mainnet;
+  }
+
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+
+  const wallets = useMemo(
+    () => [new UnsafeBurnerWalletAdapter()],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [network]
   );
 
-  const { connectors } = getDefaultWallets({
-    appName: "wildbase.fram",
-    projectId: "85ea32d265dfc865d0672c8b6b5c53d2",
-    chains,
-  });
-
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-  });
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} theme={darkTheme()}>
-        <Provider store={store}>
-          <HelmetProvider>
-            <ThemeContextProvider>
-              <LanguageProvider>
-                <RefreshContextProvider>
-                  <ContractContextProvideer>
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets}>
+        <WalletModalProvider>
+          <Provider store={store}>
+            <HelmetProvider>
+              <ThemeContextProvider>
+                <LanguageProvider>
+                  <RefreshContextProvider>
                     <ModalProvider>{children}</ModalProvider>
-                  </ContractContextProvideer>
-                </RefreshContextProvider>
-              </LanguageProvider>
-            </ThemeContextProvider>
-          </HelmetProvider>
-          <ToastContainer />
-        </Provider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+                  </RefreshContextProvider>
+                </LanguageProvider>
+              </ThemeContextProvider>
+            </HelmetProvider>
+            <ToastContainer />
+          </Provider>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 };
 
