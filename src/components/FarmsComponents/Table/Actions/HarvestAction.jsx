@@ -144,7 +144,6 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
                 data-tooltip-id="zap-tooltip"
                 data-tooltip-content="Stake to this pool from your wallet"
                 disabled={!userDataReady}
-                onClick={openModal}
               >
                 {t("Zap in")}
               </button>

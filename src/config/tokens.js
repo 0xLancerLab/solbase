@@ -2,10 +2,10 @@ import addresses from "constants/addresses";
 
 const tokens = {
   eth: {
-    symbol: "ETH",
+    symbol: "SOL",
     address: addresses.weth,
     decimals: 18,
-    logo: "/assets/tokens/eth.svg",
+    logo: "https://tokenmetrics.s3.amazonaws.com/icons/solana_large.png",
   },
   wild: {
     symbol: "$BILL",
@@ -15,8 +15,8 @@ const tokens = {
     projectLink: "https://wildbase.farm/", // todo:
   },
   weth: {
-    symbol: "WETH",
-    logo: "/assets/tokens/weth.png",
+    symbol: "WSOL",
+    logo: "https://tokenmetrics.s3.amazonaws.com/icons/solana_large.png",
     address: addresses.weth,
     decimals: 18,
   },

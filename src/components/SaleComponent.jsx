@@ -112,7 +112,7 @@ export default function SaleComponent({ saleData }) {
         </div>
       </div>
       <button
-        className="main_btn w-full my-2"
+        className="main_btn base_bg w-full my-2"
         onClick={(e) => handleBuyWild(e)}
       >
         BUY $BILL

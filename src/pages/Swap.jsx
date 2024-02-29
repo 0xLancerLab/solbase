@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { fromReadableAmount, getAllowance } from "utils";
 import { zapList } from "config/farms";
 import { getZapAddress } from "utils/addressHelpers";
-import { getErc20Contract, getLpContract } from "utils/contractHelpers";
 import { didUserReject } from "utils/customHelpers";
 import { notify } from "utils/toastHelper";
 import { RiExchangeDollarLine } from "react-icons/ri";
@@ -82,7 +81,7 @@ export default function Swap() {
   };
 
   const checkAllowance = async (token, type) => {
-    if (token.lpSymbol !== "ETH") {
+    if (token.lpSymbol !== "SOL") {
       setIsCheckingAllowance(true);
       const res = await getAllowance(null, token, zapAddress, provider);
       if (type === "A") {
@@ -117,10 +116,10 @@ export default function Swap() {
       setPendingTx(true);
       await onZap(
         tokenA.lpAddresses,
-        tokenA.lpSymbol === "ETH" ? true : false,
+        tokenA.lpSymbol === "SOL" ? true : false,
         fromReadableAmount(Number(tokenAAmount)),
         tokenB.lpAddresses,
-        tokenB.lpSymbol === "ETH" ? true : false
+        tokenB.lpSymbol === "SOL" ? true : false
       );
       refreshData();
       setPendingTx(false);
@@ -208,8 +207,8 @@ export default function Swap() {
             <button className="main_btn mt-8 hover:bg-symbolHover  flex justify-center disabled:opacity-50 disabled:hover:scale-100  w-full rounded-lg transition ease-in-out p-[8px] bg-secondary-700">
               <Loading title="Loading..." />
             </button>
-          ) : (tokenA.lpSymbol !== "ETH" && Number(tokenAAllowance) === 0) ||
-            (tokenA.lpSymbol !== "ETH" &&
+          ) : (tokenA.lpSymbol !== "SOL" && Number(tokenAAllowance) === 0) ||
+            (tokenA.lpSymbol !== "SOL" &&
               Number(tokenAAllowance) < Number(tokenAAmount)) ? (
             <button
               onClick={handleApprove}
@@ -222,13 +221,13 @@ export default function Swap() {
             <button
               onClick={handleDeposit}
               disabled={
-                (tokenA.lpSymbol !== "ETH" &&
+                (tokenA.lpSymbol !== "SOL" &&
                   Number(tokenAAllowance) < Number(tokenAAmount)) ||
                 status.insufficientA ||
                 pendingTx ||
                 isApproving
               }
-              className="main_btn mt-8 hover:bg-symbolHover disabled:opacity-50 disabled:hover:scale-100  w-full rounded-lg transition ease-in-out p-[8px] bg-secondary-700"
+              className="main_btn base_bg mt-8 hover:bg-symbolHover disabled:opacity-50 disabled:hover:scale-100  w-full rounded-lg transition ease-in-out p-[8px] bg-secondary-700"
             >
               {`Swap ${tokenA.lpSymbol} into ${tokenB.lpSymbol}`}
             </button>

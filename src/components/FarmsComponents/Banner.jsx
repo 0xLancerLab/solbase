@@ -26,8 +26,11 @@ export default function FarmBanner() {
     <div className="flex justify-center flex-col md:flex-row bg-secondary rounded-md">
       <div className="p-3 md:p-12 md:w-1/2 w-full text-center md:text-left">
         <h1 className="text-7xl">
-          Earn $BILL <br />
-          <span className="text-symbol font-semibold"> on Solana</span>
+          Earn $BILL <br /> on
+          <span className="text-symbol font-semibold text-green-500 sol-text">
+            {" "}
+            Solana
+          </span>
         </h1>
       </div>
       <div className="flex justify-end p-3 md:p-6 w-fill md:w-1/2">
@@ -39,7 +42,7 @@ export default function FarmBanner() {
           />
           <div className="w-full col-span-12 lg:col-span-7">
             <div className="flex items-center justify-center gap-2">
-              <a className="main_btn w-full" href="/presale">
+              <a className="main_btn base_bg w-full" href="/presale">
                 Buy $BILL
               </a>
             </div>

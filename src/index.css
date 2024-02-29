@@ -46,7 +46,7 @@ body {
 }
 
 .main_btn {
-  @apply py-2 font-semibold  rounded-full text-center relative hover:text-white transition ease-in-out duration-500 hover:scale-105 hover:bg-symbolHover bg-white shadow-black shadow-2xl  text-black;
+  @apply py-2 font-semibold  rounded-full text-center relative hover:text-white transition ease-in-out duration-500 hover:scale-105 shadow-black shadow-2xl  text-black;
 }
 
 /* .main_btn::before {
@@ -106,7 +106,15 @@ body {
 }
 
 .base_bg {
-  @apply bg-white text-black rounded-full;
+ background: linear-gradient(270deg,#ab66ff,#14f195 101.39%);
+}
+.solana-bg {
+  background: linear-gradient(101.11deg,#f087ff 14.47%,#6e1fce 39.43%,rgba(110,31,206,.1) 76.77%);
+}
+.sol-text {
+  background: linear-gradient(270deg,#ab66ff,#14f195 101.39%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .IKcpG {

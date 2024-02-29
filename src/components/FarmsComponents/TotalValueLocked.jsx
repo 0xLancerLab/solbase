@@ -18,7 +18,7 @@ export default function TotalValueLocked() {
   const totalMinted = totalSupply;
   return (
     <div className="flex-1 bg-secondary p-8 rounded-md ">
-      <div className="text-3xl text-right  font-semibold text-symbol">
+      <div className="text-3xl text-right  font-semibold text-symbol sol-text">
         Total Value Locked
       </div>
       <div className="mb-5">
@@ -30,7 +30,7 @@ export default function TotalValueLocked() {
           <div />
         )}
       </div>
-      <div className="text-3xl text-right mb-5">$BILL Stats</div>
+      <div className="text-3xl text-right mb-5 sol-text">$BILL Stats</div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <p className="font-semibold">Liquidity</p>
