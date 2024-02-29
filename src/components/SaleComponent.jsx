@@ -31,20 +31,7 @@ export default function SaleComponent({ saleData }) {
       notify("error", "Presale is ended");
       return;
     }
-
     let ethPrice;
-    const priceData = await fetch(
-      "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
-    );
-    const res = await priceData.json();
-    if (res && res.USD) {
-      ethPrice = res.USD;
-    }
-
-    if (!ethPrice) {
-      notify("danger", "Can't get eth price.");
-      return;
-    }
 
     try {
       const ethAmountToSend = (amount * 12) / Number(ethPrice);
@@ -58,7 +45,7 @@ export default function SaleComponent({ saleData }) {
         value: fromReadableAmount(Number(ethAmountToSend).toFixed(5)),
       });
       await tx.wait();
-      notify("success", `You bought ${amount} BWILD successfully`);
+      notify("success", `You bought ${amount} $BILL successfully`);
     } catch (error) {
       if (didUserReject(error)) {
         notify("warning", "User Rejected transaction");
@@ -70,41 +57,18 @@ export default function SaleComponent({ saleData }) {
     }
   };
 
-  console.log(saleData)
+  console.log(saleData);
 
   return (
     <div>
       <div className="balance_form">
         {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
         <div className="my-8">
-          {/* <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Total Raised:</div>
-            <div>{saleData?.total_deposited || "0"} ETH</div>
-          </div> */}
-          <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Your Committed:</div>
-            <div>{saleData?.user_deposits || "0"} ETH</div>
-          </div>
-          {/* <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Token Sale Contract:</div>
-            <div>
-              <a
-                href={`${BASE_EXPLORER}/address/${getPresaleAddress()}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className=" text-symbol"
-              >
-                {formatAddress(getPresaleAddress(), 4)}
-              </a>
-            </div>
-          </div> */}
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Presale Price:</div>
             <div>
               <p className="flex gap-1">
-                <span className={"font-semibold text-green-500"}>
-                  ${privateWILDPrice}
-                </span>
+                <span className={"font-semibold text-green-500"}>0.33 SOL</span>
               </p>
             </div>
           </div>
@@ -112,28 +76,26 @@ export default function SaleComponent({ saleData }) {
             <div> Launch Price:</div>
             <div>
               <p className="flex gap-1">
-                <span className={"font-semibold text-green-500"}>
-                  $14
-                </span>
+                <span className={"font-semibold text-green-500"}>0.5 SOL</span>
               </p>
             </div>
           </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Your ETH Balance:</div>
+            <div> Your SOL Balance:</div>
             <div>
               {Number(data?.formatted).toFixed(5) === "NaN"
                 ? "0.000"
                 : Number(data?.formatted).toFixed(5)}{" "}
-              ETH
+              SOL
             </div>
           </div>
         </div>
         <div>
-          <div> BWILD Amount to Buy</div>
+          <div> $BILL Amount to Buy</div>
           <input
             className="w-full rounded-md py-1 bg-primary/20 px-3 mb-3 hover:outline-none focus-visible:outline-none border border-symbol/70"
             type="number"
-            placeholder="Input BWILD amount to Buy."
+            placeholder="Input $BILL amount to Buy."
             value={amount}
             onChange={(e) => handleChange(e.target.value)}
           />

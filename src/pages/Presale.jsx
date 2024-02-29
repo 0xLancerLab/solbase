@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useAccount, useNetwork } from "wagmi";
-import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
+import { useAccount } from "wagmi";
+import { useEthersSigner } from "hooks/useEthers";
 import { toReadableAmount } from "utils/customHelpers";
-import ClaimComponent from "components/ClaimComponent";
 import SaleComponent from "components/SaleComponent";
 import useRefresh from "hooks/useRefresh";
-import PresaleABI from "config/abis/presale.json";
 import PresaleForkABI from "config/abis/presaleFork.json";
 import { getPresaleAddress, getPresaleForkAddress } from "utils/addressHelpers";
 import multicall from "utils/multicall";
 import { CountDownComponent } from "../components/CountDown";
-import { getPresaleForkContract } from "utils/contractHelpers";
 
 export default function Presale() {
   const preslaeContractAddress = getPresaleAddress();
@@ -127,7 +124,6 @@ export default function Presale() {
     }
   }, [address]);
 
-
   console.log(presaleData);
 
   return (
@@ -135,7 +131,7 @@ export default function Presale() {
       {!presaleData?.sale_finalized && !ended && (
         <>
           <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
-            BWiLD SALE ENDS IN:
+            $BILL SALE ENDS IN:
           </p>
           <CountDownComponent setEnded={setEnded} />
         </>
@@ -150,25 +146,11 @@ export default function Presale() {
           }`}
           onClick={() => setActive(0)}
         >
-          Sale
-        </div>
-        <div
-          className={`tab_button py-[2px!important]  ${
-            active === 1
-              ? "main_btn hover:scale-[100%!important] hover:bg-[white!important] hover:text-[black!important]"
-              : ""
-          }`}
-          onClick={() => setActive(1)}
-        >
-          Claim
+          Presale $BILL
         </div>
       </div>
       <div className="bg-secondary px-4 py-6 rounded-lg">
-        {active === 0 ? (
-          <SaleComponent saleData={presaleData} />
-        ) : (
-          <ClaimComponent saleData={presaleData} />
-        )}
+        <SaleComponent saleData={presaleData} />
       </div>
       <img
         src="/assets/stickers/wild1.png"

@@ -8,7 +8,7 @@ const tokens = {
     logo: "/assets/tokens/eth.svg",
   },
   wild: {
-    symbol: "BWiLD",
+    symbol: "$BILL",
     address: addresses.wild,
     decimals: 18,
     logo: "/assets/tokens/wildx.png",

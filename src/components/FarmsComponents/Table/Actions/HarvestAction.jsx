@@ -51,7 +51,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
     try {
       setPendingTx(true);
       const res = await onReward(false);
-      console.log('harvest', res)
+      console.log("harvest", res);
       if (res === false) {
         setPendingTx(false);
         return;
@@ -103,7 +103,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
     <div className="flex flex-row items-center  justify-between md:justify-around gap-4  p-2 lg:p-4 w-full">
       <div className="flex flex-col justify-between gap-2 w-full">
         <div className="text-white text-md font-semibold">
-          BWiLD &nbsp;
+          $BILL &nbsp;
           {t("Earned")}
         </div>
         <Earned>{displayBalance}</Earned>
@@ -136,14 +136,12 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
                 data-tooltip-content={
                   earnings.eq(0) || pendingCompoundTx || !userDataReady
                     ? "Stake tokens first to use it"
-                    : "Restake your BWiLD profit to BWiLD pool"
+                    : "Restake your $BILL profit to $BILL pool"
                 }
                 disabled={earnings.eq(0) || pendingCompoundTx || !userDataReady}
                 onClick={openCompoundModal}
               >
-
-                {t(`Compound`)
-                }
+                {t(`Compound`)}
               </button>
               <button
                 className="rounded-md w-full px-2 py-1 text-white text-center font-medium duration-300 hover:text-white transition ease-in-out hover:scale-105  base_bg hover:bg-symbolHover"
@@ -173,8 +171,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
       )}
 
       {pendingTx && <LogoLoading title="Harvesting..." />}
-      {pendingCompoundTx &&
-        <Loading title="Compounding..." />}
+      {pendingCompoundTx && <Loading title="Compounding..." />}
     </div>
   );
 };

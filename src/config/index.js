@@ -127,7 +127,7 @@ export const routes = [
   //   url: "/nft-claim",
   // },
   {
-    name: "Vested",
+    name: "Presale",
     url: "/presale",
   },
 ];

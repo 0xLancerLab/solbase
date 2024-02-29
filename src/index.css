@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "NippoBold";
-  src: local("NippoBold"),
-    url("/public/fonts//NippoBold.ttf") format("opentype");
+  font-family: 'NippoBold';
+  src: local('NippoBold'),
+    url('/public/fonts//NippoBold.ttf') format('opentype');
 }
 
 @font-face {
-  font-family: "NippoExtralight";
-  src: local("NippoExtralight"),
-    url("/public/fonts//NippoExtralight.ttf") format("opentype");
+  font-family: 'NippoExtralight';
+  src: local('NippoExtralight'),
+    url('/public/fonts//NippoExtralight.ttf') format('opentype');
 }
 
 @font-face {
-  font-family: "NippoLight";
-  src: local("NippoLight"),
-    url("/public/fonts//NippoLight.ttf") format("opentype");
+  font-family: 'NippoLight';
+  src: local('NippoLight'),
+    url('/public/fonts//NippoLight.ttf') format('opentype');
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +38,7 @@
 
 body {
   @apply min-h-screen m-0 bg-primary text-gray-300;
-  font-family: "NippoLight" !important;
+  font-family: 'NippoLight' !important;
 }
 
 .buy_card {
@@ -105,23 +105,23 @@ body {
   @apply rounded-xl bg-secondary py-8 px-6 w-full max-w-[540px] m-8;
 }
 
-.base_bg  {
+.base_bg {
   @apply bg-white text-black rounded-full;
 }
 
 .IKcpG {
-  background: #111c29!important;
-  border-bottom: 1px solid #347cf70f!important;
+  background: #111c29 !important;
+  border-bottom: 1px solid #347cf70f !important;
 }
 
 .hllvoW {
-  background: #111c29!important;
+  background: #111c29 !important;
 }
 
 .haxTeh {
-  border: 1px solid #31455de0!important;
-  box-shadow: none!important;
-  background: none!important;
+  border: 1px solid #31455de0 !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
 .circle_animation {
@@ -154,7 +154,8 @@ td {
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(-25%);
     animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
