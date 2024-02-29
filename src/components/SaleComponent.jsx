@@ -72,8 +72,6 @@ export default function SaleComponent({ saleData }) {
     }
   };
 
-  console.log(saleData);
-
   return (
     <div>
       <div className="balance_form">
