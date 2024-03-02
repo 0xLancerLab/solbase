@@ -4,7 +4,7 @@ import { notify } from "utils/toastHelper";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-const presalePrice = 0.33;
+const presalePrice = 0.003;
 const recipientKey = "CbyYnVQ9ofDPzQEYudqp1f6iZVXzvRNYuVkcQA31apc6";
 
 export default function SaleComponent({ saleData }) {
@@ -91,7 +91,9 @@ export default function SaleComponent({ saleData }) {
             <div> Launch Price:</div>
             <div>
               <p className="flex gap-1">
-                <span className={"font-semibold text-green-500"}>0.5 SOL</span>
+                <span className={"font-semibold text-green-500"}>
+                  0.004 SOL
+                </span>
               </p>
             </div>
           </div>
