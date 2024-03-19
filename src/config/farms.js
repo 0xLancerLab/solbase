@@ -124,17 +124,17 @@ const farmsConfig = [
   //   logoA: tokens.weth.logo,
   //   logoB: tokens.weth.logo,
   // },
-  // {
-  //   pid: 4,
-  //   lpSymbol: "BWiLDNFT",
-  //   lpAddresses: addresses.nft,
-  //   isTokenOnly: true,
-  //   isNFTPool: true,
-  //   token: tokens.nft,
-  //   quoteToken: tokens.wild,
-  //   logoA: "/assets/tokens/nft.png",
-  //   logoB: "",
-  // },
+  {
+    pid: 4,
+    lpSymbol: "BiLLNFT",
+    lpAddresses: addresses.nft,
+    isTokenOnly: true,
+    isNFTPool: true,
+    token: tokens.nft,
+    quoteToken: tokens.wild,
+    logoA: "/assets/tokens/nft.png",
+    logoB: "",
+  },
 ];
 
 export default farmsConfig;
