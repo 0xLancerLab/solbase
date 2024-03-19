@@ -134,8 +134,7 @@ export const mintText = [
 ];
 
 //header image in the ui. replace with your own
-export const image =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZsa0xJkv9MgCJpMoRMtRkMshIQ1xQc0VVzA&usqp=CAU";
+export const image = "/assets/soldog.jpg";
 
 //website title
 export const headerText = "SolDOG NFT";
