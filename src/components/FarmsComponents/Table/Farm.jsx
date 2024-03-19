@@ -117,7 +117,7 @@ const Farm = ({
         <TokenWrapper>
           <StyledPrimaryImage
             variant="inverted"
-            src="/assets/tokens/wildx.png"
+            src="/assets/tokens/bill.webp"
             width={imgSize}
             height={imgSize}
           />
@@ -126,7 +126,7 @@ const Farm = ({
       <div>
         {handleRenderFarming()}
         <p className="font-semibold text-sm lg:text-lg">{label}</p>
-        {depositFee !== '0' && (
+        {depositFee !== "0" && (
           <p className="lg:text-[12px] lg:w-[99px] text-[10px]">
             Deposit fee:{" "}
             <DepositFee

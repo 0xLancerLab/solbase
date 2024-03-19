@@ -17,62 +17,18 @@ export default function TotalValueLocked() {
 
   const totalMinted = totalSupply;
   return (
-    <div className="flex-1 bg-secondary p-8 rounded-md ">
+    <div className="flex gap-4 items-center justify-center bg-primary p-2 rounded-md ">
       <div className="text-3xl text-right  font-semibold text-symbol sol-text">
-        Total Value Locked
+        TVL:
       </div>
-      <div className="mb-5">
+      <div className="flex items-center justify-center">
         {tvlData !== null ? (
-          <div color="#fff" className="text-2xl font-semibold text-right pb-3">
-            {`$${tvl}`} staked
+          <div color="#fff" className="text-2xl font-semibold text-right">
+            {`$${tvl}`}
           </div>
         ) : (
           <div />
         )}
-      </div>
-      <div className="text-3xl text-right mb-5 sol-text">$BILL Stats</div>
-      <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Liquidity</p>
-          <div className="h-30 ">
-            {liquidity > 0 ? (
-              <span className="text-[20px] font-semibold">
-                $ {convertCurrency(liquidity)}
-              </span>
-            ) : (
-              <div />
-            )}
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Market Cap</p>
-          <div className="h-30 ">
-            {marketCap > 0 ? (
-              <span className="text-[20px] font-semibold">
-                $ {convertCurrency(marketCap)}
-              </span>
-            ) : (
-              <div />
-            )}
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Total Burned</p>
-          <div>0</div>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="font-semibold">Circulating Supply</p>
-          <div>
-            {totalSupply && (
-              <CardValue
-                fontSize="20px"
-                value={totalMinted}
-                decimals={1}
-                color="#fffff"
-              />
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );

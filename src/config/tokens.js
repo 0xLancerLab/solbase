@@ -5,18 +5,18 @@ const tokens = {
     symbol: "SOL",
     address: addresses.weth,
     decimals: 18,
-    logo: "https://tokenmetrics.s3.amazonaws.com/icons/solana_large.png",
+    logo: "/assets/tokens/solana.png",
   },
   wild: {
     symbol: "$BILL",
     address: addresses.wild,
     decimals: 18,
-    logo: "/assets/tokens/wildx.png",
+    logo: "/assets/tokens/bill.webp",
     projectLink: "https://wildbase.farm/", // todo:
   },
   weth: {
     symbol: "WSOL",
-    logo: "https://tokenmetrics.s3.amazonaws.com/icons/solana_large.png",
+    logo: "/assets/tokens/solana.png",
     address: addresses.weth,
     decimals: 18,
   },

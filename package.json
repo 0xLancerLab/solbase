@@ -16,6 +16,8 @@
     "@testing-library/user-event": "^13.5.0",
     "bignumber.js": "^9.1.2",
     "firebase": "^10.5.2",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.7.3",
     "hamburger-react": "^2.5.0",
     "moment": "^2.29.4",
     "postcss-preset-env": "^9.1.3",

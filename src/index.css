@@ -140,6 +140,10 @@ body {
   @apply bg-secondary/90 backdrop-blur-sm;
 }
 
+.bg-sidebar {
+  background-color: #1221423f;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

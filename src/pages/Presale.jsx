@@ -141,12 +141,12 @@ export default function Presale() {
         <SaleComponent saleData={presaleData} />
       </div>
       <img
-        src="/assets/stickers/wild1.png"
+        src="/assets/stickers/presale-left.webp"
         alt=""
         className="fixed animate-pulse duration-1000 w-[150px] sm:w-[300px] md:w-[400px] lg:w-[500px] -z-[999] sm:inline-block bottom-8 left-3"
       />
       <img
-        src="/assets/stickers/wild2.png"
+        src="/assets/stickers/presale-right.webp"
         alt=""
         className="fixed animate-pulse duration-1000 w-[150px] sm:w-[300px] md:w-[400px] lg:w-[500px] -z-[999] sm:inline-block bottom-8 right-3"
       />

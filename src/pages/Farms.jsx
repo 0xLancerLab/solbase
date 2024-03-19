@@ -7,8 +7,6 @@ import React, {
 } from "react";
 import BigNumber from "bignumber.js";
 import FarmBanner from "components/FarmsComponents/Banner";
-import FarmStaking from "components/FarmsComponents/StakingInfo";
-import TotalValueLocked from "components/FarmsComponents/TotalValueLocked";
 import FarmControls from "components/FarmsComponents/Controls";
 import FarmTables from "components/FarmsComponents/Tables";
 import { getSortOptions, DesktopColumnSchema } from "constants";
@@ -295,10 +293,6 @@ export default function Farms() {
     <div className="flex justify-center w-full md:max-w-7xl mt-12">
       <div className="container m-3">
         <FarmBanner />
-        <div className="flex gap-5 flex-col md:flex-row mt-5">
-          <FarmStaking />
-          <TotalValueLocked />
-        </div>
         <FarmControls
           options={getSortOptions()}
           onChange={handleSortOptionChange}
