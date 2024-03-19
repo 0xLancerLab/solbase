@@ -46,6 +46,12 @@ import {
 import { useSolanaTime } from "context/SolanaTimeContext";
 import { verifyTx } from "utils/verifyTx";
 import { base58 } from "@metaplex-foundation/umi/serializers";
+import {
+  REACT_PUBLIC_BUYMARKBEER,
+  REACT_PUBLIC_LUT,
+  REACT_PUBLIC_MULTIMINT,
+} from "config";
+import BigInt from "big-integer";
 
 const updateLoadingText = (loadingText, guardList, label, setGuardList) => {
   const guardIndex = guardList.findIndex((g) => g.label === label);
@@ -99,7 +105,7 @@ const mintClick = async (
   }
 
   let buyBeer = true;
-  if (!process.env.REACT_PUBLIC_BUYMARKBEER) {
+  if (!REACT_PUBLIC_BUYMARKBEER) {
     buyBeer = false;
     console.log("The Creator does not want to pay for MarkSackerbergs beer 😒");
   }
@@ -133,7 +139,7 @@ const mintClick = async (
 
     // fetch LUT
     let tables = [];
-    const lut = process.env.REACT_PUBLIC_LUT;
+    const lut = REACT_PUBLIC_LUT;
     if (lut) {
       const lutPubKey = publicKey(lut);
       const fetchedLut = await fetchAddressLookupTable(umi, lutPubKey);
@@ -305,18 +311,18 @@ const Timer = ({ solanaTime, toTime, setCheckEligibility }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTime((prev) => {
-        return prev - 1;
+        return prev - BigInt(1);
       });
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   //convert the remaining time in seconds to the amount of days, hours, minutes and seconds left
-  const days = remainingTime / 86400;
-  const hours = (remainingTime % 86400) / 3600;
-  const minutes = (remainingTime % 3600) / 60;
-  const seconds = remainingTime % 60;
-  if (days > 0) {
+  const days = remainingTime / BigInt(86400);
+  const hours = (remainingTime % BigInt(86400)) / BigInt(3600);
+  const minutes = (remainingTime % BigInt(3600)) / BigInt(60);
+  const seconds = remainingTime % BigInt(60);
+  if (days > BigInt(0)) {
     return (
       <Text fontSize="sm" fontWeight="bold">
         {days.toLocaleString("en-US", {
@@ -342,7 +348,7 @@ const Timer = ({ solanaTime, toTime, setCheckEligibility }) => {
       </Text>
     );
   }
-  if (hours > 0) {
+  if (hours > BigInt(0)) {
     return (
       <Text fontSize="sm" fontWeight="bold">
         {hours.toLocaleString("en-US", {
@@ -363,7 +369,7 @@ const Timer = ({ solanaTime, toTime, setCheckEligibility }) => {
       </Text>
     );
   }
-  if (minutes > 0 || seconds > 0) {
+  if (minutes > BigInt(0) || seconds > BigInt(0)) {
     return (
       <Text fontSize="sm" fontWeight="bold">
         {minutes.toLocaleString("en-US", {
@@ -379,7 +385,7 @@ const Timer = ({ solanaTime, toTime, setCheckEligibility }) => {
       </Text>
     );
   }
-  if (remainingTime === 0) {
+  if (remainingTime === BigInt(0)) {
     setCheckEligibility(true);
   }
   return <Text></Text>;
@@ -438,7 +444,7 @@ export function ButtonList({
 
     let buttonElement = {
       label: guard ? guard.label : "default",
-      allowed: guard.allowed,
+      allowed: guard.allowed || true,
       header: text ? text.header : "header missing in settings.tsx",
       mintText: text ? text.mintText : "mintText missing in settings.tsx",
       buttonLabel: text
@@ -497,7 +503,7 @@ export function ButtonList({
           {buttonGuard.mintText}
         </Text>
         <VStack>
-          {process.env.REACT_PUBLIC_MULTIMINT && buttonGuard.allowed ? (
+          {REACT_PUBLIC_MULTIMINT && buttonGuard.allowed ? (
             <NumberInput
               value={numberInputValues[buttonGuard.label] || 1}
               min={1}

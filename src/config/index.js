@@ -16,6 +16,21 @@ export const wethUsdcFarmPid = 1;
 export const YEAR = 60 * 60 * 24 * 365;
 export const YEAR_BN = new BigNumber(YEAR);
 
+export const REACT_PUBLIC_CANDY_MACHINE_ID =
+  "92Aiz7PZhwJX5A53hieyDoYLq9BsQWT7Fpd8Br1tREEB" ||
+  process.env.REACT_PUBLIC_CANDY_MACHINE_ID;
+export const REACT_PUBLIC_MULTIMINT =
+  true || process.env.REACT_PUBLIC_MULTIMINT;
+export const REACT_PUBLIC_MAXMINTAMOUNT =
+  15 || process.env.REACT_PUBLIC_MAXMINTAMOUNT;
+export const REACT_PUBLIC_LUT = "" || process.env.REACT_PUBLIC_LUT;
+export const REACT_PUBLIC_ENVIRONMENT =
+  "devnet" || process.env.REACT_PUBLIC_ENVIRONMENT;
+export const REACT_PUBLIC_RPC =
+  "https://api.devnet.solana.com" || process.env.REACT_PUBLIC_RPC;
+export const REACT_PUBLIC_BUYMARKBEER =
+  true || process.env.REACT_PUBLIC_BUYMARKBEER;
+
 export const mainTokenSymbol = "BWiLD";
 
 export const BASE_EXCHANGE_URL_BY_CHAIN = {

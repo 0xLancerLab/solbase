@@ -38,7 +38,7 @@ import { ShowNft } from "components/NFTComponents/showNft";
 import { InitializeModal } from "components/NFTComponents/initializeModal";
 import { image, headerText } from "config";
 import { useSolanaTime } from "context/SolanaTimeContext";
-
+import { REACT_PUBLIC_CANDY_MACHINE_ID } from "config";
 const useCandyMachine = (
   umi,
   candyMachineId,
@@ -158,7 +158,7 @@ export default function NFTClaim() {
   const [firstRun, setFirstRun] = useState(true);
   const [checkEligibility, setCheckEligibility] = useState(true);
 
-  if (!process.env.REACT_PUBLIC_CANDY_MACHINE_ID) {
+  if (!REACT_PUBLIC_CANDY_MACHINE_ID) {
     console.error("No candy machine in .env!");
     if (!toast.isActive("no-cm")) {
       toast({
@@ -172,8 +172,8 @@ export default function NFTClaim() {
     }
   }
   const candyMachineId = useMemo(() => {
-    if (process.env.REACT_PUBLIC_CANDY_MACHINE_ID) {
-      return publicKey(process.env.REACT_PUBLIC_CANDY_MACHINE_ID);
+    if (REACT_PUBLIC_CANDY_MACHINE_ID) {
+      return publicKey(REACT_PUBLIC_CANDY_MACHINE_ID);
     } else {
       console.error(`NO CANDY MACHINE IN .env FILE DEFINED!`);
       toast({
@@ -234,57 +234,37 @@ export default function NFTClaim() {
 
   const PageContent = () => {
     return (
-      <>
-        <style jsx global>
-          {`
-            body {
-              background: #2d3748;
-            }
-          `}
-        </style>
-        <Card>
-          <CardHeader>
-            <Flex minWidth="max-content" alignItems="center" gap="2">
-              <Box>
-                <Heading size="md">{headerText}</Heading>
-              </Box>
-              {loading ? (
-                <></>
-              ) : (
-                <Flex justifyContent="flex-end" marginLeft="auto">
-                  <Box
-                    background={"teal.100"}
-                    borderRadius={"5px"}
-                    minWidth={"50px"}
-                    minHeight={"50px"}
-                    p={2}
-                  >
-                    <VStack>
-                      <Text fontSize={"sm"}>Available NFTs:</Text>
-                      <Text fontWeight={"semibold"}>
-                        {Number(candyMachine?.data.itemsAvailable) -
-                          Number(candyMachine?.itemsRedeemed)}
-                        /{Number(candyMachine?.data.itemsAvailable)}
-                      </Text>
-                    </VStack>
-                  </Box>
-                </Flex>
-              )}
-            </Flex>
-          </CardHeader>
+      <div className="flex w-full justify-center items-center">
+        <div className="flex flex-col justify-center items-center bg-secondary p-8 rounded-lg">
+          <div className="flex flex-col items-center w-full">
+            <div>
+              <div className="font-semibold text-2xl">{headerText}</div>
+            </div>
+            {loading ? (
+              <></>
+            ) : (
+              <div className="flex flex-row w-full gap-4 items-center justify-center bg-primary mt-5 py-3 rounded-lg">
+                <Text>Available NFTs:</Text>
+                <Text fontWeight={"semibold"}>
+                  {Number(candyMachine?.data.itemsAvailable) -
+                    Number(candyMachine?.itemsRedeemed)}
+                  / {Number(candyMachine?.data.itemsAvailable)}
+                </Text>
+              </div>
+            )}
+          </div>
 
-          <CardBody>
-            <Center>
-              <Box rounded={"lg"} mt={-12} pos={"relative"}>
-                <Image
-                  rounded={"lg"}
-                  height={230}
-                  objectFit={"cover"}
-                  alt={"project Image"}
-                  src={image}
-                />
-              </Box>
-            </Center>
+          <div>
+            <div className="flex justify-center rounded-lg mt-12 relative">
+              <Image
+                rounded={"lg"}
+                height={400}
+                width={400}
+                objectFit={"cover"}
+                alt={"project Image"}
+                src={image}
+              />
+            </div>
             <Stack divider={<StackDivider />} spacing="8">
               {loading ? (
                 <div>
@@ -308,8 +288,8 @@ export default function NFTClaim() {
                 />
               )}
             </Stack>
-          </CardBody>
-        </Card>
+          </div>
+        </div>
         {umi.identity.publicKey === candyMachine?.authority ? (
           <>
             <Center>
@@ -350,13 +330,9 @@ export default function NFTClaim() {
             </ModalBody>
           </ModalContent>
         </Modal>
-      </>
+      </div>
     );
   };
 
-  return (
-    <div className="text-center">
-      <PageContent key="content" />
-    </div>
-  );
+  return <PageContent key="content" />;
 }

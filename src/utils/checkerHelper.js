@@ -1,8 +1,4 @@
 import {
-  Allocation,
-  CandyMachine,
-  GuardSet,
-  MintLimit,
   safeFetchAllocationTrackerFromSeeds,
   safeFetchMintCounterFromSeeds,
 } from "@metaplex-foundation/mpl-candy-machine";
@@ -10,16 +6,9 @@ import {
   fetchToken,
   findAssociatedTokenPda,
 } from "@metaplex-foundation/mpl-toolbox";
-import {
-  PublicKey,
-  SolAmount,
-  Some,
-  Umi,
-  publicKey,
-} from "@metaplex-foundation/umi";
-import { DigitalAssetWithToken } from "@metaplex-foundation/mpl-token-metadata";
+import { publicKey } from "@metaplex-foundation/umi";
 import { createStandaloneToast } from "@chakra-ui/react";
-
+import { REACT_PUBLIC_MAXMINTAMOUNT } from "config";
 export const addressGateChecker = (wallet, address) => {
   if (wallet != address) {
     return false;
@@ -173,12 +162,12 @@ export const calculateMintable = (mintableAmount, newAmount) => {
     mintableAmount = newAmount;
   }
 
-  if (!process.env.REACT_PUBLIC_MAXMINTAMOUNT) return mintableAmount;
+  if (!REACT_PUBLIC_MAXMINTAMOUNT) return mintableAmount;
   let maxmintamount = 0;
   try {
-    maxmintamount = Number(process.env.REACT_PUBLIC_MAXMINTAMOUNT);
+    maxmintamount = Number(REACT_PUBLIC_MAXMINTAMOUNT);
   } catch (e) {
-    console.error("process.env.REACT_PUBLIC_MAXMINTAMOUNT is not a number!", e);
+    console.error("REACT_PUBLIC_MAXMINTAMOUNT is not a number!", e);
     return mintableAmount;
   }
   if (mintableAmount > maxmintamount) {
