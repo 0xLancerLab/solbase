@@ -1,125 +1,362 @@
-import React, { useEffect, useState } from "react";
-import { useNFTContract } from "hooks/useContract";
-import NFTCard from "components/NFTCard";
-import { notify } from "utils/toastHelper";
-import useRefresh from "hooks/useRefresh";
-import { didUserReject } from "utils/customHelpers";
-import RecentBuys from "components/RecentBuys";
-import LogoLoading from "components/LogoLoading";
+import { publicKey } from "@metaplex-foundation/umi";
 
-export default function Zap() {
-  const [nfts, setNfts] = useState(0);
-  const [myTokenIds, setMyTokenIds] = useState([]);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [stats, setStats] = useState(true);
-  const nftContract = useNFTContract();
-  const { fastRefresh } = useRefresh();
-  const signer = null;
+import { useEffect, useMemo, useState } from "react";
+import { useUmi } from "context/useUmi";
+import {
+  fetchCandyMachine,
+  safeFetchCandyGuard,
+  AccountVersion,
+} from "@metaplex-foundation/mpl-candy-machine";
+import { guardChecker } from "utils/checkAllowed";
+import {
+  Center,
+  Card,
+  CardHeader,
+  CardBody,
+  StackDivider,
+  Heading,
+  Stack,
+  useToast,
+  Text,
+  Skeleton,
+  useDisclosure,
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  Image,
+  ModalHeader,
+  ModalOverlay,
+  Box,
+  Divider,
+  VStack,
+  Flex,
+} from "@chakra-ui/react";
+import { ButtonList } from "components/NFTComponents/mintButton";
+import { ShowNft } from "components/NFTComponents/showNft";
+import { InitializeModal } from "components/NFTComponents/initializeModal";
+import { image, headerText } from "config";
+import { useSolanaTime } from "context/SolanaTimeContext";
 
-  const getAvailableNFTs = async () => {
-    const availableNFTs = await nftContract.getMaximumAmountCanMint(null);
-    const myNFTs = await nftContract.balanceOf(null);
-    if (Number(myNFTs) > 0) {
-      const tokenIds = await nftContract.walletOfOwner(null);
-      setMyTokenIds(tokenIds);
-    }
-
-    setNfts(Number(availableNFTs));
-  };
-
-  const claimNFT = async () => {
-    if (nfts < 1) return;
-    try {
-      setIsProcessing(true);
-      const tx = await nftContract.mint();
-      await tx.wait();
-      setIsProcessing(false);
-      notify("success", "you have successfully claimed an NFT");
-      await getAvailableNFTs();
-    } catch (e) {
-      if (didUserReject(e)) {
-        notify("error", "User Rejected Transaction");
-      } else {
-        console.log(e);
-        notify("error", e.reason);
-      }
-      setIsProcessing(false);
-    }
-  };
+const useCandyMachine = (
+  umi,
+  candyMachineId,
+  checkEligibility,
+  setCheckEligibility,
+  firstRun,
+  setfirstRun
+) => {
+  const [candyMachine, setCandyMachine] = useState();
+  const [candyGuard, setCandyGuard] = useState();
+  const toast = useToast();
 
   useEffect(() => {
-    if (signer) getAvailableNFTs();
-  }, [signer]);
+    (async () => {
+      if (checkEligibility) {
+        if (!candyMachineId) {
+          console.error("No candy machine in .env!");
+          if (!toast.isActive("no-cm")) {
+            toast({
+              id: "no-cm",
+              title: "No candy machine in .env!",
+              description: "Add your candy machine address to the .env file!",
+              status: "error",
+              duration: 999999,
+              isClosable: true,
+            });
+          }
+          return;
+        }
 
-  const NFTClaim = () => {
-    if (nfts === 0) {
-      return (
-        <p className="text-center text-blacks">
-          You don't have any NFT(s) to claim.
-        </p>
-      );
-    }
+        let candyMachine;
+        try {
+          candyMachine = await fetchCandyMachine(
+            umi,
+            publicKey(candyMachineId)
+          );
+          //verify CM Version
+          if (candyMachine.version != AccountVersion.V2) {
+            toast({
+              id: "wrong-account-version",
+              title: "Wrong candy machine account version!",
+              description:
+                "Please use latest sugar to create your candy machine. Need Account Version 2!",
+              status: "error",
+              duration: 999999,
+              isClosable: true,
+            });
+            return;
+          }
+        } catch (e) {
+          console.error(e);
+          toast({
+            id: "no-cm-found",
+            title: "The CM from .env is invalid",
+            description: "Are you using the correct environment?",
+            status: "error",
+            duration: 999999,
+            isClosable: true,
+          });
+        }
+        setCandyMachine(candyMachine);
+        if (!candyMachine) {
+          return;
+        }
+        let candyGuard;
+        try {
+          candyGuard = await safeFetchCandyGuard(
+            umi,
+            candyMachine.mintAuthority
+          );
+        } catch (e) {
+          console.error(e);
+          toast({
+            id: "no-guard-found",
+            title: "No Candy Guard found!",
+            description: "Do you have one assigned?",
+            status: "error",
+            duration: 999999,
+            isClosable: true,
+          });
+        }
+        if (!candyGuard) {
+          return;
+        }
+        setCandyGuard(candyGuard);
+        if (firstRun) {
+          setfirstRun(false);
+        }
+      }
+    })();
+  }, [umi, checkEligibility]);
 
-    if (nfts) {
-      return (
-        <p className="text-center text-blacks">
-          You have {nfts} NFT(s) to claim.
-        </p>
-      );
+  return { candyMachine, candyGuard };
+};
+
+export default function NFTClaim() {
+  const umi = useUmi();
+  const solanaTime = useSolanaTime();
+  const toast = useToast();
+  const {
+    isOpen: isShowNftOpen,
+    onOpen: onShowNftOpen,
+    onClose: onShowNftClose,
+  } = useDisclosure();
+  const {
+    isOpen: isInitializerOpen,
+    onOpen: onInitializerOpen,
+    onClose: onInitializerClose,
+  } = useDisclosure();
+  const [mintsCreated, setMintsCreated] = useState();
+  const [isAllowed, setIsAllowed] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [ownedTokens, setOwnedTokens] = useState();
+  const [guards, setGuards] = useState([
+    { label: "startDefault", allowed: false, maxAmount: 0 },
+  ]);
+  const [firstRun, setFirstRun] = useState(true);
+  const [checkEligibility, setCheckEligibility] = useState(true);
+
+  if (!process.env.REACT_PUBLIC_CANDY_MACHINE_ID) {
+    console.error("No candy machine in .env!");
+    if (!toast.isActive("no-cm")) {
+      toast({
+        id: "no-cm",
+        title: "No candy machine in .env!",
+        description: "Add your candy machine address to the .env file!",
+        status: "error",
+        duration: 999999,
+        isClosable: true,
+      });
     }
+  }
+  const candyMachineId = useMemo(() => {
+    if (process.env.REACT_PUBLIC_CANDY_MACHINE_ID) {
+      return publicKey(process.env.REACT_PUBLIC_CANDY_MACHINE_ID);
+    } else {
+      console.error(`NO CANDY MACHINE IN .env FILE DEFINED!`);
+      toast({
+        id: "no-cm",
+        title: "No candy machine in .env!",
+        description: "Add your candy machine address to the .env file!",
+        status: "error",
+        duration: 999999,
+        isClosable: true,
+      });
+      return publicKey("11111111111111111111111111111111");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const { candyMachine, candyGuard } = useCandyMachine(
+    umi,
+    candyMachineId,
+    checkEligibility,
+    setCheckEligibility,
+    firstRun,
+    setFirstRun
+  );
+
+  useEffect(() => {
+    const checkEligibilityFunc = async () => {
+      if (!candyMachine || !candyGuard || !checkEligibility || isShowNftOpen) {
+        return;
+      }
+      setFirstRun(false);
+
+      const { guardReturn, ownedTokens } = await guardChecker(
+        umi,
+        candyGuard,
+        candyMachine,
+        solanaTime
+      );
+
+      setOwnedTokens(ownedTokens);
+      setGuards(guardReturn);
+      setIsAllowed(false);
+
+      let allowed = false;
+      for (const guard of guardReturn) {
+        if (guard.allowed) {
+          allowed = true;
+          break;
+        }
+      }
+
+      setIsAllowed(allowed);
+      setLoading(false);
+    };
+
+    checkEligibilityFunc();
+    // On purpose: not check for candyMachine, candyGuard, solanaTime
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [umi, checkEligibility, firstRun]);
+
+  const PageContent = () => {
+    return (
+      <>
+        <style jsx global>
+          {`
+            body {
+              background: #2d3748;
+            }
+          `}
+        </style>
+        <Card>
+          <CardHeader>
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <Box>
+                <Heading size="md">{headerText}</Heading>
+              </Box>
+              {loading ? (
+                <></>
+              ) : (
+                <Flex justifyContent="flex-end" marginLeft="auto">
+                  <Box
+                    background={"teal.100"}
+                    borderRadius={"5px"}
+                    minWidth={"50px"}
+                    minHeight={"50px"}
+                    p={2}
+                  >
+                    <VStack>
+                      <Text fontSize={"sm"}>Available NFTs:</Text>
+                      <Text fontWeight={"semibold"}>
+                        {Number(candyMachine?.data.itemsAvailable) -
+                          Number(candyMachine?.itemsRedeemed)}
+                        /{Number(candyMachine?.data.itemsAvailable)}
+                      </Text>
+                    </VStack>
+                  </Box>
+                </Flex>
+              )}
+            </Flex>
+          </CardHeader>
+
+          <CardBody>
+            <Center>
+              <Box rounded={"lg"} mt={-12} pos={"relative"}>
+                <Image
+                  rounded={"lg"}
+                  height={230}
+                  objectFit={"cover"}
+                  alt={"project Image"}
+                  src={image}
+                />
+              </Box>
+            </Center>
+            <Stack divider={<StackDivider />} spacing="8">
+              {loading ? (
+                <div>
+                  <Divider my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                </div>
+              ) : (
+                <ButtonList
+                  guardList={guards}
+                  candyMachine={candyMachine}
+                  candyGuard={candyGuard}
+                  umi={umi}
+                  ownedTokens={ownedTokens}
+                  setGuardList={setGuards}
+                  mintsCreated={mintsCreated}
+                  setMintsCreated={setMintsCreated}
+                  onOpen={onShowNftOpen}
+                  setCheckEligibility={setCheckEligibility}
+                />
+              )}
+            </Stack>
+          </CardBody>
+        </Card>
+        {umi.identity.publicKey === candyMachine?.authority ? (
+          <>
+            <Center>
+              <Button
+                backgroundColor={"red.200"}
+                marginTop={"10"}
+                onClick={onInitializerOpen}
+              >
+                Initialize Everything!
+              </Button>
+            </Center>
+            <Modal isOpen={isInitializerOpen} onClose={onInitializerClose}>
+              <ModalOverlay />
+              <ModalContent maxW="600px">
+                <ModalHeader>Initializer</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <InitializeModal
+                    umi={umi}
+                    candyMachine={candyMachine}
+                    candyGuard={candyGuard}
+                  />
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          </>
+        ) : (
+          <></>
+        )}
+
+        <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Your minted NFT:</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <ShowNft nfts={mintsCreated} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </>
+    );
   };
 
   return (
-    <div className="container">
-      <div className="flex my-6 py-1 bg-secondary w-fit mx-auto rounded-full">
-        <button
-          onClick={() => setStats(true)}
-          className="text-center w-32 py-2 px-4 rounded-l-full border-[#243753e8]    transition ease-in-out"
-        >
-          My NFTs
-        </button>
-      </div>
-
-      {!stats ? (
-        <RecentBuys last={12} />
-      ) : (
-        <>
-          <div
-            className={`grid ${
-              myTokenIds.length >= 3
-                ? "md:grid-cols-3"
-                : myTokenIds.length == 0
-                ? "md:grid-cols-1"
-                : "md:grid-cols-" + myTokenIds.length
-            } grid-cols-1 gap-4 mt-16 max-w-[800px] mx-auto`}
-          >
-            {myTokenIds && myTokenIds.length > 0 ? (
-              myTokenIds.map((tokenId, index) => (
-                <NFTCard key={index} tokenId={tokenId} />
-              ))
-            ) : (
-              <div className="w-full max-w-[250px] max-h-[300px] p-4 rounded-lg bg-secondary mx-auto">
-                <img
-                  src={"/assets/stickers/NFT.webp"}
-                  alt="token"
-                  className="w-full py-2 border-opacity-30"
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="flex justify-center items-center pb-16 m-2 mt-12">
-            <button
-              className="main_btn rounded-xl w-full max-w-sm flex justify-center px-6 py-3 hover:scale-105 transition ease-in-out mt-9"
-              disabled={!nfts}
-              onClick={() => claimNFT()}
-            >
-              {NFTClaim()}
-            </button>
-          </div>
-        </>
-      )}
-      {isProcessing && <LogoLoading title="Claiming NFT..." />}
+    <div className="text-center">
+      <PageContent key="content" />
     </div>
   );
 }

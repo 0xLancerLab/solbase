@@ -109,6 +109,22 @@ export const socials = [
   },
 ];
 
+export const mintText = [
+  {
+    label: "default",
+    mintText: "Mint SOLDOG NFT",
+    buttonLabel: "Mint now!",
+    header: "Default",
+  },
+];
+
+//header image in the ui. replace with your own
+export const image =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZsa0xJkv9MgCJpMoRMtRkMshIQ1xQc0VVzA&usqp=CAU";
+
+//website title
+export const headerText = "SolDOG NFT";
+
 export const routes = [
   {
     name: "Farm",

@@ -17,6 +17,9 @@ import {
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+import { SolanaTimeProvider } from "context/SolanaTimeContext";
+import { UmiProvider } from "utils/UmiProvider";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const Providers = ({ children }) => {
   let network = WalletAdapterNetwork.Devnet;
@@ -34,24 +37,39 @@ const Providers = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [network]
   );
-
+  const theme = extendTheme({
+    styles: {
+      global: () => ({
+        body: {
+          bg: "",
+          color: "",
+        },
+      }),
+    },
+  });
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets}>
-        <WalletModalProvider>
-          <Provider store={store}>
-            <HelmetProvider>
-              <ThemeContextProvider>
-                <LanguageProvider>
-                  <RefreshContextProvider>
-                    <ModalProvider>{children}</ModalProvider>
-                  </RefreshContextProvider>
-                </LanguageProvider>
-              </ThemeContextProvider>
-            </HelmetProvider>
-            <ToastContainer />
-          </Provider>
-        </WalletModalProvider>
+        <UmiProvider endpoint={endpoint}>
+          <WalletModalProvider>
+            <SolanaTimeProvider>
+              <Provider store={store}>
+                <HelmetProvider>
+                  <ThemeContextProvider>
+                    <LanguageProvider>
+                      <RefreshContextProvider>
+                        <ChakraProvider theme={theme}>
+                          <ModalProvider>{children}</ModalProvider>
+                        </ChakraProvider>
+                      </RefreshContextProvider>
+                    </LanguageProvider>
+                  </ThemeContextProvider>
+                </HelmetProvider>
+                <ToastContainer />
+              </Provider>
+            </SolanaTimeProvider>
+          </WalletModalProvider>
+        </UmiProvider>
       </WalletProvider>
     </ConnectionProvider>
   );

@@ -67,7 +67,7 @@ export default function Sidebar() {
                 rel="noopener noreferrer"
               >
                 <svg
-                  className="w-6 h-6 sol-text dark:text-white"
+                  className="w-6 h-6  dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -77,13 +77,13 @@ export default function Sidebar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M10 12v1h4v-1m4 7H6a1 1 0 0 1-1-1V9h14v9a1 1 0 0 1-1 1ZM4 5h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
                   />
                 </svg>
 
-                <span className="ms-3 sol-text">Farms</span>
+                <span className="ms-3 ">Farms</span>
               </a>
             </li>
             <li
@@ -97,7 +97,7 @@ export default function Sidebar() {
                 rel="noopener noreferrer"
               >
                 <svg
-                  className="w-6 h-6 sol-text dark:text-white"
+                  className="w-6 h-6  dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -107,14 +107,14 @@ export default function Sidebar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m16 10 3-3m0 0-3-3m3 3H5v3m3 4-3 3m0 0 3 3m-3-3h14v-3"
                   />
                 </svg>
 
-                <span className="ms-3 sol-text">Swap</span>
+                <span className="ms-3 ">Swap</span>
               </a>
             </li>
             <li
@@ -128,7 +128,7 @@ export default function Sidebar() {
                 rel="noopener noreferrer"
               >
                 <svg
-                  className="w-6 h-6 sol-text dark:text-white"
+                  className="w-6 h-6  dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -138,14 +138,14 @@ export default function Sidebar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M6 12c.263 0 .524-.06.767-.175a2 2 0 0 0 .65-.491c.186-.21.333-.46.433-.734.1-.274.15-.568.15-.864a2.4 2.4 0 0 0 .586 1.591c.375.422.884.659 1.414.659.53 0 1.04-.237 1.414-.659A2.4 2.4 0 0 0 12 9.736a2.4 2.4 0 0 0 .586 1.591c.375.422.884.659 1.414.659.53 0 1.04-.237 1.414-.659A2.4 2.4 0 0 0 16 9.736c0 .295.052.588.152.861s.248.521.434.73a2 2 0 0 0 .649.488 1.809 1.809 0 0 0 1.53 0 2.03 2.03 0 0 0 .65-.488c.185-.209.332-.457.433-.73.1-.273.152-.566.152-.861 0-.974-1.108-3.85-1.618-5.121A.983.983 0 0 0 17.466 4H6.456a.986.986 0 0 0-.93.645C5.045 5.962 4 8.905 4 9.736c.023.59.241 1.148.611 1.567.37.418.865.667 1.389.697Zm0 0c.328 0 .651-.091.94-.266A2.1 2.1 0 0 0 7.66 11h.681a2.1 2.1 0 0 0 .718.734c.29.175.613.266.942.266.328 0 .651-.091.94-.266.29-.174.537-.427.719-.734h.681a2.1 2.1 0 0 0 .719.734c.289.175.612.266.94.266.329 0 .652-.091.942-.266.29-.174.536-.427.718-.734h.681c.183.307.43.56.719.734.29.174.613.266.941.266a1.819 1.819 0 0 0 1.06-.351M6 12a1.766 1.766 0 0 1-1.163-.476M5 12v7a1 1 0 0 0 1 1h2v-5h3v5h7a1 1 0 0 0 1-1v-7m-5 3v2h2v-2h-2Z"
                   />
                 </svg>
 
-                <span className="ms-3 sol-text">NFT's</span>
+                <span className="ms-3 ">NFT's</span>
               </a>
             </li>
             <li
@@ -159,7 +159,7 @@ export default function Sidebar() {
                 rel="noopener noreferrer"
               >
                 <svg
-                  className="w-6 h-6 sol-text dark:text-white"
+                  className="w-6 h-6  dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -169,13 +169,13 @@ export default function Sidebar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeWidth="2"
                     d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
                   />
                 </svg>
 
-                <span className="ms-3 sol-text">Presale</span>
+                <span className="ms-3 ">Presale</span>
               </a>
             </li>
             <li className="sidebar_item">
@@ -186,7 +186,7 @@ export default function Sidebar() {
                 rel="noopener noreferrer"
               >
                 <svg
-                  className="w-6 h-6 sol-text dark:text-white"
+                  className="w-6 h-6  dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -196,14 +196,14 @@ export default function Sidebar() {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"
                   />
                 </svg>
 
-                <span className="ms-3 sol-text">Docs</span>
+                <span className="ms-3 ">Docs</span>
               </a>
             </li>
           </ul>

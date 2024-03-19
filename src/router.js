@@ -5,7 +5,7 @@ const Swap = lazy(() => import("pages/Swap"));
 const Liquidity = lazy(() => import("pages/Liquidity"));
 const NotFound = lazy(() => import("pages/Notfound"));
 const Farms = lazy(() => import("pages/Farms"));
-const NFT = lazy(() => import("pages/NftClaim"));
+const NFTClaim = lazy(() => import("pages/NftClaim"));
 const Presale = lazy(() => import("pages/Presale"));
 
 const router = createBrowserRouter([
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   // },
   {
     path: "/nfts",
-    element: <NFT />,
+    element: <NFTClaim />,
   },
   {
     path: "/presale",

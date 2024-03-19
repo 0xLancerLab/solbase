@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'NippoBold';
-  src: local('NippoBold'),
-    url('/public/fonts//NippoBold.ttf') format('opentype');
+  font-family: "NippoBold";
+  src: local("NippoBold"),
+    url("/public/fonts//NippoBold.ttf") format("opentype");
 }
 
 @font-face {
-  font-family: 'NippoExtralight';
-  src: local('NippoExtralight'),
-    url('/public/fonts//NippoExtralight.ttf') format('opentype');
+  font-family: "NippoExtralight";
+  src: local("NippoExtralight"),
+    url("/public/fonts//NippoExtralight.ttf") format("opentype");
 }
 
 @font-face {
-  font-family: 'NippoLight';
-  src: local('NippoLight'),
-    url('/public/fonts//NippoLight.ttf') format('opentype');
+  font-family: "NippoLight";
+  src: local("NippoLight"),
+    url("/public/fonts//NippoLight.ttf") format("opentype");
 }
 
 ::-webkit-scrollbar {
@@ -38,7 +38,7 @@
 
 body {
   @apply min-h-screen m-0 bg-primary text-gray-300;
-  font-family: 'NippoLight' !important;
+  font-family: "NippoLight" !important;
 }
 
 .buy_card {
@@ -106,13 +106,18 @@ body {
 }
 
 .base_bg {
- background: linear-gradient(270deg,#ab66ff,#14f195 101.39%);
+  background: linear-gradient(270deg, #ab66ff, #14f195 101.39%);
 }
 .solana-bg {
-  background: linear-gradient(101.11deg,#f087ff 14.47%,#6e1fce 39.43%,rgba(110,31,206,.1) 76.77%);
+  background: linear-gradient(
+    101.11deg,
+    #f087ff 14.47%,
+    #6e1fce 39.43%,
+    rgba(110, 31, 206, 0.1) 76.77%
+  );
 }
 .sol-text {
-  background: linear-gradient(270deg,#ab66ff,#14f195 101.39%);
+  background: linear-gradient(270deg, #ab66ff, #14f195 101.39%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
