@@ -43,6 +43,7 @@ const Providers = ({ children }) => {
         body: {
           bg: "",
           color: "",
+          input: "",
         },
       }),
     },

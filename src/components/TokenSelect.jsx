@@ -146,7 +146,7 @@ export default function TokenSelect({
           {!selectOnly && (
             <input
               type="number"
-              className="text-xl text-gray-200 text-end flex items-center bg-red"
+              className="text-xl text-gray-200 text-end flex items-center bg-red border-none focus:outline-none focus:border-none hover:border-none"
               placeholder="0.0"
               min={0}
               value={localAmount}
