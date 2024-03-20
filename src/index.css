@@ -2,24 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "NippoBold";
-  src: local("NippoBold"),
-    url("/public/fonts//NippoBold.ttf") format("opentype");
-}
-
-@font-face {
-  font-family: "NippoExtralight";
-  src: local("NippoExtralight"),
-    url("/public/fonts//NippoExtralight.ttf") format("opentype");
-}
-
-@font-face {
-  font-family: "NippoLight";
-  src: local("NippoLight"),
-    url("/public/fonts//NippoLight.ttf") format("opentype");
-}
-
 ::-webkit-scrollbar {
   @apply w-0.5 rounded-full;
 }
@@ -37,8 +19,10 @@
 }
 
 body {
-  @apply min-h-screen m-0 bg-primary text-gray-300;
-  font-family: "NippoLight" !important;
+  @apply min-h-screen m-0 bg-black text-gray-300;
+  font-family: Helvetica, Arial, system-ui, -apple-system, Segoe UI, Roboto,
+    Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 
 .buy_card {

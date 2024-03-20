@@ -1,4 +1,3 @@
-import { CircleBackground } from "components/CircleBackground";
 import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -11,19 +10,6 @@ export default function index({ children }) {
       <div className="p-4 sm:ml-64">
         <div className="flex w-full justify-center  min-h-[calc(100vh-90px)] pb-[100px] relative px-1">
           {children}
-        </div>
-        <div className="fixed -z-10 top-40 left-1/2 -translate-x-1/2 w-100">
-          <img
-            src="/assets/background.png"
-            alt=""
-            className="w-100 min-w-[500px] sm:min-w-[600px] md:min-w-[900px] opacity-70"
-          />
-        </div>
-        <div className="fixed -z-10 lg:top-32 top-28 left-1/2 -translate-x-1/2 w-100">
-          <CircleBackground
-            color="white"
-            className="circle_animation -z-10 lg:w-[700px] lg:h-[700px] md:w-[500px] md:h-[500px] sm:w-[400px] sm:h-[400px]  w-[3s00px] h-[3s00px] "
-          />
         </div>
       </div>
 

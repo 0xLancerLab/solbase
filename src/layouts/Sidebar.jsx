@@ -206,6 +206,13 @@ export default function Sidebar() {
                 <span className="ms-3 ">Docs</span>
               </a>
             </li>
+            <li>
+              <div className="flex items-center justify-center gap-2 w-full mb-2">
+                <a className="main_btn base_bg w-2/3" href="/presale">
+                  Buy $BILL
+                </a>
+              </div>
+            </li>
           </ul>
           <Footer />
         </div>

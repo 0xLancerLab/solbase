@@ -88,7 +88,7 @@ const farmsConfig = [
     isNFTPool: false,
     token: tokens.wild,
     quoteToken: tokens.weth,
-    logoA: tokens.wild.logo,
+    logoA: "/assets/tokens/billLp.webp",
     logoB: tokens.weth.logo,
   },
   {
@@ -110,8 +110,8 @@ const farmsConfig = [
     isNFTPool: false,
     token: tokens.wild,
     quoteToken: tokens.wild,
-    logoA: tokens.wild.logo,
-    logoB: tokens.wild.logo,
+    logoA: "/assets/tokens/bill.webp",
+    logoB: "/assets/tokens/billLp.webp",
   },
   // {
   //   pid: 3,
@@ -132,7 +132,7 @@ const farmsConfig = [
     isNFTPool: true,
     token: tokens.nft,
     quoteToken: tokens.wild,
-    logoA: "/assets/tokens/nft.png",
+    logoA: "/assets/tokens/nft.webp",
     logoB: "",
   },
 ];

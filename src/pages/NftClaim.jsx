@@ -39,6 +39,7 @@ import { InitializeModal } from "components/NFTComponents/initializeModal";
 import { image, headerText } from "config";
 import { useSolanaTime } from "context/SolanaTimeContext";
 import { REACT_PUBLIC_CANDY_MACHINE_ID } from "config";
+import { CountDownComponent } from "components/CountDown";
 const useCandyMachine = (
   umi,
   candyMachineId,
@@ -157,6 +158,7 @@ export default function NFTClaim() {
   ]);
   const [firstRun, setFirstRun] = useState(true);
   const [checkEligibility, setCheckEligibility] = useState(true);
+  const [ended, setEnded] = useState(false);
 
   if (!REACT_PUBLIC_CANDY_MACHINE_ID) {
     console.error("No candy machine in .env!");
@@ -240,7 +242,7 @@ export default function NFTClaim() {
             <div>
               <div className="font-semibold text-2xl">{headerText}</div>
             </div>
-            {loading ? (
+            {/* {loading ? (
               <></>
             ) : (
               <div className="flex flex-row w-full gap-4 items-center justify-center bg-primary mt-5 py-3 rounded-lg">
@@ -251,7 +253,7 @@ export default function NFTClaim() {
                   / {Number(candyMachine?.data.itemsAvailable)}
                 </Text>
               </div>
-            )}
+            )} */}
           </div>
 
           <div>
@@ -266,7 +268,12 @@ export default function NFTClaim() {
               />
             </div>
             <Stack divider={<StackDivider />} spacing="8">
-              {loading ? (
+              <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
+                $BILL NFT SALE STARTS IN
+              </p>
+              <CountDownComponent endDate={1711552461000} setEnded={setEnded} />
+
+              {/* {loading ? (
                 <div>
                   <Divider my="10px" />
                   <Skeleton height="30px" my="10px" />
@@ -274,19 +281,21 @@ export default function NFTClaim() {
                   <Skeleton height="30px" my="10px" />
                 </div>
               ) : (
-                <ButtonList
-                  guardList={guards}
-                  candyMachine={candyMachine}
-                  candyGuard={candyGuard}
-                  umi={umi}
-                  ownedTokens={ownedTokens}
-                  setGuardList={setGuards}
-                  mintsCreated={mintsCreated}
-                  setMintsCreated={setMintsCreated}
-                  onOpen={onShowNftOpen}
-                  setCheckEligibility={setCheckEligibility}
-                />
-              )}
+                <>
+                </>
+                // <ButtonList
+                //   guardList={guards}
+                //   candyMachine={candyMachine}
+                //   candyGuard={candyGuard}
+                //   umi={umi}
+                //   ownedTokens={ownedTokens}
+                //   setGuardList={setGuards}
+                //   mintsCreated={mintsCreated}
+                //   setMintsCreated={setMintsCreated}
+                //   onOpen={onShowNftOpen}
+                //   setCheckEligibility={setCheckEligibility}
+                // />
+              )} */}
             </Stack>
           </div>
         </div>

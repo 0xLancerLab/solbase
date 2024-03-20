@@ -5,7 +5,7 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 const presalePrice = 0.003;
-const recipientKey = "CbyYnVQ9ofDPzQEYudqp1f6iZVXzvRNYuVkcQA31apc6";
+const recipientKey = "9v5wQgrEeMnWFqHWhottspa3GJKhKJ2pQx6SSYFM8XuV";
 
 export default function SaleComponent({ saleData }) {
   const [amount, setAmount] = useState("");

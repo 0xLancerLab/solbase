@@ -5,11 +5,6 @@ export default function Footer() {
   return (
     <div className="fixed bottom-3 md:text-md text-sm ml-6">
       <div className=" justify-center flex flex-col items-center w-full">
-        <div className="flex items-center justify-center gap-2 w-full mb-2">
-          <a className="main_btn base_bg w-full" href="/presale">
-            Buy $BILL
-          </a>
-        </div>
         <div className="flex justify-center items-center mb-2">
           (C) SOLBASE {moment().format("YYYY")}
           <span className="font-semibold mx-2">( v1.0 )</span>
