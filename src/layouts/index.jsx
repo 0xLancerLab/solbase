@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-export default function index({ children }) {
+export default function Layout({ children }) {
+  const [toggle, setToggle] = useState(false);
+  const handleToggle = (e) => {
+    e.preventDefault();
+    setToggle(!toggle);
+  };
   return (
     <div>
       <Header />
-      <Sidebar />
+      <Sidebar toggle={toggle} handleToggle={handleToggle} />
       <div className="p-4 sm:ml-64">
         <div className="flex w-full justify-center  min-h-[calc(100vh-90px)] pb-[100px] relative px-1">
           {children}

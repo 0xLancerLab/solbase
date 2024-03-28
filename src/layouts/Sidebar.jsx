@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import Footer from "./Footer";
 
-export default function Sidebar() {
+export default function Sidebar({ toggle, handleToggle }) {
   const currentUrl = window.location.pathname;
-  const [toggle, setToggle] = useState(false);
-  const handleToggle = (e) => {
-    e.preventDefault();
-    setToggle(!toggle);
-  };
   console.log(toggle);
   return (
-    <div>
+    <div
+      className={` ${
+        toggle ? "absolute z-[59] top-2 w-screen h-screen max-w-screen" : ""
+      } items-center `}
+    >
       <button
         data-drawer-target="default-sidebar"
         data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar"
         type="button"
         onClick={(e) => handleToggle(e)}
-        className={`fixed top-2 transition-transform ${
-          toggle ? "translate-x-[250px]" : "translate-x-0"
-        } z-60 items-center p-2 mt-2 ms-3 sm:fixed text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+        className={`fixed transition-transform ${
+          toggle
+            ? "translate-x-[250px] bg-gray-200  w-screen h-screen max-w-screen bg-[#0c1221c7]"
+            : "translate-x-0 top-2 p-2 mt-2  bg-[#0c1221c7]"
+        } z-[9999] ms-3 sm:fixed text-sm text-gray-500 rounded-lg sm:hidden focus:outline-none dark:text-gray-400`}
       >
         <span className="sr-only">Open sidebar</span>
         <svg
@@ -44,7 +45,11 @@ export default function Sidebar() {
         } `}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-sidebar rounded-md w-full">
+        <div
+          className={`h-full px-3 py-4 overflow-y-auto ${
+            toggle ? "bg-gray-900" : "bg-sidebar"
+          }   rounded-md w-full`}
+        >
           <ul className="space-y-4 font-medium sidebar_list">
             <li>
               <div className="">
