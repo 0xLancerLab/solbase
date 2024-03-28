@@ -15,7 +15,12 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
+import {
+  UnsafeBurnerWalletAdapter,
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+  MathWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
 import { SolanaTimeProvider } from "context/SolanaTimeContext";
 import { UmiProvider } from "utils/UmiProvider";
@@ -33,7 +38,12 @@ const Providers = ({ children }) => {
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   const wallets = useMemo(
-    () => [new UnsafeBurnerWalletAdapter()],
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+      new MathWalletAdapter(),
+      new UnsafeBurnerWalletAdapter(),
+    ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [network]
   );
@@ -50,7 +60,7 @@ const Providers = ({ children }) => {
   });
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets}>
+      <WalletProvider wallets={wallets} autoConnect>
         <UmiProvider endpoint={endpoint}>
           <WalletModalProvider>
             <SolanaTimeProvider>
