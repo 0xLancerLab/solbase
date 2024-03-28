@@ -7,7 +7,7 @@ import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 const presalePrice = 0.003;
 const recipientKey = "9v5wQgrEeMnWFqHWhottspa3GJKhKJ2pQx6SSYFM8XuV";
 
-export default function SaleComponent({ saleData }) {
+export default function SaleComponent() {
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState("0");
   const [txSig, setTxSig] = useState("");
@@ -73,10 +73,13 @@ export default function SaleComponent({ saleData }) {
   };
 
   return (
-    <div>
+    <div className="flex w-full flex-col gap-2">
       <div className="balance_form">
         {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
         <div className="my-8">
+          <div className="flex justify-center items-center w-70 p-4">
+            <img src="/assets/presale.webp" alt="Presale" className="w-80" />
+          </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Presale Price:</div>
             <div>

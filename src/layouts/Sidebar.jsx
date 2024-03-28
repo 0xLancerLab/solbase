@@ -1,9 +1,27 @@
 import React, { useState } from "react";
 import Footer from "./Footer";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 
 export default function Sidebar({ toggle, handleToggle }) {
   const currentUrl = window.location.pathname;
   console.log(toggle);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleClickDoc = (e) => {
+    e.preventDefault();
+    onOpen();
+  };
+
   return (
     <div
       className={` ${
@@ -185,10 +203,11 @@ export default function Sidebar({ toggle, handleToggle }) {
             </li>
             <li className="sidebar_item">
               <a
-                href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-bwild"
+                href=""
                 target="_blank"
                 className="flex items-center p-2  text-xl text-white rounded-lg dark:text-white hover:bg-[#122142] dark:hover:bg-gray-700 group"
                 rel="noopener noreferrer"
+                onClick={(e) => handleClickDoc(e)}
               >
                 <svg
                   className="w-6 h-6  dark:text-white"
@@ -222,6 +241,25 @@ export default function Sidebar({ toggle, handleToggle }) {
           <Footer />
         </div>
       </aside>
+      <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign={"center"}>SOLBASE DOC</ModalHeader>
+          <ModalBody>
+            <div className="flex items-center justify-center flex-col p-2">
+              <img src="/assets/book.webp" className="my-5" alt="Docs" />
+              <a
+                href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-bwild"
+                target="_blank"
+                className="flex items-center p-2  text-xl text-white rounded-lg hover:text-blue-700 dark:hover:bg-gray-700 group"
+                rel="noopener noreferrer"
+              >
+                <span className="ms-3 mb-8"> - READ FULL DOCS - </span>
+              </a>
+            </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

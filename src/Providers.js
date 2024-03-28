@@ -27,7 +27,7 @@ import { UmiProvider } from "utils/UmiProvider";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const Providers = ({ children }) => {
-  let network = WalletAdapterNetwork.Devnet;
+  let network = WalletAdapterNetwork.Mainnet;
   if (
     process.env.REACT_PUBLIC_ENVIRONMENT === "mainnet-beta" ||
     process.env.REACT_PUBLIC_ENVIRONMENT === "mainnet"
@@ -36,6 +36,7 @@ const Providers = ({ children }) => {
   }
 
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  console.log(network);
 
   const wallets = useMemo(
     () => [

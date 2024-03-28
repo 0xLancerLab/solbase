@@ -133,6 +133,10 @@ body {
   background-color: #1221423f;
 }
 
+.chakra-modal__content {
+    @apply bg-secondary/90 !important;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
