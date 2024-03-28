@@ -36,7 +36,7 @@ export default function Sidebar({ toggle, handleToggle }) {
         onClick={(e) => handleToggle(e)}
         className={`fixed transition-transform ${
           toggle
-            ? "translate-x-[250px] bg-gray-200  w-screen h-screen max-w-screen bg-[#0c1221c7]"
+            ? "translate-x-[250px] w-screen h-screen max-w-screen bg-[#0c1221c7]"
             : "translate-x-0 top-2 p-2 mt-2  bg-[#0c1221c7]"
         } z-[9999] ms-3 sm:fixed text-sm text-gray-500 rounded-lg sm:hidden focus:outline-none dark:text-gray-400`}
       >
