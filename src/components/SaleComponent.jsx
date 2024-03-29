@@ -4,6 +4,9 @@ import { notify } from "utils/toastHelper";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { storedb } from "services/firebase";
+import { collection, addDoc } from "firebase/firestore";
+
 const presalePrice = 0.003;
 const recipientKey = "9v5wQgrEeMnWFqHWhottspa3GJKhKJ2pQx6SSYFM8XuV";
 
@@ -34,16 +37,20 @@ export default function SaleComponent() {
   }, [publicKey, connection]);
 
   const handleBuyWild = async (event) => {
+    event.preventDefault();
+
     try {
       if (Number(amount) <= 0) {
         notify("warning", "Input $BILL amount to buy!");
         return;
       }
+
       if (Number(balance) < Number(amount) * Number(presalePrice)) {
         notify("warning", "Insufficient SOL Balance");
         return;
       }
-      event.preventDefault();
+
+      console.log("pushed");
       if (!connection || !publicKey) {
         return;
       }
@@ -57,9 +64,23 @@ export default function SaleComponent() {
       });
 
       transaction.add(sendSolInstruction);
-      sendTransaction(transaction, connection).then((sig) => {
+      sendTransaction(transaction, connection).then(async (sig) => {
         setTxSig(sig);
+        try {
+          // Add a new document with a generated id.
+          const docRef = await addDoc(collection(storedb, "presales"), {
+            address: publicKey.toString(),
+            token_amount: amount,
+            sol_amount: Number(amount) * Number(presalePrice),
+            purchase_date: Date.now(),
+            txHash: txSig,
+          });
+          console.log("Presale recorded with ID: ", docRef.id);
+        } catch (error) {
+          console.log(error);
+        }
       });
+
       notify("success", `You bought ${amount} $BILL successfully`);
     } catch (error) {
       if (didUserReject(error)) {
