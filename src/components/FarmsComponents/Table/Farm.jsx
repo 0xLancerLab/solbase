@@ -128,7 +128,7 @@ const Farm = ({
         <p className="font-semibold text-sm lg:text-lg">{label}</p>
         {depositFee !== "0" && (
           <p className="lg:text-[12px] lg:w-[99px] text-[10px]">
-            Deposit fee:{" "}
+            Burn Fee:{" "}
             <DepositFee
               depositFee={depositFee}
               isTokenOnly={isTokenOnly}

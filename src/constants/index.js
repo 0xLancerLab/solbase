@@ -25,7 +25,7 @@ export const getSortOptions = () => {
       value: "liquidity",
     },
     {
-      label: "Deposit fee",
+      label: "Burn Fee",
       value: "depositFee",
     },
   ];
