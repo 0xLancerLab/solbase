@@ -8,27 +8,14 @@ export default function Presale() {
 
   return (
     <div className="w-full container flex flex-col justify-center items-center max-w-[500px] mx-3">
-      {!ended && (
-        <>
-          <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
-            $BILL SALE ENDS IN:
-          </p>
-          <CountDownComponent endDate={1711552461000} setEnded={setEnded} />
-        </>
-      )}
-
-      <div className="tab_panel mx-auto w-full">
-        <div
-          className={`tab_button py-[2px!important]  ${
-            active === 0
-              ? "main_btn hover:scale-[100%!important] hover:bg-[white!important] hover:text-[black!important]"
-              : ""
-          }`}
-          onClick={() => setActive(0)}
-        >
-          Presale $BILL
-        </div>
-      </div>
+      {/* {!ended && ( */}
+      <>
+        <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
+          $BILL SALE ENDS IN:
+        </p>
+        <CountDownComponent endDate={1711552461000} setEnded={setEnded} />
+      </>
+      {/* )} */}
       <div className="bg-secondary px-4 py-6 rounded-lg flex w-full justify-center">
         <SaleComponent />
       </div>

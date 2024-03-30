@@ -99,7 +99,7 @@ export default function SaleComponent() {
         {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
         <div className="my-8">
           <div className="flex justify-center items-center w-70 p-4">
-            <img src="/assets/presale.webp" alt="Presale" className="w-80" />
+            <img src="/assets/presale.webp" alt="Presale" className="w-60" />
           </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Presale Price:</div>

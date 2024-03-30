@@ -31,7 +31,7 @@ export default function FarmBanner() {
         <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
           FARMS STARTS IN
         </p>
-        <CountDownComponent endDate={1712157261000} setEnded={setEnded} />
+        <CountDownComponent endDate={1712896551000} setEnded={setEnded} />
       </div>
 
       <div className="flex justify-center flex-col md:flex-row items-center bg-secondary">

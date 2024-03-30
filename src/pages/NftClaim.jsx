@@ -271,7 +271,7 @@ export default function NFTClaim() {
               <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
                 $BILL NFT SALE STARTS IN
               </p>
-              <CountDownComponent endDate={1711552461000} setEnded={setEnded} />
+              <CountDownComponent endDate={1713069351000} setEnded={setEnded} />
 
               {/* {loading ? (
                 <div>
