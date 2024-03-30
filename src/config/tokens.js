@@ -11,7 +11,7 @@ const tokens = {
     symbol: "BiLL",
     address: addresses.wild,
     decimals: 18,
-    logo: "/assets/tokens/billLp.webp",
+    logo: "/assets/tokens/bill.webp",
     projectLink: "https://wildbase.farm/", // todo:
   },
   weth: {
