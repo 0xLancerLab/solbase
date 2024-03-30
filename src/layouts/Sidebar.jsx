@@ -72,7 +72,7 @@ export default function Sidebar({ toggle, handleToggle }) {
             <li>
               <div className="">
                 <a href="/" className="items-center gap-2 flex">
-                  <img src="/logo.webp" className="h-16 w-18" alt="" />
+                  <img src="/logo-2.webp" className="h-16 w-18" alt="" />
                   <span className="font-semibold text-xl sol-text">
                     SOLBASE.FARM
                   </span>
@@ -233,7 +233,7 @@ export default function Sidebar({ toggle, handleToggle }) {
             <li>
               <div className="flex items-center justify-center gap-2 w-full mb-2">
                 <a className="main_btn base_bg w-2/3" href="/presale">
-                  Buy $BILL
+                  Buy BiLL
                 </a>
               </div>
             </li>

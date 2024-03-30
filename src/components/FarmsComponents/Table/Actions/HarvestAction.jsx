@@ -99,7 +99,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
     <div className="flex flex-row items-center  justify-between md:justify-around gap-4  p-2 lg:p-4 w-full">
       <div className="flex flex-col justify-between gap-2 w-full">
         <div className="text-white text-md font-semibold">
-          $BILL &nbsp;
+          BiLL &nbsp;
           {t("Earned")}
         </div>
         <Earned>{displayBalance}</Earned>
@@ -132,7 +132,7 @@ const HarvestAction = ({ pid, userData, userDataReady, isNFTPool }) => {
                 data-tooltip-content={
                   earnings.eq(0) || pendingCompoundTx || !userDataReady
                     ? "Stake tokens first to use it"
-                    : "Restake your $BILL profit to $BILL pool"
+                    : "Restake your BiLL profit to BiLL pool"
                 }
                 disabled={earnings.eq(0) || pendingCompoundTx || !userDataReady}
                 onClick={openCompoundModal}

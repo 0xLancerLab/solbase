@@ -41,7 +41,7 @@ export default function SaleComponent() {
 
     try {
       if (Number(amount) <= 0) {
-        notify("warning", "Input $BILL amount to buy!");
+        notify("warning", "Input BiLL amount to buy!");
         return;
       }
 
@@ -81,7 +81,7 @@ export default function SaleComponent() {
         }
       });
 
-      notify("success", `You bought ${amount} $BILL successfully`);
+      notify("success", `You bought ${amount} BiLL successfully`);
     } catch (error) {
       if (didUserReject(error)) {
         notify("warning", "User Rejected transaction");
@@ -127,11 +127,11 @@ export default function SaleComponent() {
           </div>
         </div>
         <div>
-          <div> $BILL Amount to Buy</div>
+          <div> BiLL Amount to Buy</div>
           <input
             className="w-full rounded-md py-1 bg-primary/20 px-3 mb-3 hover:outline-none focus-visible:outline-none border border-symbol/70"
             type="number"
-            placeholder="Input $BILL amount to Buy."
+            placeholder="Input BiLL amount to Buy."
             value={amount}
             onChange={(e) => handleChange(e.target.value)}
           />
@@ -141,7 +141,7 @@ export default function SaleComponent() {
         className="main_btn base_bg w-full my-2"
         onClick={(e) => handleBuyWild(e)}
       >
-        BUY $BILL
+        BUY BiLL
       </button>
     </div>
   );

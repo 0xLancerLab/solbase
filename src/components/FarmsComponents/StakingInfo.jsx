@@ -32,7 +32,7 @@ export default function FarmStaking() {
       <div className="flex justify-around items-center">
         <div className="flex justify-center gap-2 items-center">
           <div className="text-base font-semibold sol-text">
-            $BILL to Harvest:
+            BiLL to Harvest:
           </div>
           <div className="text-sm text-gray-300">
             <WiLDHarvestBalance farmsWithBalance={balancesWithValue} />
@@ -40,7 +40,7 @@ export default function FarmStaking() {
         </div>
         <div className="flex justify-center gap-2 items-center">
           <div className="text-base font-semibold sol-text">
-            $BILL in Wallet:
+            BiLL in Wallet:
           </div>
           <div className="text-sm text-gray-300">
             <WiLDWalletBalance />

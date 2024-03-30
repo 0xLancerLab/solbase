@@ -11,7 +11,7 @@ export default function Presale() {
       {/* {!ended && ( */}
       <>
         <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
-          $BILL SALE ENDS IN:
+          BiLL SALE ENDS IN:
         </p>
         <CountDownComponent endDate={1711552461000} setEnded={setEnded} />
       </>

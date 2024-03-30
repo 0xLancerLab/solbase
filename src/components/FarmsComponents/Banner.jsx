@@ -39,7 +39,7 @@ export default function FarmBanner() {
           <h1 className="text-5xl">
             <span className="text-symbol font-semibold text-green-500 sol-text">
               {" "}
-              BUY BILL
+              BUY BiLL
             </span>
           </h1>
         </div>
