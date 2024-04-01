@@ -116,7 +116,7 @@ export default function SaleComponent() {
             <div>
               <p className="flex gap-1">
                 <span className={"font-semibold text-green-500"}>
-                  0.004 SOL
+                  0.006 SOL
                 </span>
               </p>
             </div>
