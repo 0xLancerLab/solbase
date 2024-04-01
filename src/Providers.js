@@ -35,8 +35,9 @@ const Providers = ({ children }) => {
     network = WalletAdapterNetwork.Mainnet;
   }
 
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-  console.log(network);
+  const endpoint =
+    "https://solana-mainnet.g.alchemy.com/v2/8HyVnNutn1gvxwmyKEZf2JfW2EnaQzoN"; // useMemo(() => clusterApiUrl(network), [network]);
+  console.log(endpoint);
 
   const wallets = useMemo(
     () => [
