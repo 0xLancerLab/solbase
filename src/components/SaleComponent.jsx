@@ -5,7 +5,16 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { storedb } from "services/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import {
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+  Box,
+} from "@chakra-ui/react";
+import Balance from "./Balance";
 
 const presalePrice = 0.003;
 const recipientKey = "Bq338uM27iVo9XeJN3jsosrL4UoxPGZQ4EfMtmoh18UL";
@@ -13,18 +22,46 @@ const recipientKey = "Bq338uM27iVo9XeJN3jsosrL4UoxPGZQ4EfMtmoh18UL";
 export default function SaleComponent() {
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState("0");
+  const [tokenAmount, setTokenAmount] = useState("0");
+  const [plegged, setPlegged] = useState(0);
   const [txSig, setTxSig] = useState("");
 
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
+
+  const [sliderValue, setSliderValue] = useState(0);
+
+  const handleSlideChange = (val) => {
+    setTokenAmount(Number(Number(val) / presalePrice).toFixed(3));
+  };
+
   const link = () => {
     return txSig
       ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
       : "";
   };
-  const handleChange = (value) => {
-    setAmount(value);
-  };
+
+  useEffect(() => {
+    async function getHistory(address) {
+      const q = query(
+        collection(storedb, "presales"),
+        where("address", "==", address)
+      );
+
+      const querySnapshot = await getDocs(q);
+      let depositedAmount = 0;
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        const data = doc.data();
+        if (data.sol_amount !== undefined) {
+          depositedAmount += Number(data.sol_amount);
+          console.log(data.sol_amount);
+        }
+      });
+      setPlegged(depositedAmount);
+    }
+    if (publicKey) getHistory(publicKey.toString());
+  }, [publicKey]);
 
   useEffect(() => {
     async function getBalance() {
@@ -93,12 +130,15 @@ export default function SaleComponent() {
     }
   };
 
+  console.log(Number(Number(Number(balance) / 2).toFixed(3)));
+
   return (
     <div className="flex w-full flex-col gap-2 ">
       <div className="balance_form">
         {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
-        <div className="my-8">
-          <div className="flex justify-center items-center w-70 p-4">
+        <div className="mb-8">
+          <div className="flex flex-col justify-center items-center w-70 p-4">
+            <span className="font-semibold text-lg">UP TO 3% DAILY APR</span>
             <img src="/assets/presale.webp" alt="Presale" className="w-60" />
           </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
@@ -122,19 +162,58 @@ export default function SaleComponent() {
             </div>
           </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
+            <div> Your SOL Deposited:</div>
+            <div className={"font-semibold text-green-500"}>
+              {Number(plegged).toFixed(3)} SOL
+            </div>
+          </div>
+          <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Your SOL Balance:</div>
-            <div className={"font-semibold text-green-500"}>{balance} SOL</div>
+            <div className={"font-semibold text-green-500"}>
+              {Number(balance).toFixed(3)} SOL
+            </div>
           </div>
         </div>
         <div>
-          <div> BiLL Amount to Buy</div>
-          <input
-            className="w-full rounded-md py-1 bg-primary/20 px-3 mb-3 hover:outline-none focus-visible:outline-none border border-symbol/70"
-            type="number"
-            placeholder="Input BiLL amount to Buy."
-            value={amount}
-            onChange={(e) => handleChange(e.target.value)}
-          />
+          <div> SOL Amount to Deposit:</div>
+          <Box p={4} pt={6} mt={3}>
+            <Slider
+              aria-label="slider-ex-6"
+              defaultValue={50} //{Number(Number(Number(balance) / 2).toFixed(3))}
+              min={0}
+              max={100} //{Number(Number(balance).toFixed(3))}
+              step={0.001}
+              onChange={(val) => setSliderValue(val)}
+              onChangeEnd={(val) => handleSlideChange(val)}
+            >
+              <SliderMark
+                value={sliderValue}
+                textAlign="center"
+                bg="blue.500"
+                color="white"
+                mt="-10"
+                mb="10"
+                ml="-5"
+                w="32"
+              >
+                {sliderValue} SOL
+              </SliderMark>
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb />
+            </Slider>
+          </Box>
+        </div>
+        <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
+          <div> Estimated Purchase Amount:</div>
+          <div>
+            <p className="flex gap-1">
+              <span className={"font-semibold text-green-500"}>
+                {tokenAmount} BiLL
+              </span>
+            </p>
+          </div>
         </div>
       </div>
       <button
