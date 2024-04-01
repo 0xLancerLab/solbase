@@ -14,6 +14,8 @@ import {
   SliderMark,
   Box,
 } from "@chakra-ui/react";
+import { toFixed } from "utils/customHelpers";
+
 import * as buffer from "buffer";
 window.Buffer = buffer.Buffer;
 
@@ -32,7 +34,16 @@ export default function SaleComponent() {
   const [sliderValue, setSliderValue] = useState(0);
 
   const handleSlideChange = (val) => {
-    setTokenAmount(Number(Number(val) / presalePrice).toFixed(3));
+    setTokenAmount(toFixed(Number(val) / presalePrice, 4));
+  };
+  const handleTokenAmountChange = (e) => {
+    if (Number(e.target.value) * presalePrice > balance) {
+      notify("warning", "Insufficient Balance");
+      return;
+    }
+    setTokenAmount(e.target.value);
+
+    setSliderValue(toFixed(Number(e.target.value) * presalePrice, 4));
   };
 
   const link = () => {
@@ -181,13 +192,13 @@ export default function SaleComponent() {
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Your SOL Deposited:</div>
             <div className={"font-semibold text-green-500"}>
-              {Number(plegged).toFixed(3)} SOL
+              {toFixed(plegged, 4)} SOL
             </div>
           </div>
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Your SOL Balance:</div>
             <div className={"font-semibold text-green-500"}>
-              {Number(balance).toFixed(3)} SOL
+              {toFixed(balance, 4)} SOL
             </div>
           </div>
         </div>
@@ -196,9 +207,9 @@ export default function SaleComponent() {
           <Box p={4} pt={6} mt={3}>
             <Slider
               aria-label="slider-ex-6"
-              defaultValue={Number(Number(Number(balance) / 2).toFixed(3))}
+              defaultValue={Number(toFixed(Number(balance) / 2, 4))}
               min={0}
-              max={Number(Number(balance).toFixed(3))}
+              max={Number(toFixed(balance, 4))}
               step={0.001}
               onChange={(val) => setSliderValue(val)}
               onChangeEnd={(val) => handleSlideChange(val)}
@@ -222,14 +233,20 @@ export default function SaleComponent() {
             </Slider>
           </Box>
         </div>
-        <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
+        <div className="flex justify-between items-center mb-3 border-b border-symbolBorder p-2">
           <div> Estimated Purchase Amount:</div>
-          <div>
-            <p className="flex gap-1">
-              <span className={"font-semibold text-green-500"}>
-                {tokenAmount} BiLL
-              </span>
-            </p>
+          <div className="flex item-center justify-center gap-1">
+            <div>
+              <input
+                type="text"
+                name=""
+                id=""
+                value={tokenAmount}
+                onChange={(e) => handleTokenAmountChange(e)}
+                className="bg-transparent text-xs rounded-md font-semibold text-green-500"
+              />
+            </div>
+            <div className={"font-semibold text-green-500 mt-1"}>BiLL</div>
           </div>
         </div>
       </div>
