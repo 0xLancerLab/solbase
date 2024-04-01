@@ -8,7 +8,7 @@ import { storedb } from "services/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 const presalePrice = 0.003;
-const recipientKey = "9v5wQgrEeMnWFqHWhottspa3GJKhKJ2pQx6SSYFM8XuV";
+const recipientKey = "Bq338uM27iVo9XeJN3jsosrL4UoxPGZQ4EfMtmoh18UL";
 
 export default function SaleComponent() {
   const [amount, setAmount] = useState("");

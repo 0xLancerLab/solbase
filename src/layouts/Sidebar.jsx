@@ -249,7 +249,7 @@ export default function Sidebar({ toggle, handleToggle }) {
             <div className="flex items-center justify-center flex-col p-2">
               <img src="/assets/book.webp" className="my-5" alt="Docs" />
               <a
-                href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-bwild"
+                href="https://sol-2.gitbook.io/docs"
                 target="_blank"
                 className="flex items-center p-2  text-xl text-white rounded-lg hover:text-blue-700 dark:hover:bg-gray-700 group"
                 rel="noopener noreferrer"
