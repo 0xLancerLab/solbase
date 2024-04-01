@@ -94,7 +94,7 @@ export default function SaleComponent() {
   };
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-2 ">
       <div className="balance_form">
         {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
         <div className="my-8">

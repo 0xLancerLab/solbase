@@ -24,10 +24,19 @@ body {
     Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI",
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 
-    background: rgb(2, 0, 36);
-      background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 42%, rgba(61, 0, 91, 1) 100%);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 42%,
+    rgba(61, 0, 91, 1) 100%
+  );
 }
-
+.presale_form {
+  -webkit-box-shadow: 0px 0px 168px 82px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 168px 82px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 168px 82px rgba(0, 0, 0, 1);
+}
 .buy_card {
   @apply lg:p-6 p-2 bg-primary/40 rounded-lg w-full grid grid-cols-12;
 }
@@ -137,7 +146,7 @@ body {
 }
 
 .chakra-modal__content {
-    @apply bg-secondary/90 !important;
+  @apply bg-secondary/90 !important;
 }
 
 @keyframes spin {
@@ -170,5 +179,12 @@ td {
   50% {
     transform: translateY(0);
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* At the top level of your code */
+@media screen and (min-width: 640px) {
+  .wallet-adapter-modal {
+    left: 250px !important;
   }
 }
