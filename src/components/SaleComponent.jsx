@@ -179,9 +179,9 @@ export default function SaleComponent() {
           <Box p={4} pt={6} mt={3}>
             <Slider
               aria-label="slider-ex-6"
-              defaultValue={50} //{Number(Number(Number(balance) / 2).toFixed(3))}
+              defaultValue={Number(Number(Number(balance) / 2).toFixed(3))}
               min={0}
-              max={100} //{Number(Number(balance).toFixed(3))}
+              max={Number(Number(balance).toFixed(3))}
               step={0.001}
               onChange={(val) => setSliderValue(val)}
               onChangeEnd={(val) => handleSlideChange(val)}
