@@ -30,21 +30,17 @@ export default function FarmStaking() {
   return (
     <div className="flex-1 bg-primary p-1">
       <div className="flex justify-around items-center">
-        <div className="flex justify-center gap-2 items-center">
+        <div className="flex justify-center gap-1 items-center">
           <div className="text-base font-semibold sol-text">
             BiLL to Harvest:
           </div>
-          <div className="text-sm text-gray-300">
-            <WiLDHarvestBalance farmsWithBalance={balancesWithValue} />
-          </div>
+          <div className="text-sm text-gray-300"></div>
         </div>
-        <div className="flex justify-center gap-2 items-center">
+        <div className="flex justify-center gap-1 items-center">
           <div className="text-base font-semibold sol-text">
             BiLL in Wallet:
           </div>
-          <div className="text-sm text-gray-300">
-            <WiLDWalletBalance />
-          </div>
+          <div className="text-sm text-gray-300"></div>
         </div>
       </div>
       {open && (
