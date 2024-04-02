@@ -134,10 +134,10 @@ export const mintText = [
 ];
 
 //header image in the ui. replace with your own
-export const image = "/assets/soldog.jpg";
+export const image = "/assets/nft.webp";
 
 //website title
-export const headerText = "SolDOG NFT";
+export const headerText = "BiLL NFT";
 
 export const routes = [
   {
