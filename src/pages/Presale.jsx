@@ -10,32 +10,12 @@ export default function Presale() {
     <div className="w-full container flex flex-col justify-center items-center max-w-[500px] mx-3">
       {/* {!ended && ( */}
       <>
-        <p className="text-center text-3xl font-bold  p-3 rounded-md mb-2 backdrop-blur-sm">
-          BiLL SALE ENDS IN:
-        </p>
-        <div className="mb-12 flex gap-2 lg:gap-8 mt-3">
-          <span className="shadow p-6 text-3xl  lg:text-4xl font-bold text-white bg-secondary/40 backdrop-blur-sm shadow-black rounded-2xl w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] flex justify-center items-center">
-            00
-          </span>
-          <span className="flex items-center font-extrabold text-5xl text-white">
-            :
-          </span>
-          <span className="shadow p-6 text-3xl  lg:text-4xl font-bold text-white bg-secondary/40 backdrop-blur-sm shadow-black rounded-2xl w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] flex justify-center items-center">
-            00
-          </span>
-          <span className="flex items-center font-extrabold text-5xl text-white">
-            :
-          </span>
-          <span className="shadow p-6 text-3xl  lg:text-4xl font-bold text-white bg-secondary/40 backdrop-blur-sm shadow-black rounded-2xl w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] flex justify-center items-center">
-            00
-          </span>
-          <span className="flex items-center font-extrabold text-5xl text-white">
-            :
-          </span>
-          <span className="shadow p-6 text-3xl  lg:text-4xl font-bold text-white bg-secondary/40 backdrop-blur-sm shadow-black rounded-2xl w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] flex justify-center items-center">
-            00
-          </span>
-        </div>{" "}
+        <span className="text-center text-3xl font-bold  p-3 rounded-md mb-2 backdrop-blur-sm">
+          BILL TOKEN <br />
+          PRESALE
+        </span>
+        <p className="text-xl font-bold">FARM LAUNCHING SOON</p>
+        <CountDownComponent endDate={1713175777000} setEnded={setEnded} />
       </>
       {/* )} */}
       <div className="bg-secondary px-4 py-6 rounded-lg flex w-full justify-center presale_form">
