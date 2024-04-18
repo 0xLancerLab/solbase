@@ -269,9 +269,9 @@ export default function NFTClaim() {
             </div>
             <Stack divider={<StackDivider />} spacing="8">
               <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
-                BiLL NFT SALE STARTS IN
+                BiLL NFT SALE STARTS IN MAY 🚀
               </p>
-              <CountDownComponent endDate={1713348577000} setEnded={setEnded} />
+              {/* <CountDownComponent endDate={1713348577000} setEnded={setEnded} /> */}
 
               {/* {loading ? (
                 <div>

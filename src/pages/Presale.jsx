@@ -14,8 +14,8 @@ export default function Presale() {
           BILL TOKEN <br />
           PRESALE
         </span>
-        <p className="text-xl font-bold">FARM LAUNCHING SOON</p>
-        <CountDownComponent endDate={1713175777000} setEnded={setEnded} />
+        <p className="text-xl font-bold">FARM LAUNCHING IN MAY 🚀</p>
+        {/* <CountDownComponent endDate={1713175777000} setEnded={setEnded} /> */}
       </>
       {/* )} */}
       <div className="bg-secondary px-4 py-6 rounded-lg flex w-full justify-center presale_form">

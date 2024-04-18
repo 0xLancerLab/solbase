@@ -6,6 +6,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import TotalValueLocked from "./TotalValueLocked";
 import FarmStaking from "components/FarmsComponents/StakingInfo";
 import { CountDownComponent } from "components/CountDown";
+
 export default function FarmBanner() {
   const [isCopied, setIsCopied] = useState(false);
   const wallet = useWallet();
@@ -29,9 +30,9 @@ export default function FarmBanner() {
     <div className="flex flex-col rounded-md">
       <div>
         <p className="text-center text-3xl font-bold shadow-md shadow-black/50 py-3 bg-secondary/40 rounded-md mb-2 backdrop-blur-sm">
-          FARMS START IN
+          FARMS LAUNCHING IN MAY 🚀
         </p>
-        <CountDownComponent endDate={1713175777000} setEnded={setEnded} />
+        {/* <CountDownComponent endDate={1713175777000} setEnded={setEnded} /> */}
       </div>
 
       <div className="flex justify-center flex-col md:flex-row items-center bg-secondary">
