@@ -64,7 +64,7 @@ export const socials = [
       </svg>
     ),
     name: "",
-    href: "https://discord.gg/c6Tq9GqV",
+    href: "https://discord.gg/Ss2taxAw",
   },
   {
     icon: () => (
@@ -82,7 +82,7 @@ export const socials = [
       </svg>
     ),
     name: "",
-    href: "https://youtube.com/@lodgecapital",
+    href: "https://www.youtube.com/@solana_base",
   },
   {
     icon: () => (
@@ -102,7 +102,7 @@ export const socials = [
       </svg>
     ),
     name: "",
-    href: "https://t.me/wildbasefarm",
+    href: "https://t.me/+Ojo_GCh4nVEzNWM0",
   },
   {
     icon: () => (
@@ -120,7 +120,7 @@ export const socials = [
       </svg>
     ),
     name: "",
-    href: " https://x.com/lodgecapital",
+    href: " https://x.com/solana_base",
   },
 ];
 
