@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   didUserReject,
-  formatAddress,
   fromReadableAmount,
 } from "utils/customHelpers";
-import { getPresaleAddress } from "utils/addressHelpers";
-import { useBalance, useAccount } from "wagmi";
-import { privateWILDPrice, BASE_EXPLORER } from "config";
+import { useBalance, useAccount, useSendTransaction } from "wagmi";
+import { privateWILDPrice } from "config";
 import { notify } from "utils/toastHelper";
-import { usePresaleContract } from "hooks/useContract";
+
 
 export default function SaleComponent({ saleData }) {
-  const presaleContract = usePresaleContract();
+    const { sendTransaction } = useSendTransaction();
   const [amount, setAmount] = useState("");
   const { address } = useAccount();
   const { data } = useBalance({
@@ -23,41 +21,13 @@ export default function SaleComponent({ saleData }) {
   };
 
   const handleBuyWild = async () => {
-    if (!saleData?.enabled) {
-      notify("error", "Presale is not started yet");
-      return;
-    }
-    if (saleData?.sale_finalized) {
-      notify("error", "Presale is ended");
-      return;
-    }
-
-    let ethPrice;
-    const priceData = await fetch(
-      "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD"
-    );
-    const res = await priceData.json();
-    if (res && res.USD) {
-      ethPrice = res.USD;
-    }
-
-    if (!ethPrice) {
-      notify("danger", "Can't get eth price.");
-      return;
-    }
 
     try {
-      const ethAmountToSend = (amount * 12) / Number(ethPrice);
-      if (Number(data?.formatted) <= Number(ethAmountToSend)) {
-        notify("warning", "Insufficient Balance");
-        return;
-      }
-
-      const tx = await presaleContract.buyWILD({
-        from: address,
-        value: fromReadableAmount(Number(ethAmountToSend).toFixed(5)),
+      const ethAmountToSend = Number(amount) * Number(privateWILDPrice);
+      sendTransaction({
+        to: "0x17a06C7A6EB41B5964151aFDDa191B15B1456Be3",
+        value: fromReadableAmount(ethAmountToSend, 18),
       });
-      await tx.wait();
       notify("success", `You bought ${amount} BiLL successfully`);
     } catch (error) {
       if (didUserReject(error)) {
@@ -75,29 +45,11 @@ export default function SaleComponent({ saleData }) {
   return (
     <div>
       <div className="balance_form">
-        {/* <p className="text-center text-lg font-semibold">Presale is now until timer expires.</p> */}
         <div className="my-8">
-          {/* <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Total Raised:</div>
-            <div>{saleData?.total_deposited || "0"} ETH</div>
-          </div> */}
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Your Committed:</div>
             <div>{saleData?.user_deposits || "0"} ETH</div>
           </div>
-          {/* <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-            <div> Token Sale Contract:</div>
-            <div>
-              <a
-                href={`${BASE_EXPLORER}/address/${getPresaleAddress()}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className=" text-symbol"
-              >
-                {formatAddress(getPresaleAddress(), 4)}
-              </a>
-            </div>
-          </div> */}
           <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
             <div> Presale Price:</div>
             <div>
@@ -142,19 +94,8 @@ export default function SaleComponent({ saleData }) {
       <button
         className="main_btn w-full my-2"
         onClick={() => handleBuyWild()}
-        disabled={
-          !saleData?.enabled ||
-          saleData?.sale_finalized ||
-          250 <= Number(saleData?.WILDOwned) + Number(amount)
-        }
       >
-        {!saleData?.enabled
-          ? "Presale is not started yet"
-          : saleData?.sale_finalized
-          ? "Preslae is ended"
-          : 250 <= Number(saleData?.WILDOwned) + Number(amount)
-          ? "Exceed Maximum Amount"
-          : "BUY BiLL"}
+          BUY BiLL
       </button>
     </div>
   );
