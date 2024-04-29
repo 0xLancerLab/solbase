@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import SaleComponent from "components/SaleComponent";
 
+
 export default function Presale() {
-  const [presaleData, setPresaleData] = useState({});
-  
+
   return (
     <div className="w-full container max-w-[500px] mx-3">
       <div className="tab_panel mx-auto">
@@ -12,7 +12,7 @@ export default function Presale() {
         </div>
       </div>
       <div className="bg-secondary px-4 py-6 rounded-lg">
-        <SaleComponent saleData={presaleData} />
+        <SaleComponent  />
       </div>
       <img
         src="/assets/stickers/presale-left.webp"
