@@ -15,7 +15,7 @@ export default function Header() {
             <div className="hidden sm:block logo">
               <a href="/">
                 <img
-                  src="/logo-2.webp"
+                  src="/logo.webp"
                   className="h-16 w-18"
                   alt=""
                 />

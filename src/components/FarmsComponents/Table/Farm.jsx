@@ -117,7 +117,7 @@ const Farm = ({
         <TokenWrapper>
           <StyledPrimaryImage
             variant="inverted"
-            src="/assets/tokens/wildx.png"
+            src="/assets/tokens/bill.webp"
             width={imgSize}
             height={imgSize}
           />

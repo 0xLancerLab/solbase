@@ -1,7 +1,7 @@
 import React from "react";
 
 const Icon = (props) => {
-  return <img {...props} src="/assets/tokens/wildx.png" alt="" />;
+  return <img {...props} src="/assets/tokens/bill.webp" alt="" />;
 };
 
 export default Icon;
