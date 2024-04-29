@@ -84,27 +84,27 @@ export default function TotalValueLocked() {
         <div className="flex items-center justify-between">
           <p className="font-semibold">Total Burned</p>
           <div>
-            {toReadableAmount(tokenABalanceRead?.data, 18) && (
+            {/* {toReadableAmount(tokenABalanceRead?.data, 18) && (
               <CardValue
                 fontSize="20px"
                 decimals={1}
                 value={Number(toReadableAmount(tokenABalanceRead?.data, 18))}
                 color="#fffff"
               />
-            )}
+            )} */}
           </div>
         </div>
         <div className="flex items-center justify-between">
           <p className="font-semibold">Circulating Supply</p>
           <div>
-            {totalSupply && (
+            {/* {totalSupply && (
               <CardValue
                 fontSize="20px"
                 value={totalMinted}
                 decimals={1}
                 color="#fffff"
               />
-            )}
+            )} */}
           </div>
         </div>
       </div>
