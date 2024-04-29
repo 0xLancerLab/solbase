@@ -3,7 +3,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_bWild",
+        "name": "_BiLL",
         "type": "address"
       },
       {
@@ -185,10 +185,10 @@
   },
   {
     "inputs": [],
-    "name": "bWild",
+    "name": "BiLL",
     "outputs": [
       {
-        "internalType": "contract BWildToken",
+        "internalType": "contract BiLLToken",
         "name": "",
         "type": "address"
       }
@@ -198,7 +198,7 @@
   },
   {
     "inputs": [],
-    "name": "bWildAddr",
+    "name": "BiLLAddr",
     "outputs": [
       {
         "internalType": "address",
@@ -211,7 +211,7 @@
   },
   {
     "inputs": [],
-    "name": "bWildPerSecond",
+    "name": "BiLLPerSecond",
     "outputs": [
       {
         "internalType": "uint256",
@@ -474,7 +474,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingBWild",
+    "name": "pendingBiLL",
     "outputs": [
       {
         "internalType": "uint256",
@@ -512,7 +512,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "accBWildPerShare",
+        "name": "accBiLLPerShare",
         "type": "uint256"
       },
       {
@@ -612,7 +612,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_bWild",
+        "name": "_BiLL",
         "type": "address"
       }
     ],
@@ -677,7 +677,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_bWildPerSecond",
+        "name": "_BiLLPerSecond",
         "type": "uint256"
       }
     ],

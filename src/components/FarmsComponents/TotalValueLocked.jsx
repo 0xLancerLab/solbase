@@ -1,10 +1,10 @@
 import React from "react";
 import { useTotalSupply } from "hooks/useTokenBalance";
-import { usePriceBWiLDUsdc, useTotalValue } from "state/hooks";
+import { usePriceBiLLUsdc, useTotalValue } from "state/hooks";
 import CardValue from "./Staking/CardValue";
 import { convertCurrency, toReadableAmount } from "utils/customHelpers";
 import { useContractRead, erc20ABI } from "wagmi";
-import { getBWiLDAddress, getWethAddress } from "utils/addressHelpers";
+import { getBiLLAddress, getWethAddress } from "utils/addressHelpers";
 import wildABI from "config/abis/wild.json";
 
 export default function TotalValueLocked() {
@@ -12,20 +12,20 @@ export default function TotalValueLocked() {
   const tvl = tvlData
     ? tvlData.toLocaleString("en-US", { maximumFractionDigits: 1 })
     : 0;
-  const liquidity = usePriceBWiLDUsdc()[1];
-  const marketCap = usePriceBWiLDUsdc()[2];
+  const liquidity = usePriceBiLLUsdc()[1];
+  const marketCap = usePriceBiLLUsdc()[2];
 
   const totalSupply = useTotalSupply();
   // 0xeAA13b4f85A98E6CcaF65606361BD590e98DE2Cb
   const tokenABalanceRead = useContractRead({
-    address: getBWiLDAddress(),
+    address: getBiLLAddress(),
     abi: wildABI,
     functionName: "balanceOf",
     args: ["0x000000000000000000000000000000000000dead"],
     chainId: 359,
   });
-  const bWildBalanceRead = useContractRead({
-    address: getBWiLDAddress(),
+  const BiLLBalanceRead = useContractRead({
+    address: getBiLLAddress(),
     abi: wildABI,
     functionName: "balanceOf",
     args: ["0xeAA13b4f85A98E6CcaF65606361BD590e98DE2Cb"],
@@ -55,7 +55,7 @@ export default function TotalValueLocked() {
           <div />
         )}
       </div>
-      <div className="text-3xl text-right mb-5">BWiLD Stats</div>
+      <div className="text-3xl text-right mb-5">BiLL Stats</div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <p className="font-semibold">Liquidity</p>

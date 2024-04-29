@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
 import {
   getErc20Contract,
-  getBWiLDContract,
+  getBiLLContract,
   getMasterchefContract,
 } from "utils/contractHelpers";
 import { BIG_ZERO } from "utils/bigNumber";
@@ -57,7 +57,7 @@ export const useTotalSupply = () => {
   const provider = useEthersProvider();
   useEffect(() => {
     async function fetchTotalSupply() {
-      const wildContract = getBWiLDContract(
+      const wildContract = getBiLLContract(
         provider,
         chain ? chain.id : CHAIN_ID
       );
@@ -70,9 +70,9 @@ export const useTotalSupply = () => {
   return totalSupply;
 };
 
-export const useBWiLDPerSecond = () => {
+export const useBiLLPerSecond = () => {
   const { fastRefresh } = useRefresh();
-  const [bWildPerSecond, setWildPerSecond] = useState(BIG_ZERO);
+  const [BiLLPerSecond, setWildPerSecond] = useState(BIG_ZERO);
   const { chain } = useNetwork();
   const provider = useEthersProvider();
 
@@ -80,7 +80,7 @@ export const useBWiLDPerSecond = () => {
     async function fetchWildPerSecond() {
       try {
         const masterChefContract = getMasterchefContract(provider);
-        const perSecond = await masterChefContract.bWildPerSecond();
+        const perSecond = await masterChefContract.BiLLPerSecond();
         setWildPerSecond(toReadableAmount(perSecond, 18, 5));
       } catch (e) {
         console.log(e);
@@ -89,7 +89,7 @@ export const useBWiLDPerSecond = () => {
     if (provider) fetchWildPerSecond();
   }, [fastRefresh, provider]);
 
-  return bWildPerSecond;
+  return BiLLPerSecond;
 };
 
 export const useBurnedBalance = (tokenAddress) => {
@@ -112,14 +112,14 @@ export const useBurnedBalance = (tokenAddress) => {
   return balance;
 };
 
-export const useBWiLDBurnedBalance = () => {
+export const useBiLLBurnedBalance = () => {
   const [balance, setBalance] = useState(BIG_ZERO);
   const { fastRefresh } = useRefresh();
   const { chain } = useNetwork();
   const provider = useEthersProvider();
   useEffect(() => {
     const fetchBalance = async () => {
-      const wildContract = getBWiLDContract(
+      const wildContract = getBiLLContract(
         provider,
         chain ? chain.id : CHAIN_ID
       );

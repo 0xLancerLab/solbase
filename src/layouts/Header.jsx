@@ -47,7 +47,7 @@ export default function Header() {
                 ))}
                 <li className="list_item">
                   <a
-                    href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-bwild"
+                    href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-BiLL"
                     target="_blank"
                     className={`p-3`}
                     rel="noopener noreferrer"
@@ -90,7 +90,7 @@ export default function Header() {
               ))}
               <li className={`list_item`}>
                 <a
-                  href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-bwild"
+                  href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-BiLL"
                   target="_blank"
                   className={`p-3`}
                   rel="noopener noreferrer"

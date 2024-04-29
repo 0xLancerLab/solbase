@@ -2,7 +2,7 @@ import { BIG_TEN } from "utils/bigNumber";
 import BigNumber from "bignumber.js";
 
 export const BASE_URL = "https://wildbase.farm";
-export const ALCHEMY_ID = "86wTK178jC4XNO9sh-iVI7P5fV1tg_Dx";
+export const ALCHEMY_ID = "fitER_Z2fkbEVAsl_yDcW7VvBlRP5MMI";
 
 export const CHAIN_ID = 8453;
 export const TESTNET_CHAIN_ID = 84531;
@@ -16,7 +16,7 @@ export const wethUsdcFarmPid = 1;
 export const YEAR = 60 * 60 * 24 * 365;
 export const YEAR_BN = new BigNumber(YEAR);
 
-export const mainTokenSymbol = "BWiLD";
+export const mainTokenSymbol = "BiLL";
 
 export const BASE_EXCHANGE_URL_BY_CHAIN = {
   8453: "https://www.dackieswap.xyz",
@@ -31,7 +31,7 @@ export const ARCHIVED_NODE = "https://developer-access-mainnet.base.org";
 // export const YEAR = 60 * 60 * 24 * 365
 // export const YEAR_BN = new BigNumber(YEAR)
 
-export const privateWILDPrice = 12;
+export const privateWILDPrice = 0.000129;
 export const BASE_EXPLORER = "https://basescan.org/";
 
 export const socials = [
@@ -127,7 +127,7 @@ export const routes = [
   //   url: "/nft-claim",
   // },
   {
-    name: "Vested",
+    name: "Presale",
     url: "/presale",
   },
 ];

@@ -43,17 +43,17 @@ export default function ClaimComponent({ saleData }) {
     <div className="claim_card">
       <div className="py-8">
         <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-          <div> Your Claimed BWiLD:</div>
+          <div> Your Claimed BiLL:</div>
           <div>
             {saleData?.user_withdraw_amount || "0.00"} &nbsp;{" "}
-            <span className="text-[10.5px] text-sm">BWiLD</span>
+            <span className="text-[10.5px] text-sm">BiLL</span>
           </div>
         </div>
         <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">
-          <div> Remains BWiLD:</div>
+          <div> Remains BiLL:</div>
           <div>
             {(saleData?.WILDOwned - saleData?.user_withdraw_amount) || "0.00"}{" "}
-            &nbsp; <span className="text-[10.5px] text-sm">BWiLD</span>
+            &nbsp; <span className="text-[10.5px] text-sm">BiLL</span>
           </div>
         </div>
         <div className="flex justify-between mb-3 border-b border-symbolBorder px-1">

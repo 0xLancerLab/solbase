@@ -2,7 +2,7 @@ import { EN } from 'config/localization/languages'
 
 const publicUrl = process.env.PUBLIC_URL
 
-export const LS_KEY = 'BWiLD_language'
+export const LS_KEY = 'BiLL_language'
 
 export const fetchLocale = async (locale) => {
   const response = await fetch(`${publicUrl}/locales/${locale}.json`)

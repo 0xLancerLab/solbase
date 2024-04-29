@@ -31,7 +31,7 @@ export const liquidityList = [
   },
   {
     pid: 1,
-    lpSymbol: "WETH-BWiLD",
+    lpSymbol: "WETH-BiLL",
     isTokenOnly: false,
     lpAddresses: addresses.wildWethlp,
     decimals: 18,
@@ -70,7 +70,7 @@ export const zapList = [
   },
   {
     pid: 1,
-    lpSymbol: "WETH-BWiLD",
+    lpSymbol: "WETH-BiLL",
     isTokenOnly: false,
     lpAddresses: addresses.wildWethlp,
     decimals: 18,
@@ -82,7 +82,7 @@ export const zapList = [
 const farmsConfig = [
   {
     pid: 0,
-    lpSymbol: "WETH-BWiLD",
+    lpSymbol: "WETH-BiLL",
     lpAddresses: addresses.wildWethlp,
     isTokenOnly: false,
     isNFTPool: false,
@@ -104,7 +104,7 @@ const farmsConfig = [
   },
   {
     pid: 2,
-    lpSymbol: "BWILD",
+    lpSymbol: "BiLL",
     lpAddresses: addresses.wild,
     isTokenOnly: true,
     isNFTPool: false,
@@ -126,7 +126,7 @@ const farmsConfig = [
   // },
   // {
   //   pid: 4,
-  //   lpSymbol: "BWiLDNFT",
+  //   lpSymbol: "BiLLNFT",
   //   lpAddresses: addresses.nft,
   //   isTokenOnly: true,
   //   isNFTPool: true,

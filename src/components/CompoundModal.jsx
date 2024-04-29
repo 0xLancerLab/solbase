@@ -114,7 +114,7 @@ export default function CompoundModal({
                   onChange={(e) => handleChangeToken(e.target.value)}
                 >
                   {farms.map((item, key) => {
-                    if (item.lpSymbol === "WETH-BWiLD")
+                    if (item.lpSymbol === "WETH-BiLL")
                       return (
                         <option
                           key={key}
@@ -144,7 +144,7 @@ export default function CompoundModal({
             Pool
           </p>
           <p className="text-center my-2">
-            Available: {Number(earnings.toString()).toFixed(3)} BWiLD
+            Available: {Number(earnings.toString()).toFixed(3)} BiLL
           </p>
           <div className="flex gap-3 pt-4">
             <button

@@ -3,7 +3,7 @@ import { useEthersProvider, useEthersSigner } from "hooks/useEthers";
 import {
   getErc20Contract,
   getErc721Contract,
-  getBWiLDContract,
+  getBiLLContract,
   getMasterchefContract,
   getZapContract,
   getRouterContract,
@@ -26,12 +26,12 @@ export const useERC721 = (address) => {
   return useMemo(() => getErc721Contract(address, signer), [address, signer]);
 };
 
-export const useBWiLD = () => {
+export const useBiLL = () => {
   const provider = useEthersProvider();
   const { chain } = useNetwork();
   return useMemo(
     () =>
-      chain && chain.id === CHAIN_ID && getBWiLDContract(provider, chain?.id),
+      chain && chain.id === CHAIN_ID && getBiLLContract(provider, chain?.id),
     [provider, chain]
   );
 };

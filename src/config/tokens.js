@@ -8,7 +8,7 @@ const tokens = {
     logo: "/assets/tokens/eth.svg",
   },
   wild: {
-    symbol: "BWiLD",
+    symbol: "BiLL",
     address: addresses.wild,
     decimals: 18,
     logo: "/assets/tokens/wildx.png",
@@ -39,7 +39,7 @@ const tokens = {
     logo: "/assets/tokens/mim.svg",
   },
   nft: {
-    symbol: "BWiLD NFT",
+    symbol: "BiLL NFT",
     address: addresses.nft,
     decimals: 18,
     logo: "/assets/tokens/nft.png",

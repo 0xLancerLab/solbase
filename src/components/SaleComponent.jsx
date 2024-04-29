@@ -58,7 +58,7 @@ export default function SaleComponent({ saleData }) {
         value: fromReadableAmount(Number(ethAmountToSend).toFixed(5)),
       });
       await tx.wait();
-      notify("success", `You bought ${amount} BWILD successfully`);
+      notify("success", `You bought ${amount} BiLL successfully`);
     } catch (error) {
       if (didUserReject(error)) {
         notify("warning", "User Rejected transaction");
@@ -103,7 +103,7 @@ export default function SaleComponent({ saleData }) {
             <div>
               <p className="flex gap-1">
                 <span className={"font-semibold text-green-500"}>
-                  ${privateWILDPrice}
+                  {privateWILDPrice} ETH
                 </span>
               </p>
             </div>
@@ -113,7 +113,7 @@ export default function SaleComponent({ saleData }) {
             <div>
               <p className="flex gap-1">
                 <span className={"font-semibold text-green-500"}>
-                  $14
+                  {privateWILDPrice * 2} ETH
                 </span>
               </p>
             </div>
@@ -129,11 +129,11 @@ export default function SaleComponent({ saleData }) {
           </div>
         </div>
         <div>
-          <div> BWILD Amount to Buy</div>
+          <div> BiLL Amount to Buy</div>
           <input
             className="w-full rounded-md py-1 bg-primary/20 px-3 mb-3 hover:outline-none focus-visible:outline-none border border-symbol/70"
             type="number"
-            placeholder="Input BWILD amount to Buy."
+            placeholder="Input BiLL amount to Buy."
             value={amount}
             onChange={(e) => handleChange(e.target.value)}
           />
@@ -154,7 +154,7 @@ export default function SaleComponent({ saleData }) {
           ? "Preslae is ended"
           : 250 <= Number(saleData?.WILDOwned) + Number(amount)
           ? "Exceed Maximum Amount"
-          : "BUY BWILD"}
+          : "BUY BiLL"}
       </button>
     </div>
   );

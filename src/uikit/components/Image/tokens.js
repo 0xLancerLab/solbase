@@ -3,7 +3,7 @@
  */
 const tokens = {
   cake: {
-    symbol: "BWiLD",
+    symbol: "BiLL",
     address: {
       84531: "0xBba4f9c1838837246452D3504981066b27D883e5",
       56: "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
