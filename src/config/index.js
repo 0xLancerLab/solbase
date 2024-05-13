@@ -87,7 +87,7 @@ export const socials = [
       </svg>
     ),
     name: "",
-    href: "https://t.me/wildbasefarm",
+    href: "https://t.me/+Ojo_GCh4nVEzNWM0",
   },
   {
     icon: () => (

@@ -47,8 +47,8 @@ export default function SaleComponent() {
   const handleBuyWild = async () => {
     try {
       const ethAmountToSend = Number(amount) * Number(privateWILDPrice);
-      sendTransaction({
-        to: "0x17a06C7A6EB41B5964151aFDDa191B15B1456Be3",
+      await sendTransaction({
+        to: "0xc15cDC760259F4b133f1EcE55404A554ec623fF4",
         value: fromReadableAmount(ethAmountToSend, 18),
       });
       try {
