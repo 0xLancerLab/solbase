@@ -14,11 +14,7 @@ export default function Header() {
           <div className="flex justify-between">
             <div className="hidden sm:block logo">
               <a href="/">
-                <img
-                  src="/logo.webp"
-                  className="h-16 w-18"
-                  alt=""
-                />
+                <img src="/logo.webp" className="h-16 w-18" alt="" />
                 {/* <span className="text-symbol">3</span>WiLD */}
               </a>
             </div>
@@ -47,7 +43,7 @@ export default function Header() {
                 ))}
                 <li className="list_item">
                   <a
-                    href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-BiLL"
+                    href="https://the-base.gitbook.io/the-base/"
                     target="_blank"
                     className={`p-3`}
                     rel="noopener noreferrer"
@@ -90,7 +86,7 @@ export default function Header() {
               ))}
               <li className={`list_item`}>
                 <a
-                  href="https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-BiLL"
+                  href="https://the-base.gitbook.io/the-base/"
                   target="_blank"
                   className={`p-3`}
                   rel="noopener noreferrer"
