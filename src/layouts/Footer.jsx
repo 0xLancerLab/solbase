@@ -9,7 +9,7 @@ export default function Footer() {
         <span className="font-semibold mx-2">( v1.0 )</span> All Rights
         Reserved.
       </div>
-      <div className="gap-2 col-span-12 md:col-span-6 flex md:justify-end justify-center  items-center">
+      {/* <div className="gap-2 col-span-12 md:col-span-6 flex md:justify-end justify-center  items-center">
         {[
           // {
           //   icon: () => null,
@@ -51,7 +51,7 @@ export default function Footer() {
             </a>
           );
         })}
-      </div>
+      </div> */}
     </footer>
   );
 }
