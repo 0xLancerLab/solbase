@@ -30,7 +30,7 @@ const getFarmBaseTokenPrice = (
       ? wethPriceUsdt.times(farm.tokenPriceVsQuote)
       : BIG_ZERO;
   }
-  if (farm.quoteToken.symbol === "BiLL") {
+  if (farm.quoteToken.symbol === "$bFARM") {
     return hasTokenPriceVsQuote
       ? BiLLPriceUsdc.times(farm.tokenPriceVsQuote)
       : BIG_ZERO;
@@ -75,7 +75,7 @@ const getFarmQuoteTokenPrice = (
   if (["USDC", "MIM", "DAI"].includes(farm.quoteToken.symbol)) {
     return BIG_ONE;
   }
-  if (farm.quoteToken.symbol === "BiLL") {
+  if (farm.quoteToken.symbol === "$bFARM") {
     return BiLLPriceUsdc;
   }
   if (farm.quoteToken.symbol === "WETH") {

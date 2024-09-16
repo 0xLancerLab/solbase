@@ -28,7 +28,7 @@ export const getPoolApr = (
 /**
  * Get farm APR value in %
  * @param poolWeight allocationPoint / totalAllocationPoint
- * @param wildPriceUsd BiLL price in USD
+ * @param wildPriceUsd thebase.farm price in USD
  * @param poolLiquidityUsd Total pool liquidity in USD
  * @returns
  */

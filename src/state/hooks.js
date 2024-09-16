@@ -39,7 +39,7 @@ export const usePollFarmsData = (includeArchive = false) => {
 
 /**
  * Fetches the "core" farm data used globally
- * 0 = BiLL-ETH LP
+ * 0 = $bFARM-ETH LP
  *
  */
 export const usePollCoreFarmData = () => {
@@ -257,7 +257,7 @@ export const usePriceBiLLUsdc = () => {
   const [liquidity, setLiquidity] = useState(0);
   const [marketCap, setMarketCap] = useState(0);
   const { fastRefresh } = useRefresh();
-  // https://api.dexscreener.com/latest/dex/search?q=BiLL
+  // https://api.dexscreener.com/latest/dex/search?q=$bFARM
   useEffect(() => {
     async function fetchData() {
       try {
@@ -409,7 +409,7 @@ export const useTotalValue = () => {
       let val;
       if (farm.quoteToken.symbol === "WETH" && wethPrice) {
         val = wethPrice.times(farm.lpTotalInQuoteToken);
-      } else if (farm.quoteToken.symbol === "BiLL") {
+      } else if (farm.quoteToken.symbol === "$bFARM") {
         val = wildPrice.times(farm.lpTotalInQuoteToken);
       } else {
         val = new BigNumber(farm.lpTotalInQuoteToken);

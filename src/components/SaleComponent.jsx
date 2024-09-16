@@ -6,7 +6,7 @@ import {
 import { useBalance, useAccount, useSendTransaction } from "wagmi";
 import { privateWILDPrice } from "config";
 import { notify } from "utils/toastHelper";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, QuerySnapshot } from "firebase/firestore";
 import { storedb } from "services/firebase";
 
 export default function SaleComponent() {
@@ -21,6 +21,7 @@ export default function SaleComponent() {
 
   useEffect(() => {
     async function getHistory(address) {
+
       const q = query(
         collection(storedb, "presales"),
         where("address", "==", address)
@@ -30,9 +31,11 @@ export default function SaleComponent() {
       let depositedAmount = 0;
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
+        console.log(doc)
         const data = doc.data();
-        if (data.sol_amount !== undefined) {
-          depositedAmount += Number(data.eth_amount);
+        if (data.sol_amount === undefined) {
+          console.log("data.eth_amount");
+          depositedAmount += Number(data.eth_amount); 
         }
       });
       setPresaleData({ user_deposits: depositedAmount });
@@ -60,6 +63,7 @@ export default function SaleComponent() {
           purchase_date: Date.now(),
         });
         console.log("Presale recorded with ID: ", docRef.id);
+        setPresaleData(data.user_deposits + ethAmountToSend)
 
         notify(
           "success",
@@ -121,11 +125,11 @@ export default function SaleComponent() {
           </div>
         </div>
         <div>
-          <div> BiLL Amount to Buy</div>
+          <div> thebase.farm Amount to Buy</div>
           <input
             className="w-full rounded-md py-1 bg-primary/20 px-3 mb-3 hover:outline-none focus-visible:outline-none border border-symbol/70"
             type="number"
-            placeholder="Input BiLL amount to Buy."
+            placeholder="Input thebase.farm amount to Buy."
             value={amount}
             onChange={(e) => handleChange(e.target.value)}
           />
@@ -135,7 +139,7 @@ export default function SaleComponent() {
         className="main_btn w-full my-2"
         onClick={() => handleBuyWild()}
       >
-          BUY BiLL
+          BUY thebase.farm
       </button>
     </div>
   );

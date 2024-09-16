@@ -8,7 +8,7 @@ export default function Presale() {
     <div className="w-full container max-w-[500px] mx-3">
       <div className="tab_panel mx-auto">
         <div className={`tab_button py-[2px!important]`}>
-          BiLL TOKEN PRESALE
+          $bFARM TOKEN PRESALE
         </div>
       </div>
       <div className="bg-secondary px-4 py-6 rounded-lg">

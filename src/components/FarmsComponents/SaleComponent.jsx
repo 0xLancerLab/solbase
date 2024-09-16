@@ -109,12 +109,12 @@ export default function SaleComponent({
         disabled={!hasNFT || !started || finished ? "dissabled" : ""}
       >
         {!hasNFT
-          ? "You must have BiLL NFT to buy token!"
+          ? "You must have thebase.farm NFT to buy token!"
           : !started
           ? "Presale is not started yet"
           : finished
           ? "Preslae is ended"
-          : "BUY BiLL"}
+          : "BUY thebase.farm"}
       </button>
     </div>
   );

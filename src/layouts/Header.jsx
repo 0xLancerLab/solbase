@@ -43,7 +43,7 @@ export default function Header() {
                 ))}
                 <li className="list_item">
                   <a
-                    href="https://the-base.gitbook.io/the-base/"
+                    href="https://the-base.gitbook.io/the-base"
                     target="_blank"
                     className={`p-3`}
                     rel="noopener noreferrer"

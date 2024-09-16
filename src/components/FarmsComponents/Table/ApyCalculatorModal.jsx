@@ -32,7 +32,7 @@ const ApyCalculatorModal = ({
   apr,
   linkLabel,
   linkHref,
-  earningTokenSymbol = "BiLL",
+  earningTokenSymbol = "$bFARM",
   roundingDecimals = 2,
   compoundFrequency = 1,
   performanceFee = 0,

@@ -26,7 +26,7 @@ export default function FarmBanner() {
   //           type: "ERC20",
   //           options: {
   //             address: token,
-  //             symbol: "BiLL",
+  //             symbol: "$bFARM",
   //             decimals: "18",
   //             image: `${BASE_URL}/assets/tokens/wildx.png`,
   //           },
@@ -60,7 +60,7 @@ export default function FarmBanner() {
     <div className="flex justify-center flex-col md:flex-row bg-secondary rounded-md">
       <div className="p-3 md:p-12 md:w-1/2 w-full text-center md:text-left">
         <h1 className="text-7xl">
-          Earn BiLL <br />
+          Earn <br />
           <span className="text-symbol font-semibold"> on Base</span>
         </h1>
       </div>
@@ -74,7 +74,7 @@ export default function FarmBanner() {
           <div className="w-full col-span-12 lg:col-span-7">
             <div className="flex items-center justify-center gap-2">
               <a className="main_btn w-full" href="/presale">
-                Buy BiLL
+                Buy thebase.farm
               </a>
             </div>
           </div>

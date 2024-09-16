@@ -19,7 +19,7 @@ export default function Footer() {
           {
             icon: () => null,
             name: "Docs",
-            href: "https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-BiLL",
+            href: "https://lodgedocs.gitbook.io/wildbase-farm/protocol/about-$bFARM",
           },
         ].map((item, index) => {
           const Icon = item.icon;

@@ -20,7 +20,7 @@ export default function PresaleDetail({
     <div className="">
       <div className="flex justify-between gap-3">
         <div className="annual_price">
-          <p>Your Commited</p>
+          <p>Your Comitted</p>
           <h3>{userDeposited} ETH</h3>
         </div>
         <div className="annual_price">

@@ -31,7 +31,7 @@ export const liquidityList = [
   },
   {
     pid: 1,
-    lpSymbol: "WETH-BiLL",
+    lpSymbol: "WETH-$bFARM",
     isTokenOnly: false,
     lpAddresses: addresses.wildWethlp,
     decimals: 18,
@@ -70,7 +70,7 @@ export const zapList = [
   },
   {
     pid: 1,
-    lpSymbol: "WETH-BiLL",
+    lpSymbol: "WETH-$bFARM",
     isTokenOnly: false,
     lpAddresses: addresses.wildWethlp,
     decimals: 18,
@@ -82,7 +82,7 @@ export const zapList = [
 const farmsConfig = [
   {
     pid: 0,
-    lpSymbol: "WETH-BiLL",
+    lpSymbol: "WETH-$bFARM",
     lpAddresses: addresses.wildWethlp,
     isTokenOnly: false,
     isNFTPool: false,
@@ -104,7 +104,7 @@ const farmsConfig = [
   },
   {
     pid: 2,
-    lpSymbol: "BiLL",
+    lpSymbol: "$bFARM",
     lpAddresses: addresses.wild,
     isTokenOnly: true,
     isNFTPool: false,

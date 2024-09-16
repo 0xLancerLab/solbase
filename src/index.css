@@ -70,7 +70,7 @@ body {
 }
 
 .tab_panel {
-  @apply lg:w-[370px] w-[270px] h-12 lg:h-14 rounded-full bg-secondary mb-2 flex justify-center p-1;
+  @apply lg:w-[410px] w-[270px] h-12 lg:h-14 rounded-full bg-secondary mb-2 flex justify-center p-1;
 }
 
 .tab_panel .tab_button {

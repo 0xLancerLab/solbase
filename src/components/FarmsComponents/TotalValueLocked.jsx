@@ -55,7 +55,7 @@ export default function TotalValueLocked() {
           <div />
         )}
       </div>
-      <div className="text-3xl text-right mb-5">BiLL Stats</div>
+      <div className="text-3xl text-right mb-5">thebase.farm Stats</div>
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <p className="font-semibold">Liquidity</p>
