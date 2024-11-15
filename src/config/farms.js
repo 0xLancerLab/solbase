@@ -82,7 +82,7 @@ export const zapList = [
 const farmsConfig = [
   {
     pid: 0,
-    lpSymbol: "SOL-BiLL",
+    lpSymbol: "BiLL-SOL",
     lpAddresses: addresses.wildWethlp,
     isTokenOnly: false,
     isNFTPool: false,
@@ -103,14 +103,25 @@ const farmsConfig = [
     logoB: tokens.usdc.logo,
   },
   {
-    pid: 2,
-    lpSymbol: "BiLL",
-    lpAddresses: addresses.wild,
+    pid: 0,
+    lpSymbol: "GOLD-SOL",
+    lpAddresses: addresses.wildWethlp,
+    isTokenOnly: false,
+    isNFTPool: false,
+    token: tokens.wild,
+    quoteToken: tokens.weth,
+    logoA: "/assets/tokens/billLp.webp",
+    logoB: tokens.weth.logo,
+  },
+    {
+    pid: 0,
+    lpSymbol: "GOLD",
+    lpAddresses: addresses.wildWethlp,
     isTokenOnly: true,
     isNFTPool: false,
     token: tokens.wild,
-    quoteToken: tokens.wild,
-    logoA: "/assets/tokens/bill.webp",
+    quoteToken: tokens.weth,
+    logoA: "/assets/tokens/billLp.webp",
     logoB: "/assets/tokens/billLp.webp",
   },
   // {
@@ -124,17 +135,7 @@ const farmsConfig = [
   //   logoA: tokens.weth.logo,
   //   logoB: tokens.weth.logo,
   // },
-  {
-    pid: 4,
-    lpSymbol: "BiLL NFT",
-    lpAddresses: addresses.nft,
-    isTokenOnly: true,
-    isNFTPool: true,
-    token: tokens.nft,
-    quoteToken: tokens.wild,
-    logoA: "/assets/tokens/nft.webp",
-    logoB: "",
-  },
+
 ];
 
 export default farmsConfig;

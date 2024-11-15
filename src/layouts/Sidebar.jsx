@@ -140,7 +140,7 @@ export default function Sidebar({ toggle, handleToggle }) {
                 <span className="ms-3 ">Swap</span>
               </a>
             </li>
-            <li
+            {/* <li
               className={`sidebar_item ${
                 currentUrl === "/nfts" ? "bg-[#122142] rounded-md" : ""
               }`}
@@ -170,8 +170,8 @@ export default function Sidebar({ toggle, handleToggle }) {
 
                 <span className="ms-3 ">NFT's</span>
               </a>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={`sidebar_item ${
                 currentUrl === "/presale" ? "bg-[#122142] rounded-md" : ""
               }`}
@@ -200,7 +200,7 @@ export default function Sidebar({ toggle, handleToggle }) {
 
                 <span className="ms-3 ">Presale</span>
               </a>
-            </li>
+            </li> */}
             <li className="sidebar_item">
               <a
                 href=""
